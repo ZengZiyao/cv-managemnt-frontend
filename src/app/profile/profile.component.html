@@ -1,0 +1,19 @@
+<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+    <mat-card class="half-width">
+
+        <mat-card-header>
+            <h3>Profile</h3>
+            <span class="flex-spacer"></span>
+            <a *ngIf="profile" (click)="openDialog(profile) "><span class="fa fa-edit"></span></a>
+            <a *ngIf="!profile" (click)="openDialog()"><span class="fa fa-plus"></span></a>
+
+        </mat-card-header>
+        <mat-card-content *ngIf="profile">
+            <!-- <img src={{cv.avatar}} alt={{profile.name}}> -->
+            <h3>{{profile.name}}</h3>
+            <h4>{{profile.designation}}</h4>
+            <p>{{profile.email}}</p>
+        </mat-card-content>
+    </mat-card>
+
+</div>

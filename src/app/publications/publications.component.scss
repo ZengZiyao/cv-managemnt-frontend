@@ -1,0 +1,15 @@
+mat-list-item {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow-wrap: anywhere;
+}
+
+.icon-group {
+    display: flex;
+}
+
+.icon {
+    width: 25px;
+}

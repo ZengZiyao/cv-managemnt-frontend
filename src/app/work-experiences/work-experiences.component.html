@@ -1,0 +1,29 @@
+<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+
+    <mat-card class="half-width">
+        <mat-card-header>
+            <h3>Work Experiences</h3>
+            <span class="flex-spacer"></span>
+            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
+
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item *ngFor="let workExperience of workExperiences">
+                    <div mat-line fxLayout="row">
+                        <h3>{{workExperience.title}}</h3>
+                        <span class="flex-spacer"></span>
+                        <div class="icon-group">
+                            <span (click)="openDialog(workExperience)" class="icon"><span class="fa fa-edit"></span></span>
+                            <span (click)="deleteWorkExperience(workExperience)"><span class="fa fa-trash"></span></span>
+                        </div>
+                    </div>
+                    <p mat-line>{{workExperience.company}}</p>
+                    <p mat-line>{{workExperience.startTime | date:"MMM, y"}} - <span *ngIf="!workExperience.endTime">current</span><span *ngIf="workExperience.endTime">{{workExperience.endTime | date:"MMM, y"}}</span></p>
+                    <mat-divider mat-line></mat-divider>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>

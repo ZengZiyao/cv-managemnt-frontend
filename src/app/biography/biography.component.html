@@ -1,0 +1,15 @@
+<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+
+    <mat-card class="half-width">
+        <mat-card-header>
+            <h3>Biography</h3>
+            <span class="flex-spacer"></span>
+            <a *ngIf="!biography" (click)=" openDialog() "><span class="fa fa-plus "></span></a>
+            <a *ngIf="biography" (click)="openDialog(biography) "><span class="fa fa-edit "></span></a>
+        </mat-card-header>
+        <mat-card-content *ngIf="biography">
+            <p>{{biography.content}}</p>
+        </mat-card-content>
+    </mat-card>
+
+</div>

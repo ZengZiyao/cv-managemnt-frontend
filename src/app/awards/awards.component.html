@@ -1,0 +1,25 @@
+<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+
+    <mat-card class="half-width">
+        <mat-card-header>
+            <h3>Awards</h3>
+            <span class="flex-spacer"></span>
+            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
+
+        </mat-card-header>
+        <mat-card-content *ngIf="awards">
+            <mat-list>
+                <mat-list-item *ngFor="let award of awards">
+                    <p mat-line>{{award.content}} ({{award.date | date:"MMM yyyy"}})</p>
+                    <span class="flex-spacer"></span>
+                    <div class="icon-group">
+                        <span (click)="openDialog(award)" class="icon"><span class="fa fa-edit"></span></span>
+                        <span (click)="deleteAward(award)"><span class="fa fa-trash"></span></span>
+                    </div>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>

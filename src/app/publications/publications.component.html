@@ -1,0 +1,41 @@
+<div class="container" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+
+    <mat-card class="half-width" layout-fill>
+        <mat-card-header>
+            <h3>Publications</h3>
+            <span class="flex-spacer"></span>
+            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
+
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item *ngFor="let publication of publications">
+                    <div class="content">
+                        <span *ngIf="publication.tier === '1A'">##</span>
+                        <span *ngIf="publication.tier === '1' || publication.tier =='1B'">#</span>
+
+                        <span *ngFor="let author of publication.authors">
+                                <strong *ngIf="author.main">{{author.name}}</strong>
+                                <span *ngIf="!author.main">{{author.name}}</span>
+                        <span *ngIf="author.student">*</span>
+                        <span *ngIf="author.fellow">**</span>,
+                        </span>
+                        <span>"{{publication.title}}" </span>
+                        <span>{{publication.journal.name}} </span>
+                        <span>{{publication.page}} </span>
+                        <span>({{ publication.date | date:"MMM yyyy" }})</span>
+                    </div>
+                    <span class="flex-spacer"></span>
+
+                    <div class="icon-group">
+                        <span (click)="openDialog(publication)" class="icon"><span class="fa fa-edit"></span></span>
+                        <span (click)="deletePub(publication)"><span class="fa fa-trash"></span></span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>
