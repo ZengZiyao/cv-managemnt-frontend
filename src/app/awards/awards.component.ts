@@ -1,6 +1,5 @@
 import { AwardService } from './../services/award.service';
 import { Award } from './../shared/award';
-import { Cv } from './../shared/cv';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AwardDialogComponent } from '../award-dialog/award-dialog.component';

@@ -2,7 +2,6 @@ import { ProfileService } from './../services/profile.service';
 import { Profile } from './../shared/profile';
 import { ProfileDialogComponent } from './../profile-dialog/profile-dialog.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { Cv } from './../shared/cv';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

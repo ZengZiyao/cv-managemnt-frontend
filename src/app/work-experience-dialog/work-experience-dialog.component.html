@@ -25,15 +25,15 @@
             <p>
                 <mat-form-field class="half-width">
                     <mat-label>Start Date</mat-label>
-                    <input matInput [formControl]="dates[0]" [matDatepicker]="startPicker">
+                    <input matInput [formControl]="dates[0]" [matDatepicker]="startPicker" disabled>
                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #startPicker startView="multi-year" (yearSelected)="chosenYearHandler($event, 0)" (monthSelected)="chosenMonthHandler($event, startPicker, 0)" panelClass="date-picker"></mat-datepicker>
+                    <mat-datepicker #startPicker startView="multi-year" (yearSelected)="chosenYearHandler($event, 0)" (monthSelected)="chosenMonthHandler($event, startPicker, 0)" panelClass="date-picker" disabled="false"></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="half-width" *ngIf="!currentWorking">
                     <mat-label>End Date</mat-label>
-                    <input matInput [formControl]="dates[1]" [matDatepicker]="endPicker">
+                    <input matInput [formControl]="dates[1]" [matDatepicker]="endPicker" disabled>
                     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #endPicker startView="multi-year" (yearSelected)="chosenYearHandler($event, 1)" (monthSelected)="chosenMonthHandler($event, endPicker, 1)" panelClass="date-picker"></mat-datepicker>
+                    <mat-datepicker #endPicker startView="multi-year" (yearSelected)="chosenYearHandler($event, 1)" (monthSelected)="chosenMonthHandler($event, endPicker, 1)" panelClass="date-picker" disabled="false"></mat-datepicker>
                 </mat-form-field>
             </p>
         </mat-dialog-content>

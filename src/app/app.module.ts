@@ -1,4 +1,8 @@
-import { CvService } from './services/cv.service';
+import { WorkExperienceService } from './services/work-experience.service';
+import { PublicationService } from './services/publication.service';
+import { BiographyService } from './services/biography.service';
+import { ProfileService } from './services/profile.service';
+import { AwardService } from './services/award.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -74,7 +78,11 @@ import { AuthorsInputComponent } from './authors-input/authors-input.component';
     MatIconModule
   ],
   providers: [
-    CvService
+    AwardService,
+    ProfileService,
+    BiographyService,
+    PublicationService,
+    WorkExperienceService
   ],
   entryComponents: [
     ProfileComponent

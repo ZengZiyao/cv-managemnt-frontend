@@ -1,6 +1,5 @@
 import { WorkExperienceService } from './../services/work-experience.service';
 import { WorkExperience } from './../shared/work-experience';
-import { Cv } from './../shared/cv';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { PublicationDialogComponent } from '../publication-dialog/publication-dialog.component';

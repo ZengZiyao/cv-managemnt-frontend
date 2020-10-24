@@ -3,7 +3,6 @@ import { BiographyService } from './../services/biography.service';
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CvService } from '../services/cv.service';
 
 @Component({
   selector: 'app-biography-dialog',
