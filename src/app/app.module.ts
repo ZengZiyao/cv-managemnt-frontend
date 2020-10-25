@@ -26,6 +26,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { ProfileComponent } from './profile/profile.component';
 import { BiographyComponent } from './biography/biography.component';
@@ -75,7 +76,8 @@ import { AuthorsInputComponent } from './authors-input/authors-input.component';
     MatCheckboxModule,
     MatSelectModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ],
   providers: [
     AwardService,

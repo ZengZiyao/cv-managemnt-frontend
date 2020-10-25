@@ -1,11 +1,33 @@
 <div class="container" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
 
     <mat-card class="half-width" layout-fill>
-        <mat-card-header>
+        <mat-card-header fxLayout="row">
             <h3>Publications</h3>
             <span class="flex-spacer"></span>
-            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
-
+            <div class="icon-group">
+                <a (click)="openDialog()" class="icon"><span class="fa fa-plus"></span></a>
+                <a class="icon" [matMenuTriggerFor]="timeRange"><span class="fa fa-filter"></span></a>
+                <mat-menu #timeRange>
+                    <mat-form-field>
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                            <input matStartDate formControlName="start" placeholder="Start date" disabled>
+                            <input matEndDate formControlName="end" placeholder="End date" disabled>
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker disabled="false" startView="multi-year"></mat-date-range-picker>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="setRange()">Confirm</button>
+                    <button mat-raised-button color="primary" (click)="resetRange()">Reset</button>
+                </mat-menu>
+                <a id="sort-icon"><span class="fa fa-sort"></span></a>
+                <mat-select [(value)]="sortOrder" (selectionChange)="onOptionsSelected(sortOrder)">
+                    <mat-option [value]="-1">Sort</mat-option>
+                    <mat-option [value]="0">By Time</mat-option>
+                    <mat-option [value]="1">By Journal</mat-option>
+                    <mat-option [value]="2">By Tier Level</mat-option>
+                </mat-select>
+            </div>
         </mat-card-header>
         <mat-card-content>
             <mat-list>
