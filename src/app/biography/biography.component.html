@@ -8,7 +8,7 @@
             <a *ngIf="biography" (click)="openDialog(biography) "><span class="fa fa-edit "></span></a>
         </mat-card-header>
         <mat-card-content *ngIf="biography">
-            <p>{{biography.content}}</p>
+            <p id="content">{{biography.content}}</p>
         </mat-card-content>
     </mat-card>
 

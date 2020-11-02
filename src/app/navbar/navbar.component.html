@@ -1,0 +1,12 @@
+<p>
+    <mat-toolbar color="primary">
+        <span>CV Management System</span>
+        <span class="flex-spacer"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon settings-icon" aria-label="Example icon-button with settings">
+      <mat-icon>settings</mat-icon>
+    </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openDialog()">Manage Journals</button>
+        </mat-menu>
+    </mat-toolbar>
+</p>

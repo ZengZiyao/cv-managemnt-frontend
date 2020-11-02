@@ -20,4 +20,8 @@ export class JournalService {
   addJournal(journal: Journal): Observable<any>  {
    return this.httpClient.post(`${baseUrl}/journals`, journal).pipe(catchError(this.processHttpMsgService.handleError));
   }
+
+  updateJounals(journals: Journal[]): Observable<any> {
+    return this.httpClient.put(`${baseUrl}/journals`, journals).pipe(catchError(this.processHttpMsgService.handleError));
+  }
 }

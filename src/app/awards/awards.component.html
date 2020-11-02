@@ -10,7 +10,7 @@
         <mat-card-content *ngIf="awards">
             <mat-list>
                 <mat-list-item *ngFor="let award of awards">
-                    <p mat-line>{{award.content}} ({{award.date | date:"MMM yyyy"}})</p>
+                    <p>{{award.content}} ({{award.date | date:"MMM yyyy"}})</p>
                     <span class="flex-spacer"></span>
                     <div class="icon-group">
                         <span (click)="openDialog(award)" class="icon"><span class="fa fa-edit"></span></span>

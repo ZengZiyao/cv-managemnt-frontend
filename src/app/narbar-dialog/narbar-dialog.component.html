@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <mat-toolbar color="primary">
+        <span>Edit</span>
+        <span class="flex-spacer"></span>
+        <a mat-button mat-dialog-close>&times;</a>
+    </mat-toolbar>
+    <button mat-button (click)="addJournal()" id="add-icon">Add New <span class="fa fa-plus"></span></button>
+    <mat-list>
+        <mat-list-item mat-line *ngFor="let journal of journals; index as i">
+            <mat-form-field>
+                <input matInput type="text" [(ngModel)]="journal.name">
+            </mat-form-field>
+            <button mat-button (click)="deleteJournal(i)"><span class="fa fa-trash"></span></button>
+        </mat-list-item>
+    </mat-list>
+    <mat-dialog-actions>
+        <span class="flex-spacer"></span>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button type="submit" (click)="save()">Save</button>
+    </mat-dialog-actions>
+</div>

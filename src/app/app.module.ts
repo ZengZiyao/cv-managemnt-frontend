@@ -39,6 +39,8 @@ import { WorkExperienceDialogComponent } from './work-experience-dialog/work-exp
 import { AwardDialogComponent } from './award-dialog/award-dialog.component';
 import { PublicationDialogComponent } from './publication-dialog/publication-dialog.component';
 import { AuthorsInputComponent } from './authors-input/authors-input.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NarbarDialogComponent } from './narbar-dialog/narbar-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { AuthorsInputComponent } from './authors-input/authors-input.component';
     WorkExperienceDialogComponent,
     AwardDialogComponent,
     PublicationDialogComponent,
-    AuthorsInputComponent
+    AuthorsInputComponent,
+    NavbarComponent,
+    NarbarDialogComponent
   ],
   imports: [
     BrowserModule,
