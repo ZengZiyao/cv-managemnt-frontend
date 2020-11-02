@@ -4,7 +4,7 @@ import { Author } from './author';
 export class Publication {
     id: string;
     authors: Author[] = [];
-    date: string;
+    date: Date;
     journal: Journal = new Journal();
     page: string;
     tier: string;

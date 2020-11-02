@@ -1,5 +1,5 @@
 import { Author } from './../shared/author';
-import { TIERS } from '../shared/TIERS';
+import { TIERS } from '../shared/tiers';
 import { JournalService } from './../services/journal.service';
 import { Journal } from './../shared/journal';
 import { Publication } from './../shared/publication';
@@ -69,7 +69,6 @@ export class PublicationDialogComponent implements OnInit {
       data.authors = this.publicationCopy.authors;
       data.date = this.date.value;
       data.journal = this.journals.find((e) => e.name === data.journal);
-
       if (this.publicationCopy.id == null) {
         this.publicationService.addPublication(data).subscribe(() => this.dialogRef.close());
       } else {

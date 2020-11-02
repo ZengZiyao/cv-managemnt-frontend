@@ -16,7 +16,9 @@ export class AwardsComponent implements OnInit {
   constructor(private dialog: MatDialog, private awardService: AwardService) { }
 
   ngOnInit(): void {
-    this.awardService.getAwards().subscribe((data) => this.awards = data);
+    this.awardService.getAwards().subscribe((data) => {
+      this.awards = data;
+    });
   }
 
   openDialog(award?: Award) {

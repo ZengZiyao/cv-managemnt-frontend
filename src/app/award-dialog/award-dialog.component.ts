@@ -55,9 +55,8 @@ export class AwardDialogComponent implements OnInit {
     }
   
     onSubmit() {
-      let data: Award = this.awardForm.value;
+      let data = this.awardForm.value;
       data.date = this.date.value;
-
       if (this.awardCopy.id === undefined) {
         this.awardService.addAward(data).subscribe(
           () => {

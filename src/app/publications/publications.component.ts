@@ -73,7 +73,6 @@ export class PublicationsComponent implements OnInit {
   }
 
   onOptionsSelected(sortOrder: number) {
-    console.log(1);
     switch(sortOrder) {
       case 0:
         this.publications = this.publications.sort((a, b) => a.date < b.date ? -1 : 1);

@@ -41,7 +41,7 @@ export class WorkExperienceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data,
     private workExperienceService: WorkExperienceService) { 
       this.workExperienceCopy = data == null ? new WorkExperience() : data;
-      this.dates.push(new FormControl(moment(new Date(this.workExperienceCopy.startTime))));
+      this.dates.push(new FormControl(moment(this.workExperienceCopy.startTime)));
       this.dates.push(new FormControl(moment(this.workExperienceCopy.endTime == null ? new Date() : new Date(this.workExperienceCopy.endTime))));
       this.currentWorking = this.workExperienceCopy.endTime == null;
     }
