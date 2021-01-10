@@ -58,7 +58,7 @@ export class PublicationDialogComponent implements OnInit {
       this.publicationForm = this.fb.group({
         title: [this.publicationCopy.title, [Validators.required]],
         page: [this.publicationCopy.page, [Validators.required]],
-        journal: [this.publicationCopy.journal.name, [Validators.required]],
+        journal: [this.publicationCopy.journalName, [Validators.required]],
         tier: [this.publicationCopy.tier, [Validators.required]]
       });
 
@@ -68,7 +68,8 @@ export class PublicationDialogComponent implements OnInit {
       let data = this.publicationForm.value;
       data.authors = this.publicationCopy.authors;
       data.date = this.date.value;
-      data.journal = this.journals.find((e) => e.name === data.journal);
+      let journal = this.journals.find((e) => e.name === data.journal);
+      data.journalId = journal.id
       if (this.publicationCopy.id == null) {
         this.publicationService.addPublication(data).subscribe(() => this.dialogRef.close());
       } else {

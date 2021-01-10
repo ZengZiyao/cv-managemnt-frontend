@@ -30,6 +30,7 @@ export class NarbarDialogComponent implements OnInit {
   save() {
     this.journalService.updateJounals(this.journals).subscribe(() => {
       this.dialogRef.close();
+      location.reload()
     });
   }
 
