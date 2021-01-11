@@ -1,0 +1,72 @@
+<div fxLayout="column" fxLayoutGap="10px">
+
+
+    <mat-toolbar color="primary">
+        <span>Edit</span>
+        <span class="flex-spacer"></span>
+        <a mat-button mat-dialog-close>&times;</a>
+    </mat-toolbar>
+
+    <form novalidate [formGroup]="projectForm" #pform="ngForm" (ngSubmit)="onSubmit()">
+        <mat-dialog-content>
+            <p>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="title" placeholder="Title" type="text" name="title">
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role" name="role">
+                      <mat-option [value]="roles[0]">{{roles[0]}}</mat-option>
+                      <mat-option [value]="roles[1]">{{roles[1]}}</mat-option>
+                      <mat-option [value]="roles[2]">{{roles[2]}}</mat-option>
+                      <mat-option [value]="roles[3]">{{roles[3]}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </p>
+            <p *ngIf="projectForm.value.role == 'Others'">
+                <mat-form-field class="half-width">
+                    <input matInput [(ngModel)]="otherRole" placeholder="Others" type="text" name="others" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+            </p>
+            <p>
+
+                <mat-checkbox [(ngModel)]="currentWorking" name="currentWorking" [ngModelOptions]="{standalone: true}">I am currently working in this project</mat-checkbox>
+
+            </p>
+            <p>
+                <mat-form-field class="half-width">
+                    <mat-label>Start Year</mat-label>
+                    <input matInput [formControl]="dates[0]" [matDatepicker]="startPicker" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startPicker startView="multi-year" (yearSelected)="chosenYearHandler($event, startPicker, 0)" panelClass="date-picker" disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="half-width" *ngIf="!currentWorking">
+                    <mat-label>End Year</mat-label>
+                    <input matInput [formControl]="dates[1]" [matDatepicker]="endPicker" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endPicker startView="multi-year" (yearSelected)="chosenYearHandler($event, endPicker, 1)" (monthSelected)="chosenMonthHandler($event, endPicker, 1)" panelClass="date-picker" disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="funder" placeholder="Funder" type="text" name="funder">
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="fundingAmount" placeholder="Funding Amount" type="number" name="fundingAmount">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="full-width">
+                    <textarea rows="4" matInput formControlName="description" placeholder="Description" type="text" name="description"></textarea>
+                </mat-form-field>
+
+            </p>
+
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <span class="flex-spacer"></span>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button type="submit">Save</button>
+        </mat-dialog-actions>
+    </form>
+</div>

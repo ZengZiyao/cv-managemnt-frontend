@@ -41,6 +41,8 @@ import { PublicationDialogComponent } from './publication-dialog/publication-dia
 import { AuthorsInputComponent } from './authors-input/authors-input.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NarbarDialogComponent } from './narbar-dialog/narbar-dialog.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { NarbarDialogComponent } from './narbar-dialog/narbar-dialog.component';
     PublicationDialogComponent,
     AuthorsInputComponent,
     NavbarComponent,
-    NarbarDialogComponent
+    NarbarDialogComponent,
+    ProjectsComponent,
+    ProjectDialogComponent
   ],
   imports: [
     BrowserModule,
