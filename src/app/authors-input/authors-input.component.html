@@ -1,7 +1,7 @@
 <mat-form-field class="example-chip-list">
     <mat-chip-list #chipList aria-label="Author selection">
         <mat-chip *ngFor="let author of authors" [selectable]="selectable" [removable]="removable" (removed)="remove(author)">
-            {{author.name}}
+           <strong *ngIf="author.main">{{author.name}}</strong> <span *ngIf="!author.main">{{author.name}}</span>
             <mat-select multiple>
                 <mat-option style="display: none;"></mat-option>
                 <mat-checkbox [(ngModel)]="author.main">Main Author</mat-checkbox><br>

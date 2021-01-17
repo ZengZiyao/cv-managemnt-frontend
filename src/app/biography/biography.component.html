@@ -2,7 +2,7 @@
 
     <mat-card class="half-width">
         <mat-card-header>
-            <h3>Biography</h3>
+            <h3><mat-checkbox *ngIf="select" (change)="toggleSelection()" class="right-margin"></mat-checkbox>Biography</h3>
             <span class="flex-spacer"></span>
             <a *ngIf="!biography" (click)=" openDialog() "><span class="fa fa-plus "></span></a>
             <a *ngIf="biography" (click)="openDialog(biography) "><span class="fa fa-edit "></span></a>

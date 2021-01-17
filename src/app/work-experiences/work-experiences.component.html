@@ -2,24 +2,28 @@
 
     <mat-card class="half-width">
         <mat-card-header>
-            <h3>Work Experiences</h3>
+            <h3><mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected" [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Work Experiences</h3>
             <span class="flex-spacer"></span>
             <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
 
         </mat-card-header>
         <mat-card-content>
             <mat-list>
-                <mat-list-item *ngFor="let workExperience of workExperiences">
+                <mat-list-item *ngFor="let workExperience of workExperiences; let i =index">
                     <div mat-line fxLayout="row" fxLayoutAlign="start center">
-                        <h3>{{workExperience.title}}</h3>
+                        <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]" (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
+                        <div fxLayout="column" fxLayoutAlign="start center">
+                            <h3 class="align-left">{{workExperience.title}}</h3>
+                            <p class="zero-top-margin">{{workExperience.company}}<br>
+                            {{workExperience.startTime | date:"MMM, y"}} - <span *ngIf="!workExperience.endTime">current</span><span *ngIf="workExperience.endTime">{{workExperience.endTime | date:"MMM, y"}}</span></p>    
+                        </div>
+    
                         <span class="flex-spacer"></span>
                         <div class="icon-group">
                             <span (click)="openDialog(workExperience)" class="icon"><span class="fa fa-edit"></span></span>
                             <span (click)="deleteWorkExperience(workExperience)"><span class="fa fa-trash"></span></span>
                         </div>
                     </div>
-                    <p mat-line>{{workExperience.company}}</p>
-                    <p mat-line>{{workExperience.startTime | date:"MMM, y"}} - <span *ngIf="!workExperience.endTime">current</span><span *ngIf="workExperience.endTime">{{workExperience.endTime | date:"MMM, y"}}</span></p>
                     <mat-divider mat-line></mat-divider>
                 </mat-list-item>
             </mat-list>

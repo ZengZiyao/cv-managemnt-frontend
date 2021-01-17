@@ -2,7 +2,8 @@ import { Biography } from './../shared/biography';
 import { BiographyService } from './../services/biography.service';
 import { BiographyDialogComponent } from './../biography-dialog/biography-dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Cv } from '../shared/cv';
 
 @Component({
   selector: 'app-biography',
@@ -10,8 +11,26 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./biography.component.scss']
 })
 export class BiographyComponent implements OnInit {
+  @Output() messageEvent = new EventEmitter<boolean>();
 
   biography: Biography;
+  selected: boolean = false;
+  private _exportable: boolean;
+  @Input()
+  select: boolean;
+  @Input()
+  cv: Cv;
+  @Input("exportable")
+  set exportable(exportable: boolean) {
+    if (this.selected) {
+      this.cv.biography = this.biography;
+    }
+    this._exportable = exportable;
+    this.emitMessage();
+
+  }
+  get exportable(): boolean {
+    return this._exportable;}
 
   constructor(private dialog: MatDialog, private biographyService: BiographyService) { }
 
@@ -34,6 +53,16 @@ export class BiographyComponent implements OnInit {
     );
   }
       
+  toggleSelection() {
+    this.selected = !this.selected;
+    if (!this.selected) {
+      delete this.cv.biography;
+    }
+  }
+  
+  emitMessage() {
+    this.messageEvent.emit(true);
+  }
     
   
 

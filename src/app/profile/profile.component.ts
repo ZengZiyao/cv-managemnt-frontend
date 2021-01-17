@@ -1,8 +1,9 @@
+import { Cv } from './../shared/cv';
 import { ProfileService } from './../services/profile.service';
 import { Profile } from './../shared/profile';
 import { ProfileDialogComponent } from './../profile-dialog/profile-dialog.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -10,8 +11,26 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  @Output() messageEvent = new EventEmitter<boolean>();
 
   profile: Profile;
+  selected: boolean = false;
+  private _exportable: boolean;
+  @Input()
+  select: boolean;
+  @Input()
+  cv: Cv;
+  @Input("exportable")
+  set exportable(exportable: boolean) {
+    if (this.selected) {
+      this.cv.profile = this.profile;
+    }
+    this._exportable = exportable;
+    this.emitMessage();
+
+  }
+  get exportable(): boolean {
+    return this._exportable;}
 
   constructor(private dialog: MatDialog, private profileService: ProfileService) { 
   }
@@ -34,6 +53,17 @@ export class ProfileComponent implements OnInit {
       () => {
         this.ngOnInit();  
   });
+}
+
+toggleSelection() {
+  this.selected = !this.selected;
+  if (!this.selected) {
+    delete this.cv.profile;
+  }
+}
+
+emitMessage() {
+  this.messageEvent.emit(true);
 }
 
 }

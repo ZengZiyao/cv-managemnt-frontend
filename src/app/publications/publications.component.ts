@@ -1,7 +1,7 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { PublicationService } from './../services/publication.service';
 import { Publication } from './../shared/publication';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PublicationDialogComponent } from '../publication-dialog/publication-dialog.component';
 import { Journal } from '../shared/journal';
@@ -11,6 +11,7 @@ import { default as _rollupMoment,  Moment } from 'moment';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { TIME_FORMATS } from '../shared/time-formats';
+import { Cv } from '../shared/cv';
 
 const moment = _rollupMoment || _moment;
 
@@ -29,6 +30,33 @@ const moment = _rollupMoment || _moment;
   ],
 })
 export class PublicationsComponent implements OnInit {
+  @Output() messageEvent = new EventEmitter<boolean>();
+  allSelected: boolean = false;
+  selected: boolean[] = [];
+  private _exportable: boolean;
+  @Input()
+  select: boolean;
+  @Input()
+  cv: Cv;
+  @Input("exportable")
+  set exportable(exportable: boolean) {
+    this._exportable = exportable;
+    if (this.selected.indexOf(true) > -1) {
+      this.cv.publications = [];
+      for (let i = 0; i < this.selected.length; i++) {
+        if (this.selected[i]) {
+          this.cv.publications.push(this.publications[i]);
+        }
+      }
+      console.log(this.cv.publications);
+
+    }
+    this.emitMessage();
+
+  }
+  get exportable(): boolean {
+    return this._exportable;}
+
   publications: Publication[];
   publicationsCopy: Publication[];
   journals: Journal[];
@@ -48,6 +76,7 @@ export class PublicationsComponent implements OnInit {
       this.publicationService.getAllPublications().subscribe((data) => {
         this.publications = data; 
         this.publications.forEach((p) => {
+          this.selected.push(false);
           var journal = this.journals.find((j) => j.id == p.journalId);
           if (typeof journal != "undefined") {
             p.journalName = journal.name;
@@ -111,6 +140,24 @@ export class PublicationsComponent implements OnInit {
   resetRange() {
     this.publications = this.publicationsCopy;
     this.range.reset();
+  }
+  
+  emitMessage() {
+    this.messageEvent.emit(true);
+  }
+
+  updateAllSelected(selected: boolean, i: number) {
+    this.selected[i] = selected;
+    this.allSelected = this.selected.every((i) => i);
+  }
+
+  someSelected():boolean {
+    return this.selected.indexOf(true) > -1 && this.selected.indexOf(false) > -1;
+  }
+
+  setAll(selected: boolean) {
+    this.allSelected = selected;
+    this.selected.fill(selected) 
   }
 
 }

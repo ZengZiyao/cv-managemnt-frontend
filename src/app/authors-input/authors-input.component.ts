@@ -32,10 +32,22 @@ export class AuthorsInputComponent implements OnInit {
     const value = event.value;
 
     if ((value || '').trim()) {
-      let author : Author = new Author();
-      author.name = value;
-      this.authors.push(author);
-      this.updateAuthors(this.authors);
+      value.split(",").forEach((e) => {
+        e = e.trim();
+        let author : Author = new Author();
+        if (e.endsWith("**")) {
+          author.fellow = true;
+          author.name = e.slice(0, -2)
+        } else if (e.endsWith("*")) {
+          author.student = true;
+          author.name = e.slice(0, -1);
+        } else {
+          author.name = e;
+        }
+        this.authors.push(author);
+        this.updateAuthors(this.authors);
+      })
+      
     }
 
     // Reset the input value

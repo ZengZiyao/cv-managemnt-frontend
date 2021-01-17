@@ -1,8 +1,7 @@
 import { NarbarDialogComponent } from './../narbar-dialog/narbar-dialog.component';
-import { JournalService } from './../services/journal.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { BiographyDialogComponent } from '../biography-dialog/biography-dialog.component';
+import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +9,8 @@ import { BiographyDialogComponent } from '../biography-dialog/biography-dialog.c
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  
+  @Output() messageEvent = new EventEmitter<boolean>();
 
   constructor(private dialog: MatDialog) { }
 
@@ -27,6 +28,10 @@ export class NavbarComponent implements OnInit {
         this.ngOnInit();
       }
     );
+  }
+
+  select() {
+    this.messageEvent.emit(true);
   }
 
 }

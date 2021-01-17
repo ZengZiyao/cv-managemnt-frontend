@@ -1,9 +1,11 @@
+import { Publication } from './../shared/publication';
 import { WorkExperienceService } from './../services/work-experience.service';
 import { WorkExperience } from './../shared/work-experience';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { PublicationDialogComponent } from '../publication-dialog/publication-dialog.component';
 import { WorkExperienceDialogComponent } from '../work-experience-dialog/work-experience-dialog.component';
+import { Cv } from '../shared/cv';
 
 @Component({
   selector: 'app-work-experiences',
@@ -11,12 +13,45 @@ import { WorkExperienceDialogComponent } from '../work-experience-dialog/work-ex
   styleUrls: ['./work-experiences.component.scss']
 })
 export class WorkExperiencesComponent implements OnInit {
+  @Output() messageEvent = new EventEmitter<boolean>();
+  allSelected: boolean = false;
+  selected: boolean[] = [];
+  private _exportable: boolean;
+  @Input()
+  select: boolean;
+  @Input()
+  cv: Cv;
+  @Input("exportable")
+  set exportable(exportable: boolean) {
+    if (this.selected.indexOf(true) > -1) {
+      this.cv.workExperiences = [];
+      for (let i = 0; i < this.selected.length; i++) {
+        if (this.selected[i]) {
+          this.cv.workExperiences.push(this.workExperiences[i]);
+        }
+      }
+      console.log(this.cv.workExperiences);
+
+    }
+
+    this._exportable = exportable;
+    this.emitMessage();
+
+  }
+  get exportable(): boolean {
+    return this._exportable;}
+
   workExperiences: WorkExperience[];
 
   constructor(private dialog: MatDialog, private workExperienceService: WorkExperienceService) { }
 
   ngOnInit(): void {
-    this.workExperienceService.getAllWorkExperience().subscribe((data) => this.workExperiences = data);
+    this.workExperienceService.getAllWorkExperience().subscribe((data) => {
+      this.workExperiences = data;
+      for (let i = 0; i < this.workExperiences.length; i++) {
+        this.selected.push(false);
+      }
+    } );
   }
 
   openDialog(workExperience?: WorkExperience) {
@@ -37,6 +72,24 @@ export class WorkExperiencesComponent implements OnInit {
 
   deleteWorkExperience(workExperience: WorkExperience) {
     this.workExperienceService.deleteWorkExperience(workExperience.id).subscribe(() => this.ngOnInit());
+  }
+  
+  emitMessage() {
+    this.messageEvent.emit(true);
+  }
+
+  updateAllSelected(selected: boolean, i: number) {
+    this.selected[i] = selected;
+    this.allSelected = this.selected.every((i) => i);
+  }
+
+  someSelected():boolean {
+    return this.selected.indexOf(true) > -1 && this.selected.indexOf(false) > -1;
+  }
+
+  setAll(selected: boolean) {
+    this.allSelected = selected;
+    this.selected.fill(selected) 
   }
 
 }
