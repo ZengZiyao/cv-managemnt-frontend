@@ -43,6 +43,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NarbarDialogComponent } from './narbar-dialog/narbar-dialog.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
+import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { ProjectDialogComponent } from './project-dialog/project-dialog.componen
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectCountryModule.forRoot('en')
   ],
   providers: [
     AwardService,

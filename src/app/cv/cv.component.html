@@ -1,7 +1,7 @@
 <div class="container" fxLayout="column" fxLayoutGap="10px">
     <app-navbar (messageEvent)="receiveMessage($event)"></app-navbar>
     <app-profile [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'profile')"></app-profile>
-    <app-biography [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'biography')"></app-biography>
+    <!-- <app-biography [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'biography')"></app-biography> -->
     <app-awards [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'award')"></app-awards>
     <app-publications [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'publication')"></app-publications>
     <app-work-experiences [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'work experience')"></app-work-experiences>

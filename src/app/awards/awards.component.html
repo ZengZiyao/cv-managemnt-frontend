@@ -2,7 +2,7 @@
 
     <mat-card class="half-width">
         <mat-card-header>
-            <h3><mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected" [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Awards</h3>
+            <h3><mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected" [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Research Awards / Recognition</h3>
             <span class="flex-spacer"></span>
             <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
 
@@ -11,7 +11,7 @@
             <mat-list>
                 <mat-list-item *ngFor="let award of awards; let i = index">
                     <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]" (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
-                    <p>{{award.content}} ({{award.date | date:"MMM yyyy"}})</p>
+                    <p>{{award.content}} ({{award.date | date:"yyyy"}})</p>
                     <span class="flex-spacer"></span>
                     <div class="icon-group">
                         <span (click)="openDialog(award)" class="icon"><span class="fa fa-edit"></span></span>

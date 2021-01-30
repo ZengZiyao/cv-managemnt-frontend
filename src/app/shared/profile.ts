@@ -1,6 +1,6 @@
 export class Profile {
     name: string;
     designation: string;
-    email: string;
+    school: string;
     // avatar: string;
 }

@@ -35,7 +35,7 @@ export class ProfileDialogComponent implements OnInit {
       {
         name: [this.profileCopy.name, [Validators.required]],
         designation: [this.profileCopy.designation, [Validators.required]],
-        email: [this.profileCopy.email, [Validators.required]]
+        school: [this.profileCopy.school, [Validators.required]]
       }
     );
   }

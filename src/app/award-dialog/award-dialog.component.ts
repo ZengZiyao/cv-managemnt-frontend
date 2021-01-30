@@ -1,4 +1,4 @@
-import { TIME_FORMATS } from './../shared/time-formats';
+import { TIME_FORMATS_YEAR_ONLY } from './../shared/time-formats';
 import { AwardService } from './../services/award.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
@@ -24,7 +24,7 @@ const moment = _rollupMoment || _moment;
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
 
-    {provide: MAT_DATE_FORMATS, useValue: TIME_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: TIME_FORMATS_YEAR_ONLY},
   ],
 })
 export class AwardDialogComponent implements OnInit {
@@ -78,15 +78,9 @@ export class AwardDialogComponent implements OnInit {
     }
 
 
-    chosenYearHandler(normalizedYear: Moment) {
+    chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
       const ctrlValue = this.date.value;
       ctrlValue.year(normalizedYear.year());
-      this.date.setValue(ctrlValue);
-    }
-  
-    chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-      const ctrlValue = this.date.value;
-      ctrlValue.month(normalizedMonth.month());
       this.date.setValue(ctrlValue);
       datepicker.close();
     }

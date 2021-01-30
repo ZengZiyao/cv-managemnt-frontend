@@ -15,10 +15,10 @@
                     <input matInput formControlName="content" placeholder="Award" type="text" name="content">
                 </mat-form-field>
                 <mat-form-field class="half-width">
-                    <mat-label>Date</mat-label>
+                    <mat-label>Year</mat-label>
                     <input matInput [formControl]="date" [matDatepicker]="datePicker" disabled>
                     <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datePicker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, datePicker)" panelClass="date-picker" disabled="false"></mat-datepicker>
+                    <mat-datepicker #datePicker startView="multi-year" (yearSelected)="chosenYearHandler($event, datePicker)" panelClass="date-picker" disabled="false"></mat-datepicker>
                 </mat-form-field>
 
             </p>

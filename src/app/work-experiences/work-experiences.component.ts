@@ -14,7 +14,7 @@ import { Cv } from '../shared/cv';
 })
 export class WorkExperiencesComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<boolean>();
-  allSelected: boolean = false;
+  allSelected = false;
   selected: boolean[] = [];
   private _exportable: boolean;
   @Input()

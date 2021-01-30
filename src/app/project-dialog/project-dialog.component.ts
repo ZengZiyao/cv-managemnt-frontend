@@ -1,5 +1,4 @@
 import { ProjectService } from './../services/project.service';
-import { ProjectsComponent } from './../projects/projects.component';
 import { Project } from './../shared/project';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
@@ -9,7 +8,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import { default as _rollupMoment,  Moment } from 'moment';
-import { TIME_FORMATS } from '../shared/time-formats';
+import { TIME_FORMATS_YEAR_ONLY } from '../shared/time-formats';
 
 const moment = _rollupMoment || _moment;
 const roles = ["PI", "Co-PI", "Colaborator", "Others"];
@@ -25,7 +24,7 @@ const roles = ["PI", "Co-PI", "Colaborator", "Others"];
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
 
-    {provide: MAT_DATE_FORMATS, useValue: TIME_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: TIME_FORMATS_YEAR_ONLY},
   ],
 
 })
@@ -34,6 +33,7 @@ export class ProjectDialogComponent implements OnInit {
   projectForm: FormGroup;
   projectCopy: Project;
   currentWorking: boolean;
+  external: boolean;
   dates: FormControl[] = [];
   otherRole: string;
   @ViewChild('pform') ProjectDirective;
@@ -57,6 +57,7 @@ export class ProjectDialogComponent implements OnInit {
     this.dates.push(new FormControl(moment(this.projectCopy.startYear)));
     this.dates.push(new FormControl(moment(this.projectCopy.endYear)));
     this.currentWorking = this.projectCopy.endYear == null;
+    this.external = this.projectCopy.external;
   }
 
   ngOnInit(): void {
@@ -68,15 +69,14 @@ export class ProjectDialogComponent implements OnInit {
       title: [this.projectCopy.title, [Validators.required]],
       role: [this.projectCopy.role, [Validators.required]],
       funder: [this.projectCopy.funder, [Validators.required]],
-      fundingAmount: [this.projectCopy.fundingAmount, [Validators.required]],
-      description: [this.projectCopy.description, [Validators.required]]
+      fundingAmount: [this.projectCopy.fundingAmount, [Validators.required]]
     })
   }
 
   onSubmit() {
     let data: Project = this.projectForm.value;
     data.startYear = this.dates[0].value.year();
-
+    this.projectCopy.external = this.external;
     if (!this.currentWorking) {
       data.endYear = this.dates[1].value.year();
     }

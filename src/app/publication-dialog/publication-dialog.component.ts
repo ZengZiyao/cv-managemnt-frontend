@@ -1,3 +1,4 @@
+import { ConferenceService } from './../services/conference.service';
 import { Author } from './../shared/author';
 import { TIERS } from '../shared/tiers';
 import { JournalService } from './../services/journal.service';
@@ -14,6 +15,8 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { TIME_FORMATS } from '../shared/time-formats';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { PubType } from '../shared/pubType';
+import { Conference } from "../shared/conference";
 
 const moment = _rollupMoment || _moment;
 
@@ -37,29 +40,41 @@ export class PublicationDialogComponent implements OnInit {
   publicationCopy: Publication;
   tiers: string[];
   journals: Journal[];
+  conferences: Conference[];
   date: FormControl;
+  type: PubType;
+  // text: string;
   @ViewChild('pform') pulicationFormDirective;
 
   constructor(private dialogRef: MatDialogRef<PublicationDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) data,
-    private publicationService: PublicationService) { 
+    private publicationService: PublicationService,
+    private journalService: JournalService,
+    private conferenceService: ConferenceService) { 
       this.publicationCopy = data.publication == null ? new Publication() : data.publication;
-      this.journals = data.journals;
       this.tiers = TIERS;
       this.date = new FormControl(moment(this.publicationCopy.date));
+      this.type = this.publicationCopy.type;
     }
 
     ngOnInit(): void {
       this.createForm();
+      this.journalService.getJournals().subscribe((data) => {
+        this.journals = data;
+      });
+      this.conferenceService.getConferences().subscribe((data) => this.conferences = data);
     }
   
     createForm() {
       this.publicationForm = this.fb.group({
         title: [this.publicationCopy.title, [Validators.required]],
         page: [this.publicationCopy.page, [Validators.required]],
-        journal: [this.publicationCopy.journalName, [Validators.required]],
-        tier: [this.publicationCopy.tier, [Validators.required]]
+        type: [this.publicationCopy.type, [Validators.required]],
+        name: [this.publicationCopy.pubSource.name, [Validators.required]],
+        tier: [this.publicationCopy.tier],
+        // country : []
+        // text: [this.text]
       });
 
     }
@@ -68,8 +83,14 @@ export class PublicationDialogComponent implements OnInit {
       let data = this.publicationForm.value;
       data.authors = this.publicationCopy.authors;
       data.date = this.date.value;
-      let journal = this.journals.find((e) => e.name === data.journal);
-      data.journalId = journal.id
+      data.type = this.type;
+      if (data.type == PubType.JOURNAL) {
+        data.pubSource = this.journals.find((e) => e.name === data.name);
+        data.country = null;
+      } else if (data.type == PubType.CONFERENCE) {
+        data.PubSource = this.conferences.find((e) => e.name == data.name);
+        data.tier = null;
+      }
       if (this.publicationCopy.id == null) {
         this.publicationService.addPublication(data).subscribe(() => this.dialogRef.close());
       } else {
@@ -99,6 +120,40 @@ export class PublicationDialogComponent implements OnInit {
     updateAuthors(authors: Author[]) {
       this.publicationCopy.authors = authors;
     }
+
+    // parsePublication(text: string): Publication {
+    //   let p = new Publication();
+    //   if (text.startsWith("##")) {
+    //     p.tier = "1A";
+    //     text = text.slice(2);
+    //   } else if (text.startsWith("#")) {
+    //     p.tier = "1";
+    //     text = text.slice(1);
+    //   } else {
+    //     p.tier = "2";
+    //   }
+
+    //   let authors = text.slice(0, text.indexOf("\"")).trim();
+    //   authors.split(",").forEach((a) => {
+    //     a = a.trim();
+    //     let author = new Author();
+    //     if (a.endsWith("**")) {
+    //       author.fellow = true;
+    //       author.name = a.slice(0, -2)
+    //     } else if (a.endsWith("*")) {
+    //       author.student = true;
+    //       author.name = a.slice(0, -1);
+    //     } else {
+    //       author.name = a;
+    //     }
+    //     p.authors.push(author);
+    //   });
+    //   text = text.slice(text.indexOf("\"") + 1);
+    //   p.title = text.slice(0, text.indexOf("\""));
+    //   text = text.slice(text.indexOf("\"") + 2);
+      
+    //   return p;
+    // }
 
 
 }

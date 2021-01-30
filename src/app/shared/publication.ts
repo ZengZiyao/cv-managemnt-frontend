@@ -1,4 +1,5 @@
-import { Journal } from './journal';
+import { PubType } from './pubType';
+import { PubSource } from './pubSource';
 import { Author } from './author';
 
 export class Publication {
@@ -8,6 +9,7 @@ export class Publication {
     page: string;
     tier: string;
     title: string;
-    journalId: string;
-    journalName: string;
+    pubSource: PubSource = new PubSource();
+    type: PubType;
+    country: string;
 }

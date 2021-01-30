@@ -59,7 +59,7 @@ export class PublicationsComponent implements OnInit {
 
   publications: Publication[];
   publicationsCopy: Publication[];
-  journals: Journal[];
+  // journals: Journal[];
   sortOrder = -1;
   range = new FormGroup({
     start: new FormControl(),
@@ -71,31 +71,15 @@ export class PublicationsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.journalService.getJournals().subscribe((data) => {
-      this.journals = data;
       this.publicationService.getAllPublications().subscribe((data) => {
         this.publications = data; 
-        this.publications.forEach((p) => {
-          this.selected.push(false);
-          var journal = this.journals.find((j) => j.id == p.journalId);
-          if (typeof journal != "undefined") {
-            p.journalName = journal.name;
-          }
-        })
         this.publicationsCopy = data;
       });
-    });
-
-
-
   }
 
   openDialog(publication?: Publication) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      'publication': publication,
-      'journals': this.journals
-    };
+    dialogConfig.data = publication;
 
     dialogConfig.width = "40%";
 
@@ -118,7 +102,7 @@ export class PublicationsComponent implements OnInit {
         this.publications = this.publications.sort((a, b) => a.date < b.date ? -1 : 1);
         break;
       case 1:
-        this.publications = this.publications.sort((a, b) => a.journalName < b.journalName ? -1 : 1);
+        this.publications = this.publications.sort((a, b) => a.pubSource.name < b.pubSource.name ? -1 : 1);
         break;
       case 2:
         this.publications = this.publications.sort((a, b) => a.tier < b.tier ? -1 : 1);
