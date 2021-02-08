@@ -9,10 +9,11 @@
         </mat-card-header>
         <mat-card-content>
             <mat-list>
-                <mat-list-item *ngFor="let workExperience of workExperiences; let i =index">
-                    <div mat-line fxLayout="row" fxLayoutAlign="start center">
-                        <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]" (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
-                        <p>
+                <mat-list-item *ngFor="let workExperience of workExperiences; let i =index" fxLayout="column">
+                    <div mat-line fxLayout="row" fxLayoutAlign="start end">
+                        <p >
+                            <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]" (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
+
                             {{workExperience.startTime | date:"MMM, y"}} - <span *ngIf="!workExperience.endTime">current</span><span *ngIf="workExperience.endTime">{{workExperience.endTime | date:"MMM, y"}}</span>
                             &nbsp; {{workExperience.title}}, {{workExperience.company}}
                         </p>    

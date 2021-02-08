@@ -1,3 +1,4 @@
+import { COUNTRIES_DB } from './../shared/countries_db';
 import { ConferenceService } from './../services/conference.service';
 import { Author } from './../shared/author';
 import { TIERS } from '../shared/tiers';
@@ -43,6 +44,7 @@ export class PublicationDialogComponent implements OnInit {
   conferences: Conference[];
   date: FormControl;
   type: PubType;
+  countries = COUNTRIES_DB;
   // text: string;
   @ViewChild('pform') pulicationFormDirective;
 
@@ -52,7 +54,7 @@ export class PublicationDialogComponent implements OnInit {
     private publicationService: PublicationService,
     private journalService: JournalService,
     private conferenceService: ConferenceService) { 
-      this.publicationCopy = data.publication == null ? new Publication() : data.publication;
+      this.publicationCopy = data == null ? new Publication() : data;
       this.tiers = TIERS;
       this.date = new FormControl(moment(this.publicationCopy.date));
       this.type = this.publicationCopy.type;
@@ -70,10 +72,9 @@ export class PublicationDialogComponent implements OnInit {
       this.publicationForm = this.fb.group({
         title: [this.publicationCopy.title, [Validators.required]],
         page: [this.publicationCopy.page, [Validators.required]],
-        type: [this.publicationCopy.type, [Validators.required]],
         name: [this.publicationCopy.pubSource.name, [Validators.required]],
         tier: [this.publicationCopy.tier],
-        // country : []
+        country : [this.publicationCopy.country]
         // text: [this.text]
       });
 
@@ -84,11 +85,11 @@ export class PublicationDialogComponent implements OnInit {
       data.authors = this.publicationCopy.authors;
       data.date = this.date.value;
       data.type = this.type;
-      if (data.type == PubType.JOURNAL) {
+      if (data.type === PubType.JOURNAL) {
         data.pubSource = this.journals.find((e) => e.name === data.name);
         data.country = null;
-      } else if (data.type == PubType.CONFERENCE) {
-        data.PubSource = this.conferences.find((e) => e.name == data.name);
+      } else if (data.type === PubType.CONFERENCE) {
+        data.pubSource = this.conferences.find((e) => e.name === data.name);
         data.tier = null;
       }
       if (this.publicationCopy.id == null) {

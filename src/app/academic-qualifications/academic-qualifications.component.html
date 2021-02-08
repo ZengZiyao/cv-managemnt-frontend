@@ -1,0 +1,27 @@
+<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+
+    <mat-card class="half-width">
+        <mat-card-header>
+            <h3><mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected" [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Academic Qualifications</h3>
+            <span class="flex-spacer"></span>
+            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
+
+        </mat-card-header>
+        <mat-card-content *ngIf="academicQualifications">
+            <mat-list>
+                <mat-list-item *ngFor="let academicQualification of academicQualifications; let i = index">
+                    <p>                    <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]" (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
+
+                        <span class="right-padding">{{academicQualification.year | date:"yyyy"}}</span>{{academicQualification.degree}} in {{academicQualification.major}}, {{academicQualification.university}}</p>
+                    <span class="flex-spacer"></span>
+                    <div class="icon-group">
+                        <span (click)="openDialog(academicQualification)" class="icon"><span class="fa fa-edit"></span></span>
+                        <span (click)="deleteAcademicQualification(academicQualification)"><span class="fa fa-trash"></span></span>
+                    </div>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>

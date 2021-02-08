@@ -1,0 +1,20 @@
+table {
+    width: 100%;
+}
+
+.flex-container {
+    display: flex;
+    padding-left: 40;
+}
+
+.spacer {
+    height: 30px;
+}
+
+.icon-group {
+    display: flex;
+}
+
+span.icon {
+    margin: 0 7px;
+}

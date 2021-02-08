@@ -1,19 +1,18 @@
-import { Journal } from './../shared/journal';
+import { Journal } from '../shared/journal';
 import { Component, OnInit } from '@angular/core';
 import { JournalService } from '../services/journal.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { BiographyDialogComponent } from '../biography-dialog/biography-dialog.component';
 
 @Component({
-  selector: 'app-narbar-dialog',
-  templateUrl: './narbar-dialog.component.html',
-  styleUrls: ['./narbar-dialog.component.scss']
+  selector: 'app-navbar-journal-dialog',
+  templateUrl: './navbar-journal-dialog.component.html',
+  styleUrls: ['./navbar-journal-dialog.component.scss']
 })
-export class NarbarDialogComponent implements OnInit {
+export class NavbarJournalDialogComponent implements OnInit {
 
   journals: Journal[];
 
-  constructor(private dialogRef: MatDialogRef<BiographyDialogComponent>, private journalService: JournalService) { }
+  constructor(private dialogRef: MatDialogRef<NavbarJournalDialogComponent>, private journalService: JournalService) { }
 
   ngOnInit(): void {
     this.journalService.getJournals().subscribe((data) => this.journals = data);

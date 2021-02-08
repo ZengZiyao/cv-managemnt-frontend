@@ -7,12 +7,12 @@ span.icon {
 }
 
 .mat-list-item {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     overflow-wrap: anywhere;
     height: auto!important;
-}
-
-.zero-top-margin {
-    margin-top: 0;
 }
 
 .align-left {

@@ -1,0 +1,141 @@
+<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+
+    <mat-card class="half-width">
+        <mat-card-header>
+            <h3>Academic Supervision and Mentoring</h3>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="flex-container">
+                <h3>
+                    <mat-checkbox *ngIf="select" class="right-margin" [checked]="masterAllSelected"
+                        [indeterminate]="someSelected(0)" (change)="setAll($event.checked, 0)"></mat-checkbox>Masters
+                    students (By Research Only)
+                </h3>
+                <span class="flex-spacer"></span>
+                <a (click)="openDialog(0)"><span class="fa fa-plus"></span></a>
+
+            </div>
+
+            <table mat-table *ngIf="masterStudents" [dataSource]="masterStudents">
+                <ng-container matColumnDef="selectCol">
+                    <th mat-header-cell *matHeaderCellDef> Select </th>
+                    <td mat-cell *matCellDef="let i = index">
+                        <mat-checkbox [(ngModel)]="masterSelected[i]"
+                            (change)="updateAllSelected($event.checked, i, 0)"></mat-checkbox>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="No.">
+                    <th mat-header-cell *matHeaderCellDef> No.</th>
+                    <td mat-cell *matCellDef="let i = index"> {{i+1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="student">
+                    <th mat-header-cell *matHeaderCellDef> Masters Student </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="period">
+                    <th mat-header-cell *matHeaderCellDef> Period </th>
+                    <td mat-cell *matCellDef="let element">{{element.startYear | date:'yyyy'}} - <span
+                            *ngIf="element.endYear">{{element.endYear | date:'yyyy'}}</span><span
+                            *ngIf="!element.endYear">present</span> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> Thesis/ Project Title </th>
+                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Current Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef> Edit </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="icon-group">
+                            <span (click)="openDialog(0, element)" class="icon"><span class="fa fa-edit"></span></span>
+                            <span (click)="deleteStudent(element)"><span class="fa fa-trash"></span></span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div class="spacer"></div>
+            <div class="flex-container">
+                <h3>
+                    <mat-checkbox *ngIf="select" class="right-margin" [checked]="phdAllSelected"
+                        [indeterminate]="someSelected(1)" (change)="setAll($event.checked, 1)"></mat-checkbox>PhD students
+                </h3>
+                <span class="flex-spacer"></span>
+                <a (click)="openDialog(1)"><span class="fa fa-plus"></span></a>
+    
+            </div>
+            <table mat-table *ngIf="phdStudents" [dataSource]="phdStudents">
+                <ng-container matColumnDef="selectCol">
+                    <th mat-header-cell *matHeaderCellDef> Select </th>
+                    <td mat-cell *matCellDef="let i = index">
+                        <mat-checkbox [(ngModel)]="phdSelected[i]"
+                            (change)="updateAllSelected($event.checked, i, 1)"></mat-checkbox>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="No.">
+                    <th mat-header-cell *matHeaderCellDef> No.</th>
+                    <td mat-cell *matCellDef="let i = index"> {{i+1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="student">
+                    <th mat-header-cell *matHeaderCellDef> PhD Student </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="period">
+                    <th mat-header-cell *matHeaderCellDef> Period </th>
+                    <td mat-cell *matCellDef="let element">{{element.startYear | date:'yyyy'}} - <span
+                            *ngIf="element.endYear">{{element.endYear | date:'yyyy'}}</span><span
+                            *ngIf="!element.endYear">present</span> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> Thesis/ Project Title </th>
+                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Current Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef> Edit </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="icon-group">
+                            <span (click)="openDialog(1, element)" class="icon"><span class="fa fa-edit"></span></span>
+                            <span (click)="deleteStudent(element)"><span class="fa fa-trash"></span></span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

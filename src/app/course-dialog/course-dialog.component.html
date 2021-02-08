@@ -1,0 +1,90 @@
+<div fxLayout="column" fxLayoutGap="10px">
+
+
+    <mat-toolbar color="primary">
+        <span>Edit</span>
+        <span class="flex-spacer"></span>
+        <a mat-button mat-dialog-close>&times;</a>
+    </mat-toolbar>
+
+    <form novalidate [formGroup]="courseForm" #cform="ngForm" (ngSubmit)="onSubmit()">
+        <mat-dialog-content>
+            <p>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="courseCode" placeholder="Code" type="text" name="Course Code">
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                    <input matInput formControlName="title" placeholder="Title" type="text" name="Course Title">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="half-width">
+                    <mat-label>Course Level</mat-label>
+                    <mat-select formControlName="courseLevel" name="courseLevel">
+                        <mat-option [value]="levels[0]">{{levels[0]}}</mat-option>
+                        <mat-option [value]="levels[1]">{{levels[1]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="half-width">
+                    <mat-label>Type</mat-label>
+                    <mat-select formControlName="courseType" name="type">
+                        <mat-option [value]="types[0]">{{types[0]}}</mat-option>
+                        <mat-option [value]="types[1]">{{types[1]}}</mat-option>
+                        <mat-option [value]="types[2]">{{types[2]}}</mat-option>
+                        <mat-option [value]="types[3]">{{types[3]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+            <p *ngIf="courseForm.value.courseType == 'OTHERS'">
+                <mat-form-field class="half-width">
+                    <input matInput [(ngModel)]="otherType" placeholder="Others" type="text" name="others"
+                        [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+            </p>
+            <div class="flex-container">
+                <div class="half-width">
+                    <mat-checkbox [(ngModel)]="currentWorking" name="currentWorking"
+                        [ngModelOptions]="{standalone: true}">I
+                        am currently working in this project</mat-checkbox>
+                </div>
+
+            </div>
+            <p>
+                <mat-form-field class="half-width">
+                    <mat-label>Start Year</mat-label>
+                    <input matInput [formControl]="dates[0]" [matDatepicker]="startPicker" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startPicker startView="multi-year"
+                        (yearSelected)="chosenYearHandler($event, startPicker, 0)" panelClass="date-picker"
+                        disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="half-width" *ngIf="!currentWorking">
+                    <mat-label>End Year</mat-label>
+                    <input matInput [formControl]="dates[1]" [matDatepicker]="endPicker" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endPicker startView="multi-year"
+                        (yearSelected)="chosenYearHandler($event, endPicker, 1)"
+                        (monthSelected)="chosenMonthHandler($event, endPicker, 1)" panelClass="date-picker"
+                        disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="half-width">
+                    <mat-label>Semester</mat-label>
+                    <mat-select formControlName="semester" name="semester">
+                        <mat-option [value]="1">1</mat-option>
+                        <mat-option [value]="2">2</mat-option>
+                        <mat-option [value]="3">3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <span class="flex-spacer"></span>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button type="submit">Save</button>
+        </mat-dialog-actions>
+    </form>
+</div>

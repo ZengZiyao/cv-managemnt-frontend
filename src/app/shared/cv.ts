@@ -1,3 +1,7 @@
+import { Student } from './student';
+import { Course } from './course';
+import { AcademicQualification } from './academic-qualification';
+import { Membership } from './membership';
 import { Project } from './project';
 import { WorkExperience } from './work-experience';
 import { Publication } from './publication';
@@ -11,5 +15,9 @@ export class Cv {
     awards: Award[];
     projects: Project[];
     publications: Publication[];
-    workExperiences: WorkExperience[]
+    workExperiences: WorkExperience[];
+    memberships: Membership[];
+    academicQualifications: AcademicQualification[];
+    courses: Course[];
+    students: Student[];
 }

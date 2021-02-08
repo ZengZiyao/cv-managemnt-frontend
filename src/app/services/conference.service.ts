@@ -21,6 +21,6 @@ export class ConferenceService {
    return this.httpClient.post(`${baseUrl}/conferences`, conference).pipe(catchError(this.processHttpMsgService.handleError));
   }
 
-  updateJounals(conferences: Conference[]): Observable<any> {
+  updateConferences(conferences: Conference[]): Observable<any> {
     return this.httpClient.put(`${baseUrl}/conferences`, conferences).pipe(catchError(this.processHttpMsgService.handleError));
   }}

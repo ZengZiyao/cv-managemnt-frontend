@@ -1,0 +1,37 @@
+<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+
+    <mat-card class="half-width">
+        <mat-card-header>
+            <h3>
+                <mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected"
+                    [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Professional
+                Qualifications / Memberships
+            </h3>
+            <span class="flex-spacer"></span>
+            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
+
+        </mat-card-header>
+        <mat-card-content *ngIf="memberships">
+            <mat-list>
+                <mat-list-item *ngFor="let membership of memberships; let i = index">
+                    <p>
+                        <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]"
+                        (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
+
+                        {{membership.startTime | date:"yyyy"}} - <span *ngIf="membership.endTime">{{membership.endTime | date:"yyyy"}}</span>
+                                <span *ngIf="!membership.endTime">Present</span>
+                            <span class="designation">{{membership.designation}}, {{membership.institution}}</span>
+                            <span>{{membership.state}}, {{membership.country.name}}</span>
+                    </p>
+                    <span class="flex-spacer"></span>
+                    <div class="icon-group">
+                        <span (click)="openDialog(membership)" class="icon"><span class="fa fa-edit"></span></span>
+                        <span (click)="deleteMembership(membership)"><span class="fa fa-trash"></span></span>
+                    </div>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>

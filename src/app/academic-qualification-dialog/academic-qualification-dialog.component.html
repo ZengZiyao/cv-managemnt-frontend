@@ -1,0 +1,40 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <mat-toolbar color="primary">
+        <span>Edit</span>
+        <span class="flex-spacer"></span>
+        <a mat-button mat-dialog-close>&times;</a>
+    </mat-toolbar>
+
+    <form novalidate [formGroup]="academicQualificationForm" #pform="ngForm" (ngSubmit)="onSubmit()">
+        <mat-dialog-content>
+            <p>
+                <mat-form-field class="half-width">
+                    <mat-label>University</mat-label>
+                    <input matInput formControlName="university" placeholder="University" type="text" name="university">
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                    <mat-label>Degree</mat-label>
+                    <input matInput formControlName="degree" placeholder="Degree" type="text" name="degree">
+                </mat-form-field>
+
+            </p>
+            <p>
+                <mat-form-field class="half-width">
+                    <mat-label>Major</mat-label>
+                    <input matInput formControlName="major" placeholder="Major" type="text" name="major">
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                    <mat-label>Graduate Year</mat-label>
+                    <input matInput [formControl]="date" [matDatepicker]="datePicker" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datePicker startView="multi-year" (yearSelected)="chosenYearHandler($event, datePicker)" panelClass="date-picker" disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </p>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <span class="flex-spacer"></span>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button type="submit">Save</button>
+        </mat-dialog-actions>
+    </form>
+</div>

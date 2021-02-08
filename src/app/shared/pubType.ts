@@ -1,7 +1,4 @@
 export enum PubType {
-    JOURNAL,
-    CONFERENCE,
-    BOOK,
-    BOOK_CHAPTER,
-    OTHER,
+    JOURNAL = 0,
+    CONFERENCE = 1
 }

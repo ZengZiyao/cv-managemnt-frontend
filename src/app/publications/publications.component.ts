@@ -4,8 +4,6 @@ import { Publication } from './../shared/publication';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PublicationDialogComponent } from '../publication-dialog/publication-dialog.component';
-import { Journal } from '../shared/journal';
-import { JournalService } from '../services/journal.service';
 import * as _moment from 'moment';
 import { default as _rollupMoment,  Moment } from 'moment';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
@@ -66,8 +64,7 @@ export class PublicationsComponent implements OnInit {
     end: new FormControl()
   });
 
-  constructor(private dialog: MatDialog, private publicationService: PublicationService,
-    private journalService: JournalService) { 
+  constructor(private dialog: MatDialog, private publicationService: PublicationService) { 
     }
 
   ngOnInit(): void {

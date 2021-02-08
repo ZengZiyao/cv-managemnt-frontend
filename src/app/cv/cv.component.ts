@@ -6,7 +6,7 @@ const cvId = '5f54c35ec4ddda34dc40b4ed';
 @Component({
   selector: 'app-cv',
   templateUrl: './cv.component.html',
-  styleUrls: ['./cv.component.scss']
+  styleUrls: ['./cv.component.scss'],
 })
 export class CvComponent implements OnInit {
   select: boolean;
@@ -18,9 +18,12 @@ export class CvComponent implements OnInit {
   projectReady: boolean;
   publicationReady: boolean;
   workExperienceReady: boolean;
+  membershipReady: boolean;
+  academicQualificationReady: boolean;
+  courseReady: boolean;
+  studentReady: boolean;
 
-  constructor() { 
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.select = false;
@@ -39,7 +42,18 @@ export class CvComponent implements OnInit {
 
   exportCV() {
     this.exportable = !this.exportable;
-    if (this.profileReady && this.awardReady && this.biographyReady && this.projectReady && this.publicationReady && this.workExperienceReady) {
+    if (
+      this.profileReady &&
+      this.awardReady &&
+      this.biographyReady &&
+      this.projectReady &&
+      this.publicationReady &&
+      this.workExperienceReady &&
+      this.membershipReady &&
+      this.academicQualificationReady &&
+      this.courseReady &&
+      this.studentReady
+    ) {
       console.log(this.cv);
     }
 
@@ -48,23 +62,35 @@ export class CvComponent implements OnInit {
 
   receiveReadyMessage($event, name: string) {
     switch (name) {
-      case "profile": 
+      case 'profile':
         this.profileReady = $event;
         break;
-      case "award":
+      case 'award':
         this.awardReady = $event;
         break;
-      case "biography":
+      case 'biography':
         this.biographyReady = $event;
         break;
-      case "project":
+      case 'project':
         this.projectReady = $event;
         break;
-      case "publication":
+      case 'publication':
         this.publicationReady = $event;
         break;
-      case "work experience":
+      case 'work experience':
         this.workExperienceReady = $event;
+        break;
+      case 'membership':
+        this.membershipReady = $event;
+        break;
+      case 'academic qualification':
+        this.academicQualificationReady = $event;
+        break;
+      case 'course':
+        this.courseReady = $event;
+        break;
+      case 'student':
+        this.studentReady = $event;
         break;
     }
   }
@@ -76,8 +102,10 @@ export class CvComponent implements OnInit {
     this.profileReady = false;
     this.publicationReady = false;
     this.workExperienceReady = false;
-
+    this.membershipReady = false;
+    this.academicQualificationReady = false;
+    this.courseReady = false;
+    this.studentReady = false;
     this.cv = new Cv();
   }
-
 }

@@ -40,10 +40,21 @@ import { AwardDialogComponent } from './award-dialog/award-dialog.component';
 import { PublicationDialogComponent } from './publication-dialog/publication-dialog.component';
 import { AuthorsInputComponent } from './authors-input/authors-input.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { NarbarDialogComponent } from './narbar-dialog/narbar-dialog.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
+import { NavbarJournalDialogComponent } from './navbar-journal-dialog/navbar-journal-dialog.component';
+import { NavbarConferenceDialogComponent } from './navbar-conference-dialog/navbar-conference-dialog.component';
+import { MembershipsComponent } from './memberships/memberships.component';
+import { MembershipDialogComponent } from './membership-dialog/membership-dialog.component';
+import { AcademicQualificationsComponent } from './academic-qualifications/academic-qualifications.component';
+import { AcademicQualificationDialogComponent } from './academic-qualification-dialog/academic-qualification-dialog.component';
+import { CoursesComponent } from './courses/courses.component';
+import { CourseDialogComponent } from './course-dialog/course-dialog.component';
+import {MatTableModule} from '@angular/material/table';
+import { StudentsComponent } from './students/students.component';
+import { StudentDialogComponent } from './student-dialog/student-dialog.component';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -61,9 +72,18 @@ import { MatSelectCountryModule } from '@angular-material-extensions/select-coun
     PublicationDialogComponent,
     AuthorsInputComponent,
     NavbarComponent,
-    NarbarDialogComponent,
     ProjectsComponent,
-    ProjectDialogComponent
+    ProjectDialogComponent,
+    NavbarJournalDialogComponent,
+    NavbarConferenceDialogComponent,
+    MembershipsComponent,
+    MembershipDialogComponent,
+    AcademicQualificationsComponent,
+    AcademicQualificationDialogComponent,
+    CoursesComponent,
+    CourseDialogComponent,
+    StudentsComponent,
+    StudentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +107,9 @@ import { MatSelectCountryModule } from '@angular-material-extensions/select-coun
     MatChipsModule,
     MatIconModule,
     MatMenuModule,
-    MatSelectCountryModule.forRoot('en')
+    MatSelectCountryModule.forRoot('en'),
+    MatTableModule,
+    MatSortModule
   ],
   providers: [
     AwardService,

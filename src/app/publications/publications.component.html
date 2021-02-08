@@ -35,9 +35,10 @@
         <mat-card-content>
             <mat-list>
                 <mat-list-item *ngFor="let publication of publications; let i = index" fxLayout="column">
-                    <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]"
+                    <p>                     <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]"
                         (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
-                    <p> <span *ngIf="publication.tier === '1A'">##</span>
+
+                        <span *ngIf="publication.tier === '1A'">##</span>
                         <span *ngIf="publication.tier === '1' || publication.tier =='1B'">#</span>
 
                         <span *ngFor="let author of publication.authors">
@@ -46,7 +47,8 @@
                             <span *ngIf="author.student">*</span>
                             <span *ngIf="author.fellow">**</span>,
                         </span>
-                        "{{publication.title}}" {{publication.journalName}} {{publication.page}}
+                        "{{publication.title}}" {{publication.pubSource.name}}<span *ngIf="publication.type === 1">,
+                            {{publication.country.name}},</span> {{publication.page}}
                         ({{ publication.date | date:"MMM yyyy" }})
                     </p>
                     <span class="flex-spacer"></span>

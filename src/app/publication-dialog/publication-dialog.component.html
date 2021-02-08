@@ -38,34 +38,31 @@
                             </mat-option>
                         </div>
                         <div *ngIf="type">
-                            <mat-option *ngFor="let conference of conferences" [value]="conference.name">{{conference.name}}
+                            <mat-option *ngFor="let conference of conferences" [value]="conference.name">
+                                {{conference.name}}
                             </mat-option>
                         </div>
                     </mat-select>
                 </mat-form-field>
 
             </p>
-            <p>
+            <div class="flex-container">
                 <mat-form-field *ngIf="!type" class="half-width">
                     <mat-label>Tier</mat-label>
                     <mat-select formControlName="tier">
                         <mat-option *ngFor="let tier of tiers" [value]="tier">{{tier}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-select-country appearance="outline" 
-                label="Country">
-</mat-select-country>
-                <!-- <mat-form-field *ngIf="type" class="half-width">
-                    <mat-label>Country</mat-label>
-                    <mat-select-country formControlName="country">
+                <div *ngIf="type" class="half-width">
+                    <mat-select-country *ngIf="type" [countries]="countries" formControlName="country" label="Country">
                     </mat-select-country>
-                </mat-form-field> -->
+                </div>
                 <mat-form-field class="half-width">
                     <mat-label>Page</mat-label>
                     <input matInput formControlName="page" type="text" name="page">
                 </mat-form-field>
 
-            </p>
+            </div>
             <p>
 
                 <mat-form-field class="half-width">

@@ -1,0 +1,55 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <mat-toolbar color="primary">
+        <span>Edit</span>
+        <span class="flex-spacer"></span>
+        <a mat-button mat-dialog-close>&times;</a>
+    </mat-toolbar>
+
+    <form novalidate [formGroup]="membershipForm" #mform="ngForm" (ngSubmit)="onSubmit()">
+        <mat-dialog-content>
+            <p>
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="institution" placeholder="Institution" type="text" name="institution">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="designation" placeholder="Designation" type="text" name="designation">
+                </mat-form-field>
+            <p>
+
+                <mat-checkbox [(ngModel)]="currentWorking" name="currentWorking" [ngModelOptions]="{standalone: true}">I am still in this institution</mat-checkbox>
+
+            </p>
+            <p>
+                <mat-form-field class="half-width">
+                    <mat-label>Start Year</mat-label>
+                    <input matInput [formControl]="dates[0]" [matDatepicker]="startPicker" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startPicker startView="multi-year" (yearSelected)="chosenYearHandler($event, startPicker, 0)" panelClass="date-picker" disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="half-width" *ngIf="!currentWorking">
+                    <mat-label>End Year</mat-label>
+                    <input matInput [formControl]="dates[1]" [matDatepicker]="endPicker" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endPicker startView="multi-year" (yearSelected)="chosenYearHandler($event, endPicker, 1)" panelClass="date-picker" disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </p>
+            <div class="flex-container">
+                <div class="half-width">
+                    <mat-select-country [countries]="countries" formControlName="country" label="Country" (onCountrySelected)="onCountrySelected($event)">
+                    </mat-select-country>
+                </div>
+                <div class="half-width">
+                    <mat-label>State</mat-label>
+                    <mat-select formControlName="state">
+                        <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <span class="flex-spacer"></span>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button type="submit">Save</button>
+        </mat-dialog-actions>
+    </form>
+</div>

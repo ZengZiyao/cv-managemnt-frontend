@@ -6,7 +6,8 @@
       <mat-icon>settings</mat-icon>
     </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="openDialog()">Manage Journals</button>
+            <button mat-menu-item (click)="openJournalDialog()">Manage Journals</button>
+            <button mat-menu-item (click)="openConferenceDialog()">Manage Conferences</button>
             <button mat-menu-item>Import</button>
             <button mat-menu-item (click)="select()">Export</button>
         </mat-menu>

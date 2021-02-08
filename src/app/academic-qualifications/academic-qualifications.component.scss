@@ -1,0 +1,21 @@
+.right-padding {
+    padding-right: 5em;
+}
+
+.icon-group {
+    display: flex;
+    margin-left: 10px
+}
+
+span.icon {
+    margin: 0 7px;
+}
+
+.mat-list-item {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow-wrap: anywhere;
+    height: auto!important;
+}
