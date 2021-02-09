@@ -19,5 +19,6 @@ export class Cv {
     memberships: Membership[];
     academicQualifications: AcademicQualification[];
     courses: Course[];
-    students: Student[];
+    masterStudents: Student[];
+    phdStudents: Student[];
 }

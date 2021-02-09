@@ -66,21 +66,21 @@ export class StudentsComponent implements OnInit {
   @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;
-    if (this.cv != undefined) {
-      this.cv.students = [];
-    }
+
     if (this.masterSelected.indexOf(true) > -1) {
+      this.cv.masterStudents = [];
       for (let i = 0; i < this.masterSelected.length; i++) {
         if (this.masterSelected[i]) {
-          this.cv.students.push(this.masterStudents[i]);
+          this.cv.masterStudents.push(this.masterStudents[i]);
         }
       }
     }
 
     if (this.phdSelected.indexOf(true) > -1) {
+      this.cv.phdStudents = [];
       for (let i = 0; i < this.phdSelected.length; i++) {
         if (this.phdSelected[i]) {
-          this.cv.students.push(this.phdStudents[i]);
+          this.cv.phdStudents.push(this.phdStudents[i]);
         }
       }
     }
