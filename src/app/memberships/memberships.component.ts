@@ -25,7 +25,7 @@ export class MembershipsComponent implements OnInit {
   @Input("exportable")
   set exportable(exportable: boolean) {
     this._exportable = exportable;
-    if (this.selected.indexOf(true) > -1) {
+    if (exportable && this.selected.indexOf(true) > -1) {
       this.cv.memberships = [];
       for (let i = 0; i < this.selected.length; i++) {
         if (this.selected[i]) {
@@ -35,7 +35,12 @@ export class MembershipsComponent implements OnInit {
       console.log(this.cv.memberships);
 
     }
-    this.emitMessage();
+    if (exportable) {
+      this.emitMessage();
+    } else {
+      this.selected.fill(false);
+      this.allSelected = false;
+    }
 
   }
   get exportable(): boolean {

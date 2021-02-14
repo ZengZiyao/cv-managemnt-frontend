@@ -24,17 +24,21 @@ export class AwardsComponent implements OnInit {
   @Input("exportable")
   set exportable(exportable: boolean) {
     this._exportable = exportable;
-    if (this.selected.indexOf(true) > -1) {
+    if (exportable && this.selected.indexOf(true) > -1) {
       this.cv.awards = [];
       for (let i = 0; i < this.selected.length; i++) {
         if (this.selected[i]) {
           this.cv.awards.push(this.awards[i]);
         }
       }
-      console.log(this.cv.awards);
 
     }
-    this.emitMessage();
+    if (exportable) {
+      this.emitMessage();
+    } else {
+      this.selected.fill(false);
+      this.allSelected = false;
+    }
 
   }
   get exportable(): boolean {

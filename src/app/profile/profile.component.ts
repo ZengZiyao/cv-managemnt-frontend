@@ -22,12 +22,15 @@ export class ProfileComponent implements OnInit {
   cv: Cv;
   @Input("exportable")
   set exportable(exportable: boolean) {
+    this._exportable = exportable;
+    if (exportable) {
+      this.emitMessage();
+    } else {
+      this.selected = false;
+    }
     if (this.selected) {
       this.cv.profile = this.profile;
     }
-    this._exportable = exportable;
-    this.emitMessage();
-
   }
   get exportable(): boolean {
     return this._exportable;}

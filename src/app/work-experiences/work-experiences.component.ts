@@ -23,7 +23,7 @@ export class WorkExperiencesComponent implements OnInit {
   cv: Cv;
   @Input("exportable")
   set exportable(exportable: boolean) {
-    if (this.selected.indexOf(true) > -1) {
+    if (exportable && this.selected.indexOf(true) > -1) {
       this.cv.workExperiences = [];
       for (let i = 0; i < this.selected.length; i++) {
         if (this.selected[i]) {
@@ -35,7 +35,12 @@ export class WorkExperiencesComponent implements OnInit {
     }
 
     this._exportable = exportable;
-    this.emitMessage();
+    if (exportable) {
+      this.emitMessage();
+    } else {
+      this.selected.fill(false);
+      this.allSelected = false;
+    }
 
   }
   get exportable(): boolean {

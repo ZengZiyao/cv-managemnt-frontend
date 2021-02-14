@@ -2,7 +2,7 @@
     <app-navbar (messageEvent)="receiveMessage($event)"></app-navbar>
     <app-profile [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'profile')"></app-profile>
     <!-- <app-biography [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'biography')"></app-biography> -->
-    <app-academic-qualifications [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'academic qualifications')"></app-academic-qualifications>
+    <app-academic-qualifications [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'academic qualification')"></app-academic-qualifications>
     <app-memberships [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'membership')"></app-memberships>
     <app-awards [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'award')"></app-awards>
     <app-publications [select]="select" [exportable]="exportable" [cv]="cv" (messageEvent)="receiveReadyMessage($event, 'publication')"></app-publications>

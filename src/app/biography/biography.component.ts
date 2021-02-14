@@ -22,11 +22,15 @@ export class BiographyComponent implements OnInit {
   cv: Cv;
   @Input("exportable")
   set exportable(exportable: boolean) {
-    if (this.selected) {
+    if (exportable && this.selected) {
       this.cv.biography = this.biography;
     }
     this._exportable = exportable;
-    this.emitMessage();
+    if (exportable) {
+      this.emitMessage();
+    } else {
+      this.selected = false;
+    }
 
   }
   get exportable(): boolean {

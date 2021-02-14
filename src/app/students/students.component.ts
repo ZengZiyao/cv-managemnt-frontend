@@ -67,7 +67,7 @@ export class StudentsComponent implements OnInit {
   set exportable(exportable: boolean) {
     this._exportable = exportable;
 
-    if (this.masterSelected.indexOf(true) > -1) {
+    if (exportable && this.masterSelected.indexOf(true) > -1) {
       this.cv.masterStudents = [];
       for (let i = 0; i < this.masterSelected.length; i++) {
         if (this.masterSelected[i]) {
@@ -84,7 +84,16 @@ export class StudentsComponent implements OnInit {
         }
       }
     }
-    this.emitMessage();
+
+    if (exportable) {
+      this.emitMessage();
+
+    } else {
+      this.phdSelected.fill(false);
+      this.masterSelected.fill(false);
+      this.phdAllSelected = false;
+      this.masterAllSelected = false;
+    }
   }
   get exportable(): boolean {
     return this._exportable;

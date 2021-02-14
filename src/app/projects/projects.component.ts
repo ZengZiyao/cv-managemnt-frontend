@@ -22,7 +22,7 @@ export class ProjectsComponent implements OnInit {
   cv: Cv;
   @Input("exportable")
   set exportable(exportable: boolean) {
-    if (this.selected.indexOf(true) > -1) {
+    if (exportable && this.selected.indexOf(true) > -1) {
       this.cv.projects = [];
       for (let i = 0; i < this.selected.length; i++) {
         if (this.selected[i]) {
@@ -33,7 +33,12 @@ export class ProjectsComponent implements OnInit {
 
     }
     this._exportable = exportable;
-    this.emitMessage();
+    if (exportable) {
+      this.emitMessage();
+    } else {
+      this.selected.fill(false);
+      this.allSelected = false;
+    }
 
   }
   get exportable(): boolean {
