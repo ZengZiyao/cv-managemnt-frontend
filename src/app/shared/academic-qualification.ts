@@ -1,7 +1,7 @@
 export class AcademicQualification {
-    id: string;
-    year: Date;
-    degree: string;
-    major: string;
-    university: string;
+  id: string;
+  year: Date = new Date();
+  degree: string;
+  major: string;
+  university: string;
 }

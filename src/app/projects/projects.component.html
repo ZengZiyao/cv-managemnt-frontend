@@ -1,35 +1,61 @@
-<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
-
-    <mat-card class="half-width">
-        <mat-card-header>
-            <h3><mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected" [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Research Funding</h3>
+<div
+  *ngIf="hasProject"
+  class="container"
+  fxLayout="column"
+  fxLayoutGap="0px"
+  fxLayoutAlign="center center"
+>
+  <mat-card class="full-width">
+    <mat-card-header>
+      <h1>
+        <mat-checkbox
+          *ngIf="select"
+          class="right-margin"
+          [checked]="allSelected"
+          [indeterminate]="someSelected()"
+          (change)="setAll($event.checked)"
+        ></mat-checkbox
+        >Research Funding
+      </h1>
+      <span class="flex-spacer"></span>
+      <button mat-icon-button (click)="openDialog()">
+        <mat-icon>note_add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let project of projects; let i = index">
+          <div mat-line fxLayout="row" fxLayoutAlign="start start">
+            <mat-checkbox
+              *ngIf="select"
+              class="right-margin"
+              [(ngModel)]="selected[i]"
+              (change)="updateAllSelected($event.checked, i)"
+            ></mat-checkbox>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <h2 class="align-left">{{ project.title }}</h2>
+              <p class="zero-top-margin">
+                {{ project.role }} {{ project.startYear }} -
+                <span *ngIf="!project.endYear">current</span
+                ><span *ngIf="project.endYear">{{ project.endYear }}</span>
+              </p>
+              <p>Funder: {{ project.funder }}</p>
+              <p>Funding amount: {{ project.fundingAmount }}</p>
+              <p>{{ project.description }}</p>
+            </div>
             <span class="flex-spacer"></span>
-            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
-
-        </mat-card-header>
-        <mat-card-content>
-            <mat-list>
-                <mat-list-item *ngFor="let project of projects; let i = index">
-                    <div mat-line fxLayout="row" fxLayoutAlign="start center">
-                        <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]" (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
-                        <div fxLayout="column" fxLayoutAlign="start center">
-                            <h3 class="align-left">{{project.title}}</h3>
-                            <p class="zero-top-margin">{{project.role}} {{project.startYear}} - <span *ngIf="!project.endYear">current</span><span *ngIf="project.endYear">{{project.endYear}}</span><br>
-                            Funder: {{project.funder}}<br>
-                            Funding amount: {{project.fundingAmount}}<br>
-                            {{project.description}}</p>
-        
-                        </div>
-                        <span class="flex-spacer"></span>
-                        <div class="icon-group">
-                            <span (click)="openDialog(project)" class="icon"><span class="fa fa-edit"></span></span>
-                            <span (click)="deleteProject(project)"><span class="fa fa-trash"></span></span>
-                        </div>
-                    </div>
-                    <mat-divider mat-line></mat-divider>
-                </mat-list-item>
-            </mat-list>
-        </mat-card-content>
-    </mat-card>
-
+            <div class="icon-group">
+              <button mat-icon-button (click)="openDialog(project)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteProject(project)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <mat-divider mat-line></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>

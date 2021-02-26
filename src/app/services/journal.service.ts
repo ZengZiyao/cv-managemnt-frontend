@@ -7,21 +7,35 @@ import { catchError } from 'rxjs/operators';
 import { ProcessHttpMsgService } from './process-http-msg.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JournalService {
-
-  constructor(private httpClient: HttpClient, private processHttpMsgService: ProcessHttpMsgService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private processHttpMsgService: ProcessHttpMsgService
+  ) {}
 
   getJournals(): Observable<Journal[]> {
-    return this.httpClient.get<Journal[]>(`${baseUrl}/journals`).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .get<Journal[]>(`${baseUrl}/cv/journals`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  addJournal(journal: Journal): Observable<any>  {
-   return this.httpClient.post(`${baseUrl}/journals`, journal).pipe(catchError(this.processHttpMsgService.handleError));
+  addJournal(journal: Journal): Observable<any> {
+    return this.httpClient
+      .post(`${baseUrl}/cv/journals`, journal)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
   updateJounals(journals: Journal[]): Observable<any> {
-    return this.httpClient.put(`${baseUrl}/journals`, journals).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .put(`${baseUrl}/cv/journals`, journals)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 }

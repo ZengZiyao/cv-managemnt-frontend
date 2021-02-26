@@ -6,12 +6,13 @@ describe('BiographyDialogComponent', () => {
   let component: BiographyDialogComponent;
   let fixture: ComponentFixture<BiographyDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ BiographyDialogComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [BiographyDialogComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BiographyDialogComponent);

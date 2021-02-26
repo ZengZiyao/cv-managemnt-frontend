@@ -1,17 +1,30 @@
 <mat-form-field class="example-chip-list">
-    <mat-chip-list #chipList aria-label="Author selection">
-        <mat-chip *ngFor="let author of authors" [selectable]="selectable" [removable]="removable" (removed)="remove(author)">
-           <strong *ngIf="author.main">{{author.name}}</strong> <span *ngIf="!author.main">{{author.name}}</span>
-            <mat-select multiple>
-                <mat-option style="display: none;"></mat-option>
-                <mat-checkbox [(ngModel)]="author.main">Main Author</mat-checkbox><br>
-                <mat-checkbox [(ngModel)]="author.fellow">Fellow</mat-checkbox><br>
-                <mat-checkbox [(ngModel)]="author.student">Student</mat-checkbox>
-            </mat-select>
+  <mat-chip-list #chipList aria-label="Author selection">
+    <mat-chip
+      *ngFor="let author of authors"
+      [selectable]="selectable"
+      [removable]="removable"
+      (removed)="remove(author)"
+    >
+      <strong *ngIf="author.main">{{ author.name }}</strong>
+      <span *ngIf="!author.main">{{ author.name }}</span>
+      <mat-select multiple>
+        <mat-option style="display: none"></mat-option>
+        <mat-checkbox [(ngModel)]="author.main">Main Author</mat-checkbox><br />
+        <mat-checkbox [(ngModel)]="author.fellow">Fellow</mat-checkbox><br />
+        <mat-checkbox [(ngModel)]="author.student">Student</mat-checkbox>
+      </mat-select>
 
-            <mat-icon matChipRemove *ngIf="removable "><i class="fa fa-close "></i></mat-icon>
-
-        </mat-chip>
-        <input placeholder="Authors " [matChipInputFor]="chipList " [matChipInputSeparatorKeyCodes]="separatorKeysCodes " [matChipInputAddOnBlur]="addOnBlur " (matChipInputTokenEnd)="add($event) ">
-    </mat-chip-list>
+      <mat-icon matChipRemove *ngIf="removable"
+        ><i class="fa fa-close"></i
+      ></mat-icon>
+    </mat-chip>
+    <input
+      placeholder="Authors "
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="addOnBlur"
+      (matChipInputTokenEnd)="add($event)"
+    />
+  </mat-chip-list>
 </mat-form-field>

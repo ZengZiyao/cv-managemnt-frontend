@@ -1,0 +1,33 @@
+<div class="body" fxLayout="column">
+  <p>
+    <mat-toolbar color="primary">
+      <span>CV Management System</span>
+    </mat-toolbar>
+  </p>
+
+  <mat-card id="login">
+    <mat-card-content>
+      <form [formGroup]="loginForm" #lform="ngForm" (ngSubmit)="onSubmit()">
+        <h1>Log In</h1>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Username" formControlName="username" />
+          <mat-error> Please provide your username </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <mat-error> Please provide a valid password </mat-error>
+        </mat-form-field>
+        <div class="flex-container">
+          <a href="/signup">Sign up</a>
+          <span class="flex-spacer"></span>
+          <button mat-raised-button color="primary">Login</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

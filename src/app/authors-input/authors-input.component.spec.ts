@@ -6,12 +6,13 @@ describe('AuthorsInputComponent', () => {
   let component: AuthorsInputComponent;
   let fixture: ComponentFixture<AuthorsInputComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AuthorsInputComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [AuthorsInputComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AuthorsInputComponent);

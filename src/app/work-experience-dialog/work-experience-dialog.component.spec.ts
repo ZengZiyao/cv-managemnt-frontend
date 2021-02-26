@@ -6,12 +6,13 @@ describe('WorkExperienceDialogComponent', () => {
   let component: WorkExperienceDialogComponent;
   let fixture: ComponentFixture<WorkExperienceDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ WorkExperienceDialogComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [WorkExperienceDialogComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WorkExperienceDialogComponent);

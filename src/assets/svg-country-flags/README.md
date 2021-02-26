@@ -1,5 +1,4 @@
-country-flags
-=============
+# country-flags
 
 You can view all the flags here: http://hjnilsson.github.io/country-flags/
 
@@ -21,8 +20,7 @@ You can also install this as a NPM module:
 
     npm install --save svg-country-flags
 
-Arbitrary Width
-===============
+# Arbitrary Width
 
 If you would like the flags in a different width than 100px, 250px or 1000px,
 you can run the node script 'build-pngs', you must first install the modules `svgexport` and `imagemin-cli`:
@@ -33,8 +31,7 @@ you can run the node script 'build-pngs', you must first install the modules `sv
 Replace `1000:` with whatever width you want (note the `:`), or type `:200` to get
 PNGs with a height of 200px.
 
-Arbitrary Width Manually
-========================
+# Arbitrary Width Manually
 
 If you cannot run the node script above, you can do the same steps manually.
 

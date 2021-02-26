@@ -1,3 +1,9 @@
+import { ProjectService } from './services/project.service';
+import { MembershipService } from './services/membership.service';
+import { JournalService } from './services/journal.service';
+import { CourseService } from './services/course.service';
+import { ConferenceService } from './services/conference.service';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { WorkExperienceService } from './services/work-experience.service';
 import { PublicationService } from './services/publication.service';
 import { BiographyService } from './services/biography.service';
@@ -9,24 +15,24 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { CvComponent } from './cv/cv.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { HttpClientModule } from "@angular/common/http";
-import { MatListModule } from "@angular/material/list";
-import { MatCardModule } from "@angular/material/card";
-import { MatDialogModule} from "@angular/material/dialog";
-import { MatButtonModule } from "@angular/material/button";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatInputModule } from "@angular/material/input";
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from "@angular/material/core";
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatSelectModule} from '@angular/material/select';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { ProfileComponent } from './profile/profile.component';
 import { BiographyComponent } from './biography/biography.component';
@@ -51,10 +57,15 @@ import { AcademicQualificationsComponent } from './academic-qualifications/acade
 import { AcademicQualificationDialogComponent } from './academic-qualification-dialog/academic-qualification-dialog.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { StudentsComponent } from './students/students.component';
 import { StudentDialogComponent } from './student-dialog/student-dialog.component';
-import {MatSortModule} from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
+import { StudentService } from './services/student.service';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ComponentDialogComponent } from './component-dialog/component-dialog.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +94,11 @@ import {MatSortModule} from '@angular/material/sort';
     CoursesComponent,
     CourseDialogComponent,
     StudentsComponent,
-    StudentDialogComponent
+    StudentDialogComponent,
+    LoginComponent,
+    SignupComponent,
+    UserProfileComponent,
+    ComponentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,18 +124,27 @@ import {MatSortModule} from '@angular/material/sort';
     MatMenuModule,
     MatSelectCountryModule.forRoot('en'),
     MatTableModule,
-    MatSortModule
+    MatSortModule,
   ],
   providers: [
     AwardService,
-    ProfileService,
     BiographyService,
+    ConferenceService,
+    CourseService,
+    JournalService,
+    MembershipService,
+    ProfileService,
+    ProjectService,
     PublicationService,
-    WorkExperienceService
+    StudentService,
+    WorkExperienceService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
-  entryComponents: [
-    ProfileComponent
-  ],
-  bootstrap: [AppComponent]
+  entryComponents: [ProfileComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

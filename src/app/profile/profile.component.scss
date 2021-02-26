@@ -1,3 +1,11 @@
 .mat-card-content {
-    padding-left: 11px;
+  padding-left: 11px;
+}
+
+mat-card-content p {
+  text-align: center;
+}
+
+mat-icon {
+  margin-right: 20px;
 }

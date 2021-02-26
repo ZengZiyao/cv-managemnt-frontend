@@ -1,15 +1,29 @@
-<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
-
-    <mat-card class="half-width">
-        <mat-card-header>
-            <h3><mat-checkbox *ngIf="select" (change)="toggleSelection()" class="right-margin"></mat-checkbox>Biography</h3>
-            <span class="flex-spacer"></span>
-            <a *ngIf="!biography" (click)=" openDialog() "><span class="fa fa-plus "></span></a>
-            <a *ngIf="biography" (click)="openDialog(biography) "><span class="fa fa-edit "></span></a>
-        </mat-card-header>
-        <mat-card-content *ngIf="biography">
-            <p id="content">{{biography.content}}</p>
-        </mat-card-content>
-    </mat-card>
-
+<div
+  class="container"
+  fxLayout="column"
+  fxLayoutGap="0px"
+  fxLayoutAlign="center center"
+>
+  <mat-card class="full-width">
+    <mat-card-header>
+      <h1>
+        <mat-checkbox
+          *ngIf="select"
+          (change)="toggleSelection()"
+          class="right-margin"
+        ></mat-checkbox
+        >Biography
+      </h1>
+      <span class="flex-spacer"></span>
+      <button mat-icon-button *ngIf="!biography" (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button *ngIf="biography" (click)="openDialog(biography)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content *ngIf="biography">
+      <p id="content">{{ biography.content }}</p>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -1,27 +1,52 @@
-<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+<div
+  *ngIf="hasAward"
+  class="container"
+  fxLayout="column"
+  fxLayoutGap="0px"
+  fxLayoutAlign="center center"
+>
+  <mat-card class="full-width">
+    <mat-card-header>
+      <h1>
+        <mat-checkbox
+          *ngIf="select"
+          class="right-margin"
+          [checked]="allSelected"
+          [indeterminate]="someSelected()"
+          (change)="setAll($event.checked)"
+        ></mat-checkbox
+        >Research Awards / Recognition
+      </h1>
+      <span class="flex-spacer"></span>
+      <button mat-icon-button (click)="openDialog()">
+        <mat-icon aria-hidden="false">note_add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content *ngIf="awards">
+      <mat-list>
+        <mat-list-item *ngFor="let award of awards; let i = index">
+          <p>
+            <mat-checkbox
+              *ngIf="select"
+              class="right-margin"
+              [(ngModel)]="selected[i]"
+              (change)="updateAllSelected($event.checked, i)"
+            ></mat-checkbox>
 
-    <mat-card class="half-width">
-        <mat-card-header>
-            <h3><mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected" [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Research Awards / Recognition</h3>
-            <span class="flex-spacer"></span>
-            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
-
-        </mat-card-header>
-        <mat-card-content *ngIf="awards">
-            <mat-list>
-                <mat-list-item *ngFor="let award of awards; let i = index">
-                    <p>                    <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]" (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
-
-                        {{award.content}} ({{award.date | date:"yyyy"}})</p>
-                    <span class="flex-spacer"></span>
-                    <div class="icon-group">
-                        <span (click)="openDialog(award)" class="icon"><span class="fa fa-edit"></span></span>
-                        <span (click)="deleteAward(award)"><span class="fa fa-trash"></span></span>
-                    </div>
-                    <mat-divider></mat-divider>
-                </mat-list-item>
-            </mat-list>
-        </mat-card-content>
-    </mat-card>
-
+            {{ award.content }} ({{ award.date | date: "yyyy" }})
+          </p>
+          <span class="flex-spacer"></span>
+          <div class="icon-group">
+            <button mat-icon-button (click)="openDialog(award)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteAward(award)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>

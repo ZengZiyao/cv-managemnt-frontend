@@ -1,3 +1,5 @@
+import { Status } from './../shared/status';
+import { StatusService } from './../services/status.service';
 import { Student } from './../shared/student';
 import { Course } from './../shared/course';
 import { Publication } from './../shared/publication';
@@ -37,6 +39,8 @@ export class CvComponent implements OnInit {
   select: boolean;
   exportable: boolean;
   cv: Cv;
+  status: Status = new Status();
+  empty: boolean;
   profileReady: boolean;
   awardReady: boolean;
   biographyReady: boolean;
@@ -48,12 +52,26 @@ export class CvComponent implements OnInit {
   courseReady: boolean;
   studentReady: boolean;
 
-  constructor() {}
+  constructor(private statusService: StatusService) {}
 
   ngOnInit(): void {
     this.select = false;
     this.exportable = false;
     this.cv = new Cv();
+    this.statusService.getStatus().subscribe((data) => {
+      this.status = data;
+      this.empty = !(
+        this.status.academicQualification ||
+        this.status.award ||
+        this.status.course ||
+        this.status.membership ||
+        this.status.profile ||
+        this.status.project ||
+        this.status.publication ||
+        this.status.student ||
+        this.status.workExperience
+      );
+    });
   }
 
   receiveMessage($event) {
@@ -74,21 +92,24 @@ export class CvComponent implements OnInit {
       numbering: {
         config: [
           {
-            reference: "numbering",
+            reference: 'numbering',
             levels: [
               {
                 level: 0,
                 format: LevelFormat.DECIMAL,
-                text: "%1.",
+                text: '%1.',
                 alignment: AlignmentType.START,
                 style: {
                   paragraph: {
-                    indent: { left: 300, hanging: 260 }
-                  }
-                }
+                    indent: { left: 300, hanging: 260 },
+                  },
+                },
               },
-      ]},]
-    }});
+            ],
+          },
+        ],
+      },
+    });
 
     doc.addSection({
       children: [
@@ -100,8 +121,7 @@ export class CvComponent implements OnInit {
               size: 24,
               bold: true,
             }),
-            new TextRun({
-            })
+            new TextRun({}),
           ],
           alignment: AlignmentType.CENTER,
         }),
@@ -113,7 +133,7 @@ export class CvComponent implements OnInit {
         ...this.createFunding(cv.projects),
         ...this.createPublications(cv.publications),
         ...this.creatCourses(cv.courses),
-        ...this.createStudents(cv.phdStudents, cv.masterStudents)
+        ...this.createStudents(cv.phdStudents, cv.masterStudents),
       ],
     });
 
@@ -268,7 +288,7 @@ export class CvComponent implements OnInit {
                     type: WidthType.PERCENTAGE,
                   },
                   margins: {
-                    left: 50
+                    left: 50,
                   },
                   children: [
                     new Paragraph({
@@ -285,8 +305,8 @@ export class CvComponent implements OnInit {
                 }),
                 new TableCell({
                   margins: {
-                    left: 50
-                  },    
+                    left: 50,
+                  },
                   width: {
                     size: 80,
                     type: WidthType.PERCENTAGE,
@@ -313,8 +333,8 @@ export class CvComponent implements OnInit {
                   children: [
                     new TableCell({
                       margins: {
-                        left: 50
-                      },        
+                        left: 50,
+                      },
                       children: [
                         new Paragraph({
                           children: [
@@ -329,8 +349,8 @@ export class CvComponent implements OnInit {
                     }),
                     new TableCell({
                       margins: {
-                        left: 50
-                      },        
+                        left: 50,
+                      },
                       children: [
                         new Paragraph({
                           children: [
@@ -391,7 +411,7 @@ export class CvComponent implements OnInit {
           children: [
             new TableCell({
               margins: {
-                left: 50
+                left: 50,
               },
               width: {
                 size: 10,
@@ -412,7 +432,7 @@ export class CvComponent implements OnInit {
             }),
             new TableCell({
               margins: {
-                left: 50
+                left: 50,
               },
               width: {
                 size: 20,
@@ -433,7 +453,7 @@ export class CvComponent implements OnInit {
             }),
             new TableCell({
               margins: {
-                left: 50
+                left: 50,
               },
               width: {
                 size: 30,
@@ -454,7 +474,7 @@ export class CvComponent implements OnInit {
             }),
             new TableCell({
               margins: {
-                left: 50
+                left: 50,
               },
               width: {
                 size: 20,
@@ -475,7 +495,7 @@ export class CvComponent implements OnInit {
             }),
             new TableCell({
               margins: {
-                left: 50
+                left: 50,
               },
               width: {
                 size: 20,
@@ -503,8 +523,8 @@ export class CvComponent implements OnInit {
               children: [
                 new TableCell({
                   margins: {
-                    left: 50
-                  },    
+                    left: 50,
+                  },
                   children: [
                     new Paragraph({
                       children: [
@@ -519,8 +539,8 @@ export class CvComponent implements OnInit {
                 }),
                 new TableCell({
                   margins: {
-                    left: 50
-                  },    
+                    left: 50,
+                  },
                   children: [
                     new Paragraph({
                       children: [
@@ -535,8 +555,8 @@ export class CvComponent implements OnInit {
                 }),
                 new TableCell({
                   margins: {
-                    left: 50
-                  },    
+                    left: 50,
+                  },
                   children: [
                     new Paragraph({
                       children: [
@@ -551,7 +571,7 @@ export class CvComponent implements OnInit {
                 }),
                 new TableCell({
                   margins: {
-                    left: 50
+                    left: 50,
                   },
                   children: [
                     new Paragraph({
@@ -567,8 +587,8 @@ export class CvComponent implements OnInit {
                 }),
                 new TableCell({
                   margins: {
-                    left: 50
-                  },    
+                    left: 50,
+                  },
                   children: [
                     new Paragraph({
                       children: [
@@ -617,39 +637,41 @@ export class CvComponent implements OnInit {
 
   createJournals(publications: Publication[]) {
     let arr = [];
-    arr.push(new Paragraph({
-      
-    }));
+    arr.push(new Paragraph({}));
     publications.forEach((p) => {
-      arr.push(new Paragraph({
-        numbering: {
-          reference: "numbering",
-          level: 0
-        },
-        children: [
-          ...p.authors.map((a) => {
-            return new TextRun({
-              text: `${a.name}${a.student ? '*' : a.fellow ? '**' : ''}, `,
-              bold: a.main,
+      arr.push(
+        new Paragraph({
+          numbering: {
+            reference: 'numbering',
+            level: 0,
+          },
+          children: [
+            ...p.authors.map((a) => {
+              return new TextRun({
+                text: `${a.name}${a.student ? '*' : a.fellow ? '**' : ''}, `,
+                bold: a.main,
+                font: 'Arial',
+                size: 22,
+              });
+            }),
+            new TextRun({
+              text: `"${p.title}". ${p.pubSource.name}, ${p.page}, ${moment(
+                new Date(p.date)
+              ).format('MMM yyyy')}.`,
               font: 'Arial',
               size: 22,
-            })
-          }),
-          new TextRun({
-            text: `"${p.title}". ${p.pubSource.name}, ${p.page}, ${moment(new Date(p.date)).format("MMM yyyy")}.`,
-            font: 'Arial',
-            size: 22,
-          }),
-          new TextRun({
-            text: p.tier === '1A' ? '##' : '#',
-            font: 'Arial',
-            size: 22,
-          }),
-          new TextRun({
-            break: 1
-          })
-        ]
-      }));
+            }),
+            new TextRun({
+              text: p.tier === '1A' ? '##' : '#',
+              font: 'Arial',
+              size: 22,
+            }),
+            new TextRun({
+              break: 1,
+            }),
+          ],
+        })
+      );
     });
     return arr;
   }
@@ -658,30 +680,34 @@ export class CvComponent implements OnInit {
     console.log(publications);
     let arr = [];
     publications.forEach((p) => {
-      arr.push(new Paragraph({
-        numbering: {
-          reference: "numbering",
-          level: 0
-        },
-        children: [
-          ...p.authors.map((a) => {
-            return new TextRun({
-              text: `${a.name}${a.student ? '*' : a.fellow ? '**' : ''}, `,
-              bold: a.main,
+      arr.push(
+        new Paragraph({
+          numbering: {
+            reference: 'numbering',
+            level: 0,
+          },
+          children: [
+            ...p.authors.map((a) => {
+              return new TextRun({
+                text: `${a.name}${a.student ? '*' : a.fellow ? '**' : ''}, `,
+                bold: a.main,
+                font: 'Arial',
+                size: 22,
+              });
+            }),
+            new TextRun({
+              text: `"${p.title}". ${p.pubSource.name}, ${p.country}, ${
+                p.page
+              }, ${moment(new Date(p.date)).format('MMM yyyy')}.`,
               font: 'Arial',
               size: 22,
-            })
-          }),
-          new TextRun({
-            text: `"${p.title}". ${p.pubSource.name}, ${p.country}, ${p.page}, ${moment(new Date(p.date)).format("MMM yyyy")}.`,
-            font: 'Arial',
-            size: 22,
-          }),
-          new TextRun({
-            break: 1
-          })
-        ]
-      }));
+            }),
+            new TextRun({
+              break: 1,
+            }),
+          ],
+        })
+      );
     });
     return arr;
   }
@@ -689,275 +715,290 @@ export class CvComponent implements OnInit {
   creatCourses(courses: Course[]) {
     let arr = [];
     if (courses != undefined && courses.length > 0) {
-      arr.push(this.createHeading('Key Courses Taught (Current Year and Last 2 years)'));
-      arr.push(new Paragraph({}))
-      arr.push(new Table({
-        width: {
-          size: 100,
-          type: WidthType.PERCENTAGE,
-        },
-        rows: [
-          new TableRow({
-            tableHeader: true,
-            children: [
-              new TableCell({
-                margins: {
-                  left: 50
-                },
-                width: {
-                  size: 10,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: 'Course Code',
-                        bold: true,
-                        font: 'Arial',
-                        size: 22,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                margins: {
-                  left: 50
-                },
-                width: {
-                  size: 25,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: 'Course Title',
-                        bold: true,
-                        font: 'Arial',
-                        size: 22,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                margins: {
-                  left: 50
-                },
-                width: {
-                  size: 20,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: 'Academic Year',
-                        bold: true,
-                        font: 'Arial',
-                        size: 22,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                margins: {
-                  left: 50
-                },
-                width: {
-                  size: 10,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: 'Course Level',
-                        bold: true,
-                        font: 'Arial',
-                        size: 22,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                margins: {
-                  left: 50
-                },
-                width: {
-                  size: 25,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: 'Type\n(Lecture, Tutorial, etc.)',
-                        bold: true,
-                        font: 'Arial',
-                        size: 22,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                margins: {
-                  left: 50
-                },
-                width: {
-                  size: 10,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: 'Semester',
-                        bold: true,
-                        font: 'Arial',
-                        size: 22,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-            ],
-          }),
-          ...courses
-            .sort((a, b) => new Date(b.startYear).getFullYear() - new Date(a.startYear).getFullYear())
-            .map((c) => {
-              return new TableRow({
-                children: [
-                  new TableCell({
-                    margins: {
-                      left: 50
-                    },    
-                    children: [
-                      new Paragraph({
-                        children: [
-                          new TextRun({
-                            text: c.courseCode,
-                            font: 'Arial',
-                            size: 22,
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
-                  new TableCell({
-                    margins: {
-                      left: 50
-                    },    
-                    children: [
-                      new Paragraph({
-                        children: [
-                          new TextRun({
-                            text: c.title,
-                            font: 'Arial',
-                            size: 22,
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
-                  new TableCell({
-                    margins: {
-                      left: 50
-                    },    
-                    children: [
-                      new Paragraph({
-                        children: [
-                          new TextRun({
-                            text: `AY${moment(new Date(c.startYear)).format('yy')} - ${c.endYear == undefined ? 'Current' : 'AY' + moment(new Date(c.endYear)).format('yy')}`,
-                            font: 'Arial',
-                            size: 22,
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
-                  new TableCell({
-                    margins: {
-                      left: 50
-                    },
-                    children: [
-                      new Paragraph({
-                        children: [
-                          new TextRun({
-                            text: c.courseLevel,
-                            font: 'Arial',
-                            size: 22,
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
-                  new TableCell({
-                    margins: {
-                      left: 50
-                    },    
-                    children: [
-                      new Paragraph({
-                        children: [
-                          new TextRun({
-                            text: c.courseType,
-                            font: 'Arial',
-                            size: 22,
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
-                  new TableCell({
-                    margins: {
-                      left: 50
-                    },    
-                    children: [
-                      new Paragraph({
-                        children: [
-                          new TextRun({
-                            text: `${c.semester}`,
-                            font: 'Arial',
-                            size: 22,
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
-                ],
-              });
+      arr.push(
+        this.createHeading('Key Courses Taught (Current Year and Last 2 years)')
+      );
+      arr.push(new Paragraph({}));
+      arr.push(
+        new Table({
+          width: {
+            size: 100,
+            type: WidthType.PERCENTAGE,
+          },
+          rows: [
+            new TableRow({
+              tableHeader: true,
+              children: [
+                new TableCell({
+                  margins: {
+                    left: 50,
+                  },
+                  width: {
+                    size: 10,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: 'Course Code',
+                          bold: true,
+                          font: 'Arial',
+                          size: 22,
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+                new TableCell({
+                  margins: {
+                    left: 50,
+                  },
+                  width: {
+                    size: 25,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: 'Course Title',
+                          bold: true,
+                          font: 'Arial',
+                          size: 22,
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+                new TableCell({
+                  margins: {
+                    left: 50,
+                  },
+                  width: {
+                    size: 20,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: 'Academic Year',
+                          bold: true,
+                          font: 'Arial',
+                          size: 22,
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+                new TableCell({
+                  margins: {
+                    left: 50,
+                  },
+                  width: {
+                    size: 10,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: 'Course Level',
+                          bold: true,
+                          font: 'Arial',
+                          size: 22,
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+                new TableCell({
+                  margins: {
+                    left: 50,
+                  },
+                  width: {
+                    size: 25,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: 'Type\n(Lecture, Tutorial, etc.)',
+                          bold: true,
+                          font: 'Arial',
+                          size: 22,
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+                new TableCell({
+                  margins: {
+                    left: 50,
+                  },
+                  width: {
+                    size: 10,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: 'Semester',
+                          bold: true,
+                          font: 'Arial',
+                          size: 22,
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+              ],
             }),
-        ],
-      }));
-  
+            ...courses
+              .sort(
+                (a, b) =>
+                  new Date(b.startYear).getFullYear() -
+                  new Date(a.startYear).getFullYear()
+              )
+              .map((c) => {
+                return new TableRow({
+                  children: [
+                    new TableCell({
+                      margins: {
+                        left: 50,
+                      },
+                      children: [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: c.courseCode,
+                              font: 'Arial',
+                              size: 22,
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    new TableCell({
+                      margins: {
+                        left: 50,
+                      },
+                      children: [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: c.title,
+                              font: 'Arial',
+                              size: 22,
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    new TableCell({
+                      margins: {
+                        left: 50,
+                      },
+                      children: [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: `AY${moment(new Date(c.startYear)).format(
+                                'yy'
+                              )} - ${
+                                c.endYear == undefined
+                                  ? 'Current'
+                                  : 'AY' +
+                                    moment(new Date(c.endYear)).format('yy')
+                              }`,
+                              font: 'Arial',
+                              size: 22,
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    new TableCell({
+                      margins: {
+                        left: 50,
+                      },
+                      children: [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: c.courseLevel,
+                              font: 'Arial',
+                              size: 22,
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    new TableCell({
+                      margins: {
+                        left: 50,
+                      },
+                      children: [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: c.courseType,
+                              font: 'Arial',
+                              size: 22,
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    new TableCell({
+                      margins: {
+                        left: 50,
+                      },
+                      children: [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: `${c.semester}`,
+                              font: 'Arial',
+                              size: 22,
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  ],
+                });
+              }),
+          ],
+        })
+      );
     }
     return arr;
   }
 
   createStudents(phds: Student[], masters: Student[]) {
     let arr = [];
-    if (phds != undefined && phds.length > 0 || masters != undefined && masters.length > 0) {
+    if (
+      (phds != undefined && phds.length > 0) ||
+      (masters != undefined && masters.length > 0)
+    ) {
       arr.push(this.createHeading('Academic Supervision and Mentoring'));
-      
+
       if (phds != undefined && phds.length > 0) {
         arr.push(this.createSubheading('PhD students'));
-        arr.push(new Paragraph({}))
+        arr.push(new Paragraph({}));
         arr.push(this.createStudentsTable(phds, 'PhD'));
       }
       if (masters != undefined && masters.length > 0) {
         arr.push(this.createSubheading('Masters students (By Research Only)'));
-        arr.push(new Paragraph({}))
+        arr.push(new Paragraph({}));
         arr.push(this.createStudentsTable(masters, 'Master'));
       }
-  
     }
     return arr;
-
   }
 
   createStudentsTable(students: Student[], type: string) {
@@ -971,187 +1012,193 @@ export class CvComponent implements OnInit {
       }
     });
 
-    let rows : TableRow[] = [];
-    rows.push(        new TableRow({
-      tableHeader: true,
-      children: [
-        new TableCell({
-          margins: {
-            left: 50
-          },
-          width: {
-            size: 5,
-            type: WidthType.PERCENTAGE,
-          },
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: 'No.',
-                  bold: true,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },
-          width: {
-            size: 20,
-            type: WidthType.PERCENTAGE,
-          },
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: `${type === 'PhD' ? 'PhD' : 'Masters'} Student`,
-                  bold: true,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },
-          width: {
-            size: 20,
-            type: WidthType.PERCENTAGE,
-          },
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: 'Period',
-                  bold: true,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },
-          width: {
-            size: 20,
-            type: WidthType.PERCENTAGE,
-          },
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: 'Role',
-                  bold: true,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },
-          width: {
-            size: 20,
-            type: WidthType.PERCENTAGE,
-          },
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: 'Thesis/ Project Title',
-                  bold: true,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },
-          width: {
-            size: 15,
-            type: WidthType.PERCENTAGE,
-          },
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: 'Current Status',
-                  bold: true,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-      ],
-    }),);
-    if (currents.length > 0) {
-      rows.push(new TableRow({
+    let rows: TableRow[] = [];
+    rows.push(
+      new TableRow({
+        tableHeader: true,
         children: [
           new TableCell({
-            columnSpan: 6,
             margins: {
-              left: 50
+              left: 50,
+            },
+            width: {
+              size: 5,
+              type: WidthType.PERCENTAGE,
             },
             children: [
               new Paragraph({
                 children: [
                   new TextRun({
-                    text: 'Currently Supervising',
+                    text: 'No.',
                     bold: true,
                     font: 'Arial',
                     size: 22,
                   }),
                 ],
               }),
-            ]
-          })
-        ]
-      }));
+            ],
+          }),
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 20,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `${type === 'PhD' ? 'PhD' : 'Masters'} Student`,
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 20,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: 'Period',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 20,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: 'Role',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 20,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: 'Thesis/ Project Title',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 15,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: 'Current Status',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      })
+    );
+    if (currents.length > 0) {
+      rows.push(
+        new TableRow({
+          children: [
+            new TableCell({
+              columnSpan: 6,
+              margins: {
+                left: 50,
+              },
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: 'Currently Supervising',
+                      bold: true,
+                      font: 'Arial',
+                      size: 22,
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        })
+      );
       rows = rows.concat(this.createStudentRows(currents));
     }
 
     if (graduates.length > 0) {
-      rows.push(          new TableRow({
-        children: [
-          new TableCell({
-            columnSpan: 6,
-            margins: {
-              left: 50
-            },
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: 'Graduated (Current Year and Last 2 years)',
-                    bold: true,
-                    font: 'Arial',
-                    size: 22,
-                  }),
-                ],
-              }),
-            ]
-          })
-        ]
-      }));
+      rows.push(
+        new TableRow({
+          children: [
+            new TableCell({
+              columnSpan: 6,
+              margins: {
+                left: 50,
+              },
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: 'Graduated (Current Year and Last 2 years)',
+                      bold: true,
+                      font: 'Arial',
+                      size: 22,
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        })
+      );
       rows = rows.concat(this.createStudentRows(graduates));
     }
     return new Table({
@@ -1164,107 +1211,120 @@ export class CvComponent implements OnInit {
   }
 
   createStudentRows(students: Student[]) {
-    return students.sort((a, b) => new Date(b.startYear).getFullYear() - new Date(a.startYear).getFullYear())
-    .map((s, index) => new TableRow({
-      children: [
-        new TableCell({
-          margins: {
-            left: 50
-          },    
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: `${index + 1}`,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },    
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: s.name,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },    
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: `${new Date(s.startYear).getFullYear()} - ${s.endYear == undefined ? 'present' : new Date(s.endYear).getFullYear()}`,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: s.role,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },    
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: s.title,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-        new TableCell({
-          margins: {
-            left: 50
-          },    
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: s.status,
-                  font: 'Arial',
-                  size: 22,
-                }),
-              ],
-            }),
-          ],
-        }),
-      ],
-    }));  }
+    return students
+      .sort(
+        (a, b) =>
+          new Date(b.startYear).getFullYear() -
+          new Date(a.startYear).getFullYear()
+      )
+      .map(
+        (s, index) =>
+          new TableRow({
+            children: [
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: `${index + 1}`,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: s.name,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: `${new Date(s.startYear).getFullYear()} - ${
+                          s.endYear == undefined
+                            ? 'present'
+                            : new Date(s.endYear).getFullYear()
+                        }`,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: s.role,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: s.title,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: s.status,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+            ],
+          })
+      );
+  }
 
   createHeading(content: string) {
     return new Paragraph({

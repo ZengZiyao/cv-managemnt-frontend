@@ -13,9 +13,7 @@
     {
       "path": "./tsconfig.spec.json"
     }
-],
-"lib": [
-  "es2015",
-],
-"target": "es2015",
+  ],
+  "lib": ["es2015"],
+  "target": "es2015"
 }

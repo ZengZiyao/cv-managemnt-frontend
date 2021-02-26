@@ -1,11 +1,18 @@
 table {
-    width: 100%;
-  }
-
-  .icon-group {
-    display: flex;
+  width: 100%;
 }
 
-span.icon {
-    margin: 0 7px;
+.icon-group {
+  align-content: space-between;
+}
+
+mat-card-content {
+  padding: 5px 36px;
+}
+
+.mat-header-cell,
+.mat-cell {
+  font-size: 1rem;
+  text-align: center;
+  padding: auto;
 }

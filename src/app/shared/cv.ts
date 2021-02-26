@@ -10,15 +10,15 @@ import { Biography } from './biography';
 import { Profile } from './profile';
 
 export class Cv {
-    profile: Profile;
-    biography: Biography;
-    awards: Award[];
-    projects: Project[];
-    publications: Publication[];
-    workExperiences: WorkExperience[];
-    memberships: Membership[];
-    academicQualifications: AcademicQualification[];
-    courses: Course[];
-    masterStudents: Student[];
-    phdStudents: Student[];
+  profile: Profile;
+  biography: Biography;
+  awards: Award[];
+  projects: Project[];
+  publications: Publication[];
+  workExperiences: WorkExperience[];
+  memberships: Membership[];
+  academicQualifications: AcademicQualification[];
+  courses: Course[];
+  masterStudents: Student[];
+  phdStudents: Student[];
 }

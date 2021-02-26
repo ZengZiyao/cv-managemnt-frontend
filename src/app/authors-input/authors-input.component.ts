@@ -1,7 +1,7 @@
 import { Author } from './../shared/author';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material/chips';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 export interface Fruit {
   name: string;
@@ -10,7 +10,7 @@ export interface Fruit {
 @Component({
   selector: 'app-authors-input',
   templateUrl: './authors-input.component.html',
-  styleUrls: ['./authors-input.component.scss']
+  styleUrls: ['./authors-input.component.scss'],
 })
 export class AuthorsInputComponent implements OnInit {
   visible = true;
@@ -21,24 +21,22 @@ export class AuthorsInputComponent implements OnInit {
   @Input() authors: Author[];
   @Output() authorsEvent = new EventEmitter<Author[]>();
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
     if ((value || '').trim()) {
-      value.split(",").forEach((e) => {
+      value.split(',').forEach((e) => {
         e = e.trim();
-        let author : Author = new Author();
-        if (e.endsWith("**")) {
+        let author: Author = new Author();
+        if (e.endsWith('**')) {
           author.fellow = true;
-          author.name = e.slice(0, -2)
-        } else if (e.endsWith("*")) {
+          author.name = e.slice(0, -2);
+        } else if (e.endsWith('*')) {
           author.student = true;
           author.name = e.slice(0, -1);
         } else {
@@ -46,8 +44,7 @@ export class AuthorsInputComponent implements OnInit {
         }
         this.authors.push(author);
         this.updateAuthors(this.authors);
-      })
-      
+      });
     }
 
     // Reset the input value
@@ -64,8 +61,7 @@ export class AuthorsInputComponent implements OnInit {
     }
   }
 
-updateAuthors(authors: Author[]) {
-  this.authorsEvent.emit(authors);
-}
-
+  updateAuthors(authors: Author[]) {
+    this.authorsEvent.emit(authors);
+  }
 }

@@ -1,4 +1,4 @@
 export enum PubType {
-    JOURNAL = 0,
-    CONFERENCE = 1
+  JOURNAL = 0,
+  CONFERENCE = 1,
 }

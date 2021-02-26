@@ -1,33 +1,66 @@
-<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
+<div
+  *ngIf="hasWorkExperience"
+  class="container"
+  fxLayout="column"
+  fxLayoutGap="0px"
+  fxLayoutAlign="center center"
+>
+  <mat-card class="full-width">
+    <mat-card-header>
+      <h1>
+        <mat-checkbox
+          *ngIf="select"
+          class="right-margin"
+          [checked]="allSelected"
+          [indeterminate]="someSelected()"
+          (change)="setAll($event.checked)"
+        ></mat-checkbox
+        >Summary of Work Experience
+      </h1>
+      <span class="flex-spacer"></span>
+      <button mat-icon-button (click)="openDialog()">
+        <mat-icon>note_add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item
+          *ngFor="let workExperience of workExperiences; let i = index"
+          fxLayout="column"
+        >
+          <div mat-line fxLayout="row" fxLayoutAlign="start end">
+            <p>
+              <mat-checkbox
+                *ngIf="select"
+                class="right-margin"
+                [(ngModel)]="selected[i]"
+                (change)="updateAllSelected($event.checked, i)"
+              ></mat-checkbox>
 
-    <mat-card class="half-width">
-        <mat-card-header>
-            <h3><mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected" [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Summary of Work Experience</h3>
+              {{ workExperience.startTime | date: "MMM, y" }} -
+              <span *ngIf="!workExperience.endTime">current</span
+              ><span *ngIf="workExperience.endTime">{{
+                workExperience.endTime | date: "MMM, y"
+              }}</span>
+              &nbsp; {{ workExperience.title }}, {{ workExperience.company }}
+            </p>
+
             <span class="flex-spacer"></span>
-            <a (click)="openDialog()"><span class="fa fa-plus"></span></a>
-
-        </mat-card-header>
-        <mat-card-content>
-            <mat-list>
-                <mat-list-item *ngFor="let workExperience of workExperiences; let i =index" fxLayout="column">
-                    <div mat-line fxLayout="row" fxLayoutAlign="start end">
-                        <p >
-                            <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]" (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
-
-                            {{workExperience.startTime | date:"MMM, y"}} - <span *ngIf="!workExperience.endTime">current</span><span *ngIf="workExperience.endTime">{{workExperience.endTime | date:"MMM, y"}}</span>
-                            &nbsp; {{workExperience.title}}, {{workExperience.company}}
-                        </p>    
-
-                        <span class="flex-spacer"></span>
-                        <div class="icon-group">
-                            <span (click)="openDialog(workExperience)" class="icon"><span class="fa fa-edit"></span></span>
-                            <span (click)="deleteWorkExperience(workExperience)"><span class="fa fa-trash"></span></span>
-                        </div>
-                    </div>
-                    <mat-divider mat-line></mat-divider>
-                </mat-list-item>
-            </mat-list>
-        </mat-card-content>
-    </mat-card>
-
+            <div class="icon-group">
+              <button mat-icon-button (click)="openDialog(workExperience)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                (click)="deleteWorkExperience(workExperience)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <mat-divider mat-line></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>

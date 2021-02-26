@@ -1,20 +1,26 @@
 table {
-    width: 100%;
+  width: 100%;
 }
 
 .flex-container {
-    display: flex;
-    padding-left: 40;
+  display: flex;
+  padding-left: 40;
 }
 
 .spacer {
-    height: 30px;
+  height: 30px;
 }
 
 .icon-group {
-    display: flex;
+  align-content: space-between;
 }
 
-span.icon {
-    margin: 0 7px;
+mat-card-content {
+  padding: 5px 36px;
+}
+
+.mat-header-cell,
+.mat-cell {
+  font-size: 1rem;
+  text-align: center;
 }

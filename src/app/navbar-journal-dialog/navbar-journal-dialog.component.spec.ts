@@ -8,9 +8,8 @@ describe('NavbarJournalDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarJournalDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [NavbarJournalDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

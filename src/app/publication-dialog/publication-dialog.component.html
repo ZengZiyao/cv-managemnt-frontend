@@ -1,89 +1,115 @@
 <div fxLayout="column" fxLayoutGap="10px">
+  <mat-toolbar color="primary">
+    <span>Edit Publication</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  </mat-toolbar>
 
+  <form
+    novalidate
+    [formGroup]="publicationForm"
+    #pform="ngForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-dialog-content>
+      <p>
+        <app-authors-input
+          [authors]="publicationCopy.authors"
+          (authorsEvent)="updateAuthors($event)"
+        >
+        </app-authors-input>
+      </p>
+      <p>
+        <mat-form-field class="full-width">
+          <mat-label>Title</mat-label>
 
-    <mat-toolbar color="primary">
-        <span>Edit</span>
-        <span class="flex-spacer"></span>
-        <a mat-button mat-dialog-close>&times;</a>
-    </mat-toolbar>
-
-    <form novalidate [formGroup]="publicationForm" #pform="ngForm" (ngSubmit)="onSubmit()">
-        <mat-dialog-content>
-            <p>
-                <app-authors-input [authors]="publicationCopy.authors" (authorsEvent)="updateAuthors($event)">
-                </app-authors-input>
-            </p>
-            <p>
-                <mat-form-field class="full-width">
-                    <mat-label>Title</mat-label>
-
-                    <input matInput formControlName="title" type="text" name="title">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field class="half-width">
-                    <mat-label>Type</mat-label>
-                    <mat-select [(ngModel)]="type" [ngModelOptions]="{standalone: true}">
-                        <mat-option [value]="0">Journal
-                        </mat-option>
-                        <mat-option [value]="1">Conference
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="half-width">
-                    <mat-label>Name</mat-label>
-                    <mat-select formControlName="name">
-                        <div *ngIf="!type">
-                            <mat-option *ngFor="let journal of journals" [value]="journal.name">{{journal.name}}
-                            </mat-option>
-                        </div>
-                        <div *ngIf="type">
-                            <mat-option *ngFor="let conference of conferences" [value]="conference.name">
-                                {{conference.name}}
-                            </mat-option>
-                        </div>
-                    </mat-select>
-                </mat-form-field>
-
-            </p>
-            <div class="flex-container">
-                <mat-form-field *ngIf="!type" class="half-width">
-                    <mat-label>Tier</mat-label>
-                    <mat-select formControlName="tier">
-                        <mat-option *ngFor="let tier of tiers" [value]="tier">{{tier}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div *ngIf="type" class="half-width">
-                    <mat-select-country *ngIf="type" [countries]="countries" formControlName="country" label="Country">
-                    </mat-select-country>
-                </div>
-                <mat-form-field class="half-width">
-                    <mat-label>Page</mat-label>
-                    <input matInput formControlName="page" type="text" name="page">
-                </mat-form-field>
-
+          <input matInput formControlName="title" type="text" name="title" />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <mat-label>Type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option [value]="0">Journal </mat-option>
+            <mat-option [value]="1">Conference </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-label>Name</mat-label>
+          <mat-select formControlName="name">
+            <div *ngIf="!publicationForm.value.type">
+              <mat-option
+                *ngFor="let journal of journals"
+                [value]="journal.name"
+                >{{ journal.name }}
+              </mat-option>
             </div>
-            <p>
-
-                <mat-form-field class="half-width">
-                    <mat-label>Date</mat-label>
-                    <input matInput [formControl]="date" [matDatepicker]="datePicker" disabled>
-                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datePicker startView="multi-year" (yearSelected)="chosenYearHandler($event)"
-                        (monthSelected)="chosenMonthHandler($event, datePicker)" panelClass="date-picker"
-                        disabled="false"></mat-datepicker>
-                </mat-form-field>
-            </p>
-            <!-- <p>
+            <div *ngIf="publicationForm.value.type">
+              <mat-option
+                *ngFor="let conference of conferences"
+                [value]="conference.name"
+              >
+                {{ conference.name }}
+              </mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <div class="flex-container">
+        <mat-form-field *ngIf="!publicationForm.value.type" class="half-width">
+          <mat-label>Tier</mat-label>
+          <mat-select formControlName="tier">
+            <mat-option *ngFor="let tier of tiers" [value]="tier">{{
+              tier
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="publicationForm.value.type" class="half-width">
+          <mat-select-country
+            [countries]="countries"
+            formControlName="country"
+            label="Country"
+          >
+          </mat-select-country>
+        </div>
+        <mat-form-field class="half-width">
+          <mat-label>Page</mat-label>
+          <input matInput formControlName="page" type="text" name="page" />
+        </mat-form-field>
+      </div>
+      <p>
+        <mat-form-field class="half-width">
+          <mat-label>Date</mat-label>
+          <input
+            matInput
+            [formControl]="date"
+            [matDatepicker]="datePicker"
+            disabled
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            #datePicker
+            startView="multi-year"
+            (yearSelected)="chosenYearHandler($event)"
+            (monthSelected)="chosenMonthHandler($event, datePicker)"
+            panelClass="date-picker"
+            disabled="false"
+          ></mat-datepicker>
+        </mat-form-field>
+      </p>
+      <!-- <p>
                 <mat-form-field class="full-width">
                     <textarea rows="3" matInput formControlName="text" type="text" name="text" placeholder="Input text instead"></textarea>
                 </mat-form-field>
             </p> -->
-        </mat-dialog-content>
-        <mat-dialog-actions>
-            <span class="flex-spacer"></span>
-            <button mat-button mat-dialog-close>Cancel</button>
-            <button mat-button type="submit">Save</button>
-        </mat-dialog-actions>
-    </form>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <span class="flex-spacer"></span>
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button type="submit" color="primary">Save</button>
+    </mat-dialog-actions>
+  </form>
 </div>

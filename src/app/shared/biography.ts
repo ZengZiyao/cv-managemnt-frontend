@@ -1,3 +1,3 @@
 export class Biography {
-    content: string
+  content: string;
 }

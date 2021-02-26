@@ -7,25 +7,43 @@ import { catchError } from 'rxjs/operators';
 import { ProcessHttpMsgService } from './process-http-msg.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BiographyService {
-
-  constructor(private httpClient: HttpClient, private processHttpMsgService: ProcessHttpMsgService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private processHttpMsgService: ProcessHttpMsgService
+  ) {}
 
   getBiography(): Observable<Biography> {
-    return this.httpClient.get<Biography>(`${baseUrl}/biography`).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .get<Biography>(`${baseUrl}/cv/biography`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  addBiography(biography: Biography): Observable<any>  {
-    return this.httpClient.post(`${baseUrl}/biography`, biography).pipe(catchError(this.processHttpMsgService.handleError));
+  addBiography(biography: Biography): Observable<any> {
+    return this.httpClient
+      .post(`${baseUrl}/cv/biography`, biography)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  updateBiography(biography: Biography): Observable<any>  {
-    return this.httpClient.put(`${baseUrl}/biography`, biography).pipe(catchError(this.processHttpMsgService.handleError));
+  updateBiography(id: string, biography: Biography): Observable<any> {
+    return this.httpClient
+      .put(`${baseUrl}/cv/biography/${id}`, biography)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  deleteBiogpraphy(): Observable<any>  {
-    return this.httpClient.delete(`${baseUrl}/biography`).pipe(catchError(this.processHttpMsgService.handleError));
+  deleteBiogpraphy(id: string): Observable<any> {
+    return this.httpClient
+      .delete(`${baseUrl}/cv/biography/${id}`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 }

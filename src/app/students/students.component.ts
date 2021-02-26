@@ -34,6 +34,8 @@ export class StudentsComponent implements OnInit {
   @Input()
   cv: Cv;
   @Input()
+  hasStudent: boolean;
+  @Input()
   set select(select: boolean) {
     this._select = select;
     if (this._select) {
@@ -87,7 +89,6 @@ export class StudentsComponent implements OnInit {
 
     if (exportable) {
       this.emitMessage();
-
     } else {
       this.phdSelected.fill(false);
       this.masterSelected.fill(false);
@@ -105,14 +106,16 @@ export class StudentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.studentService.getMasterStudents().subscribe((data) => {
-      this.masterStudents = data;
-      this.masterStudents.forEach((e) => this.masterSelected.push(false));
-    });
-    this.studentService.getPhdStudents().subscribe((data) => {
-      this.phdStudents = data;
-      this.phdStudents.forEach((e) => this.phdSelected.push(false));
-    });
+    if (this.hasStudent) {
+      this.studentService.getMasterStudents().subscribe((data) => {
+        this.masterStudents = data;
+        this.masterStudents.forEach((e) => this.masterSelected.push(false));
+      });
+      this.studentService.getPhdStudents().subscribe((data) => {
+        this.phdStudents = data;
+        this.phdStudents.forEach((e) => this.phdSelected.push(false));
+      });
+    }
   }
 
   openDialog(type: number, student?: Student) {
@@ -121,14 +124,15 @@ export class StudentsComponent implements OnInit {
     if (student === undefined) {
       student = new Student();
       if (type === 0) {
-        student.type = "master";
+        student.type = 'master';
       } else if (type === 1) {
-        student.type = "phd";
+        student.type = 'phd';
       }
     }
     dialogConfig.data = student;
 
     dialogConfig.width = '40%';
+    dialogConfig.minWidth = 500;
 
     const dialogRef = this.dialog.open(StudentDialogComponent, dialogConfig);
 

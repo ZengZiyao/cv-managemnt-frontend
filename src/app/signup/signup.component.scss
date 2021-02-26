@@ -1,0 +1,51 @@
+.body {
+  background-image: url("../../assets/images/background1.jpg");
+  width: 100%;
+  margin: auto;
+  display: flex;
+  min-width: fit-content;
+  min-height: 100vh; /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+mat-toolbar {
+  height: 80px;
+  padding-left: 50px;
+  min-width: fit-content;
+}
+
+mat-toolbar span {
+  font-size: 1.6rem;
+}
+
+form {
+  width: 95%;
+  margin: auto;
+}
+
+#signup {
+  width: 25vw;
+  margin: 10vh auto;
+  min-width: min-content;
+}
+
+.flex-container {
+  display: flex;
+  width: 95%;
+  margin: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+a {
+  margin: auto;
+}
+
+button {
+  width: 100px;
+  height: 45px;
+}

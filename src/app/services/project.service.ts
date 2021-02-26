@@ -7,27 +7,43 @@ import { ProcessHttpMsgService } from './process-http-msg.service';
 import { baseUrl } from '../shared/baseUrl';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProjectService {
-
-  constructor(private httpClient: HttpClient, private processHttpMsgService: ProcessHttpMsgService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private processHttpMsgService: ProcessHttpMsgService
+  ) {}
 
   getAllProjects(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>(`${baseUrl}/projects`).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .get<Project[]>(`${baseUrl}/cv/projects`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
   addProject(project: Project): Observable<any> {
-    return this.httpClient.post(`${baseUrl}/projects`, project).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .post(`${baseUrl}/cv/projects`, project)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
   updateProject(id: string, project: Project): Observable<any> {
-    return this.httpClient.put(`${baseUrl}/projects/${id}`, project).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .put(`${baseUrl}/cv/projects/${id}`, project)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
   deleteProject(id: string): Observable<any> {
-    return this.httpClient.delete(`${baseUrl}/projects/${id}`).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .delete(`${baseUrl}/cv/projects/${id}`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 }
-
-

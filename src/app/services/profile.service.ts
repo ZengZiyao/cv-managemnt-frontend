@@ -4,29 +4,46 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { baseUrl } from '../shared/baseUrl';
-import { catchError } from "rxjs/operators";
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileService {
-
-  constructor(private httpClient: HttpClient, private processHttpMsgService: ProcessHttpMsgService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private processHttpMsgService: ProcessHttpMsgService
+  ) {}
 
   getProfile(): Observable<Profile> {
-    return this.httpClient.get<Profile>(`${baseUrl}/info`).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .get<Profile>(`${baseUrl}/cv/info`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  addProfile(profile: Profile): Observable<any>  {
-    return this.httpClient.post(`${baseUrl}/info`, profile).pipe(catchError(this.processHttpMsgService.handleError));
+  addProfile(profile: Profile): Observable<any> {
+    return this.httpClient
+      .post(`${baseUrl}/cv/info`, profile)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  updateProfile(profile: Profile): Observable<any> {
-    return this.httpClient.put(`${baseUrl}/info`, profile).pipe(catchError(this.processHttpMsgService.handleError));
+  updateProfile(id: string, profile: Profile): Observable<any> {
+    return this.httpClient
+      .put(`${baseUrl}/cv/info/${id}`, profile)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  deleteProfile(): Observable<any>  {
-    return this.httpClient.delete(`${baseUrl}/info`).pipe(catchError(this.processHttpMsgService.handleError));
+  deleteProfile(id: string): Observable<any> {
+    return this.httpClient
+      .delete(`${baseUrl}/cv/info/${id}`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
-
 }

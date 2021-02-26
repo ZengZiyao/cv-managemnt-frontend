@@ -7,25 +7,43 @@ import { catchError } from 'rxjs/operators';
 import { ProcessHttpMsgService } from './process-http-msg.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AwardService {
-
-  constructor(private httpClient: HttpClient, private processHttpMsgService: ProcessHttpMsgService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private processHttpMsgService: ProcessHttpMsgService
+  ) {}
 
   getAwards(): Observable<Award[]> {
-    return this.httpClient.get<Award[]>(`${baseUrl}/awards`).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .get<Award[]>(`${baseUrl}/cv/awards`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  addAward(award: Award): Observable<any>  {
-    return this.httpClient.post(`${baseUrl}/awards`, award).pipe(catchError(this.processHttpMsgService.handleError));
+  addAward(award: Award): Observable<any> {
+    return this.httpClient
+      .post(`${baseUrl}/cv/awards`, award)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  updateAward(id: string, award: Award): Observable<any>  {
-    return this.httpClient.put(`${baseUrl}/awards/${id}`, award).pipe(catchError(this.processHttpMsgService.handleError));
-  }  
+  updateAward(id: string, award: Award): Observable<any> {
+    return this.httpClient
+      .put(`${baseUrl}/cv/awards/${id}`, award)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
+  }
 
-  deleteAward(id: string): Observable<any>  {
-    return this.httpClient.delete(`${baseUrl}/awards/${id}`).pipe(catchError(this.processHttpMsgService.handleError));
+  deleteAward(id: string): Observable<any> {
+    return this.httpClient
+      .delete(`${baseUrl}/cv/awards/${id}`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 }

@@ -8,7 +8,7 @@ import { Cv } from '../shared/cv';
 @Component({
   selector: 'app-biography',
   templateUrl: './biography.component.html',
-  styleUrls: ['./biography.component.scss']
+  styleUrls: ['./biography.component.scss'],
 })
 export class BiographyComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<boolean>();
@@ -20,7 +20,7 @@ export class BiographyComponent implements OnInit {
   select: boolean;
   @Input()
   cv: Cv;
-  @Input("exportable")
+  @Input('exportable')
   set exportable(exportable: boolean) {
     if (exportable && this.selected) {
       this.cv.biography = this.biography;
@@ -31,43 +31,45 @@ export class BiographyComponent implements OnInit {
     } else {
       this.selected = false;
     }
-
   }
   get exportable(): boolean {
-    return this._exportable;}
+    return this._exportable;
+  }
 
-  constructor(private dialog: MatDialog, private biographyService: BiographyService) { }
+  constructor(
+    private dialog: MatDialog,
+    private biographyService: BiographyService
+  ) {}
 
   ngOnInit(): void {
-    this.biographyService.getBiography().subscribe((data) => this.biography = data)
+    this.biographyService
+      .getBiography()
+      .subscribe((data) => (this.biography = data));
   }
 
   openDialog(biography: Biography) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.data = biography;
-    
-    dialogConfig.width = "40%";
+
+    dialogConfig.width = '40%';
+    dialogConfig.minWidth = 500;
+
     const dialogRef = this.dialog.open(BiographyDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(
-      () => {
-        this.ngOnInit();
-      }
-    );
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
-      
+
   toggleSelection() {
     this.selected = !this.selected;
     if (!this.selected) {
       delete this.cv.biography;
     }
   }
-  
+
   emitMessage() {
     this.messageEvent.emit(true);
   }
-    
-  
-
 }

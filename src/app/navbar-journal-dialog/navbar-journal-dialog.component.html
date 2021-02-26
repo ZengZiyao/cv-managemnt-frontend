@@ -1,21 +1,36 @@
 <div fxLayout="column" fxLayoutGap="10px">
-    <mat-toolbar color="primary">
-        <span>Edit</span>
-        <span class="flex-spacer"></span>
-        <a mat-button mat-dialog-close>&times;</a>
-    </mat-toolbar>
-    <button mat-button (click)="addJournal()" id="add-icon">Add New <span class="fa fa-plus"></span></button>
+  <mat-toolbar color="primary">
+    <h3>Manage Journals</h3>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  </mat-toolbar>
+  <button mat-button (click)="addJournal()" id="add-icon">
+    Add New <mat-icon>add</mat-icon>
+  </button>
+  <form (ngSubmit)="save()">
     <mat-list>
-        <mat-list-item mat-line *ngFor="let journal of journals; index as i">
-            <mat-form-field>
-                <input matInput type="text" [(ngModel)]="journal.name">
-            </mat-form-field>
-            <button mat-button (click)="deleteJournal(i)"><span class="fa fa-trash"></span></button>
-        </mat-list-item>
+      <mat-list-item mat-line *ngFor="let journal of journals; index as i">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="journal.name"
+            [ngModelOptions]="{ standalone: true }"
+            required
+          />
+        </mat-form-field>
+        <button mat-icon-button (click)="deleteJournal(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
     </mat-list>
+    <mat-error *ngIf="invalid">
+      Journal name can not be empty or duplicate
+    </mat-error>
     <mat-dialog-actions>
-        <span class="flex-spacer"></span>
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button type="submit" (click)="save()">Save</button>
+      <span class="flex-spacer"></span>
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button type="submit" color="primary">Save</button>
     </mat-dialog-actions>
+  </form>
 </div>

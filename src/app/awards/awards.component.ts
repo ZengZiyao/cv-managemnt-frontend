@@ -8,7 +8,7 @@ import { Cv } from '../shared/cv';
 @Component({
   selector: 'app-awards',
   templateUrl: './awards.component.html',
-  styleUrls: ['./awards.component.scss']
+  styleUrls: ['./awards.component.scss'],
 })
 export class AwardsComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<boolean>();
@@ -21,7 +21,9 @@ export class AwardsComponent implements OnInit {
   select: boolean;
   @Input()
   cv: Cv;
-  @Input("exportable")
+  @Input()
+  hasAward: boolean;
+  @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;
     if (exportable && this.selected.indexOf(true) > -1) {
@@ -31,7 +33,6 @@ export class AwardsComponent implements OnInit {
           this.cv.awards.push(this.awards[i]);
         }
       }
-
     }
     if (exportable) {
       this.emitMessage();
@@ -39,46 +40,43 @@ export class AwardsComponent implements OnInit {
       this.selected.fill(false);
       this.allSelected = false;
     }
-
   }
   get exportable(): boolean {
-    return this._exportable;}
+    return this._exportable;
+  }
 
-  constructor(private dialog: MatDialog, private awardService: AwardService) { }
+  constructor(private dialog: MatDialog, private awardService: AwardService) {}
 
   ngOnInit(): void {
-    this.awardService.getAwards().subscribe((data) => {
-      this.awards = data;
-      for (let i = 0; i < this.awards.length; i++) {
-        this.selected.push(false);
-      }
-
-    });
+    if (this.hasAward) {
+      this.awardService.getAwards().subscribe((data) => {
+        this.awards = data;
+        for (let i = 0; i < this.awards.length; i++) {
+          this.selected.push(false);
+        }
+      });
+    }
   }
 
   openDialog(award?: Award) {
     const dialogConfig = new MatDialogConfig();
 
- 
-      dialogConfig.data = award;
-    
+    dialogConfig.data = award;
 
-    dialogConfig.width = "40%";
+    dialogConfig.width = '40%';
+    dialogConfig.minWidth = 500;
 
     const dialogRef = this.dialog.open(AwardDialogComponent, dialogConfig);
-    
-    dialogRef.afterClosed().subscribe(
-      () => {
-        this.ngOnInit()
 
-      }
-    )
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   deleteAward(award: Award) {
     this.awardService.deleteAward(award.id).subscribe(() => this.ngOnInit());
   }
-  
+
   emitMessage() {
     this.messageEvent.emit(true);
   }
@@ -88,13 +86,14 @@ export class AwardsComponent implements OnInit {
     this.allSelected = this.selected.every((i) => i);
   }
 
-  someSelected():boolean {
-    return this.selected.indexOf(true) > -1 && this.selected.indexOf(false) > -1;
+  someSelected(): boolean {
+    return (
+      this.selected.indexOf(true) > -1 && this.selected.indexOf(false) > -1
+    );
   }
 
   setAll(selected: boolean) {
     this.allSelected = selected;
-    this.selected.fill(selected) 
+    this.selected.fill(selected);
   }
-
 }

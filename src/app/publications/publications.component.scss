@@ -1,29 +1,32 @@
 .mat-list-item {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    overflow-wrap: anywhere;
-    height: auto!important;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow-wrap: anywhere;
+  height: auto !important;
 }
 
 .icon-group {
-    display: flex;
-    margin-left: 10px
-}
-
-.icon {
-    width: 25px;
-}
-
-#sort-icon {
-    width: 15px;
+  display: flex;
+  margin-left: 10px;
 }
 
 mat-select {
-    width: 120px;
+  margin: auto;
+  width: 150px;
 }
 
-.mat-menu {
-    padding-left: 20px;
+#menu-panel {
+  width: 90%;
+  margin: auto;
+  padding: 0 10px;
+}
+
+mat-card-content {
+  padding: 5px 36px;
+}
+
+#icon-group {
+  display: flex;
 }

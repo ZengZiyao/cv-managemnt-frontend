@@ -6,12 +6,13 @@ describe('AwardDialogComponent', () => {
   let component: AwardDialogComponent;
   let fixture: ComponentFixture<AwardDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AwardDialogComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [AwardDialogComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AwardDialogComponent);

@@ -1,0 +1,32 @@
+.body {
+  background-color: #f5f5f5;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  min-width: fit-content;
+  min-height: 100vh;
+}
+
+button {
+  width: 120px;
+  height: 60px;
+  font-size: 1.2rem;
+  margin-right: 20px;
+}
+
+#empty-container {
+  width: 30vw;
+  min-width: 350px;
+  margin: 10vh auto;
+}
+
+#empty-container img {
+  width: 100%;
+  object-fit: contain;
+}
+
+#empty-container p {
+  font-size: 2rem;
+  color: #999999;
+  text-align: center;
+}

@@ -1,19 +1,33 @@
-<div class="container" fxLayout="column" fxLayoutGap="0px" fxLayoutAlign="center center">
-    <mat-card class="half-width">
-
-        <mat-card-header>
-            <h3><mat-checkbox *ngIf="select" (change)="toggleSelection()" class="right-margin"></mat-checkbox>Profile</h3>
-            <span class="flex-spacer"></span>
-            <a *ngIf="profile" (click)="openDialog(profile) "><span class="fa fa-edit"></span></a>
-            <a *ngIf="!profile" (click)="openDialog()"><span class="fa fa-plus"></span></a>
-
-        </mat-card-header>
-        <mat-card-content *ngIf="profile">
-            <!-- <img src={{cv.avatar}} alt={{profile.name}}> -->
-            <h3>{{profile.name}}</h3>
-            <h4>{{profile.designation}}</h4>
-            <p>School of {{profile.school}}</p>
-        </mat-card-content>
-    </mat-card>
-
+<div
+  *ngIf="hasProfile"
+  class="container"
+  fxLayout="column"
+  fxLayoutGap="0px"
+  fxLayoutAlign="center center"
+>
+  <mat-card class="full-width">
+    <mat-card-header>
+      <h1>
+        <mat-checkbox
+          *ngIf="select"
+          (change)="toggleSelection()"
+          class="right-margin"
+        ></mat-checkbox
+        >Profile
+      </h1>
+      <span class="flex-spacer"></span>
+      <button *ngIf="profile" mat-icon-button (click)="openDialog(profile)">
+        <mat-icon aria-hidden="false">mode_edit</mat-icon>
+      </button>
+      <button *ngIf="!profile" mat-icon-button (click)="openDialog()">
+        <mat-icon aria-hidden="false">note_add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content *ngIf="profile">
+      <!-- <img src={{cv.avatar}} alt={{profile.name}}> -->
+      <p>{{ profile.name }}</p>
+      <p>{{ profile.designation }}</p>
+      <p>School of {{ profile.school }}</p>
+    </mat-card-content>
+  </mat-card>
 </div>

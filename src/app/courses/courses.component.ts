@@ -3,15 +3,23 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CourseDialogComponent } from '../course-dialog/course-dialog.component';
 import { Course } from '../shared/course';
 import { Cv } from '../shared/cv';
-import { CourseService } from "../services/course.service";
+import { CourseService } from '../services/course.service';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss']
+  styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  displayedColumns: string[] = ["courseCode", "courseTitle", "academicYear", "courseLevel", "courseType", "semester", "edit"]
+  displayedColumns: string[] = [
+    'courseCode',
+    'courseTitle',
+    'academicYear',
+    'courseLevel',
+    'courseType',
+    'semester',
+    'edit',
+  ];
   @Output() messageEvent = new EventEmitter<boolean>();
 
   courses: Course[];
@@ -21,19 +29,38 @@ export class CoursesComponent implements OnInit {
   private _select: boolean;
   @Input()
   cv: Cv;
-  @Input("select")
+  @Input()
+  hasCourse: boolean;
+  @Input('select')
   set select(select: boolean) {
     this._select = select;
     if (this._select) {
-      this.displayedColumns = ["selectCol", "courseCode", "courseTitle", "academicYear", "courseLevel", "courseType", "semester", "edit"];
+      this.displayedColumns = [
+        'selectCol',
+        'courseCode',
+        'courseTitle',
+        'academicYear',
+        'courseLevel',
+        'courseType',
+        'semester',
+        'edit',
+      ];
     } else {
-      this.displayedColumns = ["courseCode", "courseTitle", "academicYear", "courseLevel", "courseType", "semester", "edit"];
+      this.displayedColumns = [
+        'courseCode',
+        'courseTitle',
+        'academicYear',
+        'courseLevel',
+        'courseType',
+        'semester',
+        'edit',
+      ];
     }
   }
   get select(): boolean {
-    return this._select
+    return this._select;
   }
-  @Input("exportable")
+  @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;
     if (exportable && this.selected.indexOf(true) > -1) {
@@ -44,7 +71,6 @@ export class CoursesComponent implements OnInit {
         }
       }
       console.log(this.cv.courses);
-
     }
     if (exportable) {
       this.emitMessage();
@@ -52,46 +78,46 @@ export class CoursesComponent implements OnInit {
       this.selected.fill(false);
       this.allSelected = false;
     }
-
   }
   get exportable(): boolean {
-    return this._exportable;}
+    return this._exportable;
+  }
 
-  constructor(private dialog: MatDialog, private courseService: CourseService) { }
+  constructor(
+    private dialog: MatDialog,
+    private courseService: CourseService
+  ) {}
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe((data) => {
-      this.courses = data;
-      for (let i = 0; i < this.courses.length; i++) {
-        this.selected.push(false);
-      }
-
-    });
+    if (this.hasCourse) {
+      this.courseService.getCourses().subscribe((data) => {
+        this.courses = data;
+        for (let i = 0; i < this.courses.length; i++) {
+          this.selected.push(false);
+        }
+      });
+    }
   }
 
   openDialog(course?: Course) {
     const dialogConfig = new MatDialogConfig();
 
- 
-      dialogConfig.data = course;
-    
+    dialogConfig.data = course;
 
-    dialogConfig.width = "40%";
+    dialogConfig.width = '40%';
+    dialogConfig.minWidth = 500;
 
     const dialogRef = this.dialog.open(CourseDialogComponent, dialogConfig);
-    
-    dialogRef.afterClosed().subscribe(
-      () => {
-        this.ngOnInit()
 
-      }
-    )
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   deleteCourse(course: Course) {
     this.courseService.deleteCourse(course.id).subscribe(() => this.ngOnInit());
   }
-  
+
   emitMessage() {
     this.messageEvent.emit(true);
   }
@@ -101,14 +127,14 @@ export class CoursesComponent implements OnInit {
     this.allSelected = this.selected.every((i) => i);
   }
 
-  someSelected():boolean {
-    return this.selected.indexOf(true) > -1 && this.selected.indexOf(false) > -1;
+  someSelected(): boolean {
+    return (
+      this.selected.indexOf(true) > -1 && this.selected.indexOf(false) > -1
+    );
   }
 
   setAll(selected: boolean) {
     this.allSelected = selected;
-    this.selected.fill(selected) 
+    this.selected.fill(selected);
   }
-
-
 }

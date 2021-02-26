@@ -7,20 +7,21 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-biography-dialog',
   templateUrl: './biography-dialog.component.html',
-  styleUrls: ['./biography-dialog.component.scss']
+  styleUrls: ['./biography-dialog.component.scss'],
 })
 export class BiographyDialogComponent implements OnInit {
-
   biographyForm: FormGroup;
   biographyCopy: Biography;
   @ViewChild('bform') biographyFormDirective;
 
-  constructor(    private dialogRef: MatDialogRef<BiographyDialogComponent>,
+  constructor(
+    private dialogRef: MatDialogRef<BiographyDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) data,
-    private biographyService: BiographyService) { 
-      this.biographyCopy = data == null ? new Biography : data;
-    }
+    private biographyService: BiographyService
+  ) {
+    this.biographyCopy = data == null ? new Biography() : data;
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -28,20 +29,21 @@ export class BiographyDialogComponent implements OnInit {
 
   createForm() {
     this.biographyForm = this.fb.group({
-      content: [this.biographyCopy.content, [Validators.required]]
+      content: [this.biographyCopy.content, [Validators.required]],
     });
   }
 
   onSubmit() {
-    this.biographyService.addBiography(this.biographyForm.value).subscribe(
-      () => {
-        this.dialogRef.close(this.biographyForm.value);
-      }
-    );
+    if (this.biographyForm.valid) {
+      this.biographyService
+        .addBiography(this.biographyForm.value)
+        .subscribe(() => {
+          this.dialogRef.close(this.biographyForm.value);
+        });
+    }
   }
 
   close() {
     this.dialogRef.close();
   }
-
 }

@@ -1,65 +1,124 @@
-<div class="container" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-
-    <mat-card class="half-width" layout-fill>
-        <mat-card-header fxLayout="row">
-            <h3>
-                <mat-checkbox *ngIf="select" class="right-margin" [checked]="allSelected"
-                    [indeterminate]="someSelected()" (change)="setAll($event.checked)"></mat-checkbox>Publications
-            </h3>
-            <span class="flex-spacer"></span>
-            <div class="icon-group">
-                <a (click)="openDialog()" class="icon"><span class="fa fa-plus"></span></a>
-                <a class="icon" [matMenuTriggerFor]="timeRange"><span class="fa fa-filter"></span></a>
-                <mat-menu #timeRange>
-                    <mat-form-field>
-                        <mat-label>Enter a date range</mat-label>
-                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-                            <input matStartDate formControlName="start" placeholder="Start date" disabled>
-                            <input matEndDate formControlName="end" placeholder="End date" disabled>
-                        </mat-date-range-input>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-date-range-picker #picker disabled="false" startView="multi-year"></mat-date-range-picker>
-                    </mat-form-field>
-                    <button mat-raised-button color="primary" (click)="setRange()">Confirm</button>
-                    <button mat-raised-button color="primary" (click)="resetRange()">Reset</button>
-                </mat-menu>
-                <a id="sort-icon"><span class="fa fa-sort"></span></a>
-                <mat-select [(value)]="sortOrder" (selectionChange)="onOptionsSelected(sortOrder)">
-                    <mat-option [value]="-1">Sort</mat-option>
-                    <mat-option [value]="0">By Time</mat-option>
-                    <mat-option [value]="1">By Journal</mat-option>
-                    <mat-option [value]="2">By Tier Level</mat-option>
-                </mat-select>
+<div
+  *ngIf="hasPublication"
+  class="container"
+  fxLayout="column"
+  fxLayoutGap="10px"
+  fxLayoutAlign="center center"
+>
+  <mat-card class="full-width" layout-fill>
+    <mat-card-header fxLayout="row">
+      <h1>
+        <mat-checkbox
+          *ngIf="select"
+          class="right-margin"
+          [checked]="allSelected"
+          [indeterminate]="someSelected()"
+          (change)="setAll($event.checked)"
+        ></mat-checkbox
+        >Publications
+      </h1>
+      <span class="flex-spacer"></span>
+      <div class="icon-group">
+        <button mat-icon-button (click)="openDialog()" class="icon">
+          <mat-icon>note_add</mat-icon>
+        </button>
+        <button mat-icon-button class="icon" [matMenuTriggerFor]="timeRange">
+          <mat-icon>date_range</mat-icon>
+        </button>
+        <mat-menu #timeRange>
+          <div id="menu-panel">
+            <mat-form-field>
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                <input
+                  matStartDate
+                  formControlName="start"
+                  placeholder="Start date"
+                  disabled
+                />
+                <input
+                  matEndDate
+                  formControlName="end"
+                  placeholder="End date"
+                  disabled
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker
+                #picker
+                disabled="false"
+                startView="multi-year"
+              ></mat-date-range-picker>
+            </mat-form-field>
+            <div id="icon-group">
+              <button mat-raised-button color="primary" (click)="setRange()">
+                Confirm
+              </button>
+              <span class="flex-spacer"></span>
+              <button mat-raised-button color="primary" (click)="resetRange()">
+                Reset
+              </button>
             </div>
-        </mat-card-header>
-        <mat-card-content>
-            <mat-list>
-                <mat-list-item *ngFor="let publication of publications; let i = index" fxLayout="column">
-                    <p>                     <mat-checkbox *ngIf="select" class="right-margin" [(ngModel)]="selected[i]"
-                        (change)="updateAllSelected($event.checked, i)"></mat-checkbox>
+          </div>
+        </mat-menu>
+        <button mat-icon-button><mat-icon>sort</mat-icon></button>
+        <mat-select
+          [(value)]="sortOrder"
+          (selectionChange)="onOptionsSelected(sortOrder)"
+        >
+          <mat-option [value]="-1">Sort</mat-option>
+          <mat-option [value]="0">By Time</mat-option>
+          <mat-option [value]="1">By Journal</mat-option>
+          <mat-option [value]="2">By Tier Level</mat-option>
+        </mat-select>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item
+          *ngFor="let publication of publications; let i = index"
+          fxLayout="column"
+        >
+          <p>
+            <mat-checkbox
+              *ngIf="select"
+              class="right-margin"
+              [(ngModel)]="selected[i]"
+              (change)="updateAllSelected($event.checked, i)"
+            ></mat-checkbox>
 
-                        <span *ngIf="publication.tier === '1A'">##</span>
-                        <span *ngIf="publication.tier === '1' || publication.tier =='1B'">#</span>
+            <span *ngIf="publication.tier === '1A'">##</span>
+            <span *ngIf="publication.tier === '1' || publication.tier == '1B'"
+              >#</span
+            >
 
-                        <span *ngFor="let author of publication.authors">
-                            <strong *ngIf="author.main">{{author.name}}</strong>
-                            <span *ngIf="!author.main">{{author.name}}</span>
-                            <span *ngIf="author.student">*</span>
-                            <span *ngIf="author.fellow">**</span>,
-                        </span>
-                        "{{publication.title}}" {{publication.pubSource.name}}<span *ngIf="publication.type === 1">,
-                            {{publication.country.name}},</span> {{publication.page}}
-                        ({{ publication.date | date:"MMM yyyy" }})
-                    </p>
-                    <span class="flex-spacer"></span>
-                    <div class="icon-group">
-                        <span (click)="openDialog(publication)" class="icon"><span class="fa fa-edit"></span></span>
-                        <span (click)="deletePub(publication)"><span class="fa fa-trash"></span></span>
-                    </div>
-                    <mat-divider></mat-divider>
-                </mat-list-item>
-            </mat-list>
-        </mat-card-content>
-    </mat-card>
-
+            <span *ngFor="let author of publication.authors">
+              <strong *ngIf="author.main">{{ author.name }}</strong>
+              <span *ngIf="!author.main">{{ author.name }}</span>
+              <span *ngIf="author.student">*</span>
+              <span *ngIf="author.fellow">**</span>,
+            </span>
+            "{{ publication.title }}" {{ publication.pubSource.name
+            }}<span *ngIf="publication.type === 1"
+              >, {{ publication.country.name }},</span
+            >
+            {{ publication.page }} ({{ publication.date | date: "MMM yyyy" }})
+          </p>
+          <span class="flex-spacer"></span>
+          <div class="icon-group">
+            <button mat-icon-button (click)="openDialog(publication)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deletePub(publication)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>

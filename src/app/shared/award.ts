@@ -1,5 +1,5 @@
 export class Award {
-    id: string;
-    content: string;
-    date: Date;
+  id: string;
+  content: string;
+  date: Date = new Date();
 }

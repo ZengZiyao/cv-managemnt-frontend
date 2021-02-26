@@ -11,9 +11,6 @@
     "src/polyfills.ts",
     "node_modules/country-state-picker/lib/data/countries.ts",
     "node_modules/country-state-picker/lib/data/states.ts"
-
   ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "include": ["src/**/*.d.ts"]
 }

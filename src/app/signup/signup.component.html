@@ -1,0 +1,55 @@
+<div class="body" fxLayout="column" fxLayoutGap="10px">
+  <p>
+    <mat-toolbar color="primary">
+      <span>CV Management System</span>
+    </mat-toolbar>
+  </p>
+
+  <mat-card id="signup">
+    <mat-card-content>
+      <form [formGroup]="signupForm" #sform="ngForm" (ngSubmit)="onSubmit()">
+        <h1>Sign up</h1>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Username" formControlName="username" />
+          <mat-error> Please provide a username </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Email"
+            formControlName="email"
+            type="email"
+          />
+          <mat-error> Please provide a valid email </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Shortname" formControlName="shortname" />
+          <mat-error> Please provide a shortname </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <mat-error> Please provide a valid password </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            type="password"
+            placeholder="Confirm Password"
+            formControlName="confirmPassword"
+          />
+          <mat-error> Passwords don't match! </mat-error>
+        </mat-form-field>
+        <div class="flex-container">
+          <a href="/login">Login</a>
+          <span class="flex-spacer"></span>
+          <button mat-raised-button color="primary">Sign up</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

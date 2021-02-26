@@ -1,4 +1,4 @@
 export enum Relationship {
-    STUDENT,
-    FELLOW
+  STUDENT,
+  FELLOW,
 }

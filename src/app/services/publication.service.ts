@@ -7,25 +7,43 @@ import { catchError } from 'rxjs/operators';
 import { ProcessHttpMsgService } from './process-http-msg.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PublicationService {
-
-  constructor(private httpClient: HttpClient, private processHttpMsgService: ProcessHttpMsgService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private processHttpMsgService: ProcessHttpMsgService
+  ) {}
 
   getAllPublications(): Observable<Publication[]> {
-    return this.httpClient.get<Publication[]>(`${baseUrl}/publications`).pipe(catchError(this.processHttpMsgService.handleError));
+    return this.httpClient
+      .get<Publication[]>(`${baseUrl}/cv/publications`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  addPublication(publication: Publication): Observable<any>  {
-    return this.httpClient.post(`${baseUrl}/publications`, publication).pipe(catchError(this.processHttpMsgService.handleError));
+  addPublication(publication: Publication): Observable<any> {
+    return this.httpClient
+      .post(`${baseUrl}/cv/publications`, publication)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  updatePublication(id: string, publication: Publication): Observable<any>  {
-    return this.httpClient.put(`${baseUrl}/publications/${id}`, publication).pipe(catchError(this.processHttpMsgService.handleError));
+  updatePublication(id: string, publication: Publication): Observable<any> {
+    return this.httpClient
+      .put(`${baseUrl}/cv/publications/${id}`, publication)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 
-  deletePublication(id: string): Observable<any>  {
-    return this.httpClient.delete(`${baseUrl}/publications/${id}`).pipe(catchError(this.processHttpMsgService.handleError));
+  deletePublication(id: string): Observable<any> {
+    return this.httpClient
+      .delete(`${baseUrl}/cv/publications/${id}`)
+      .pipe(
+        catchError((error) => this.processHttpMsgService.handleError(error))
+      );
   }
 }

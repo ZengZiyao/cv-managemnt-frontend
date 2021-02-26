@@ -1,20 +1,20 @@
 .icon-group {
-    display: flex;
-}
-
-span.icon {
-    margin: 0 7px;
+  display: flex;
 }
 
 .mat-list-item {
-    overflow-wrap: anywhere;
-    height: auto!important;
+  overflow-wrap: anywhere;
+  height: auto !important;
 }
 
 .align-left {
-    margin-right: auto;
+  margin-right: auto;
 }
 
 .zero-top-margin {
-    margin-top: 0;
+  margin-top: 0;
+}
+
+mat-card-content {
+  padding: 5px 36px;
 }

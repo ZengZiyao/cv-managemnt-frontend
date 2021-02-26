@@ -6,12 +6,13 @@ describe('PublicationDialogComponent', () => {
   let component: PublicationDialogComponent;
   let fixture: ComponentFixture<PublicationDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PublicationDialogComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [PublicationDialogComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PublicationDialogComponent);

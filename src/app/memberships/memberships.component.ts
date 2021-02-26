@@ -8,10 +8,9 @@ import { Cv } from '../shared/cv';
 @Component({
   selector: 'app-memberships',
   templateUrl: './memberships.component.html',
-  styleUrls: ['./memberships.component.scss']
+  styleUrls: ['./memberships.component.scss'],
 })
 export class MembershipsComponent implements OnInit {
-
   @Output() messageEvent = new EventEmitter<boolean>();
 
   memberships: Membership[];
@@ -22,7 +21,9 @@ export class MembershipsComponent implements OnInit {
   select: boolean;
   @Input()
   cv: Cv;
-  @Input("exportable")
+  @Input()
+  hasMembership: boolean;
+  @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;
     if (exportable && this.selected.indexOf(true) > -1) {
@@ -33,7 +34,6 @@ export class MembershipsComponent implements OnInit {
         }
       }
       console.log(this.cv.memberships);
-
     }
     if (exportable) {
       this.emitMessage();
@@ -41,46 +41,48 @@ export class MembershipsComponent implements OnInit {
       this.selected.fill(false);
       this.allSelected = false;
     }
-
   }
   get exportable(): boolean {
-    return this._exportable;}
+    return this._exportable;
+  }
 
-  constructor(private dialog: MatDialog, private membershipService: MembershipService) { }
+  constructor(
+    private dialog: MatDialog,
+    private membershipService: MembershipService
+  ) {}
 
   ngOnInit(): void {
-    this.membershipService.getAllMemberships().subscribe((data) => {
-      this.memberships = data;
-      for (let i = 0; i < this.memberships.length; i++) {
-        this.selected.push(false);
-      }
-
-    });
+    if (this.hasMembership) {
+      this.membershipService.getAllMemberships().subscribe((data) => {
+        this.memberships = data;
+        for (let i = 0; i < this.memberships.length; i++) {
+          this.selected.push(false);
+        }
+      });
+    }
   }
 
   openDialog(membership?: Membership) {
     const dialogConfig = new MatDialogConfig();
 
- 
-      dialogConfig.data = membership;
-    
+    dialogConfig.data = membership;
 
-    dialogConfig.width = "40%";
+    dialogConfig.width = '40%';
+    dialogConfig.minWidth = 500;
 
     const dialogRef = this.dialog.open(MembershipDialogComponent, dialogConfig);
-    
-    dialogRef.afterClosed().subscribe(
-      () => {
-        this.ngOnInit()
 
-      }
-    )
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   deleteMembership(membership: Membership) {
-    this.membershipService.deleteMembership(membership.id).subscribe(() => this.ngOnInit());
+    this.membershipService
+      .deleteMembership(membership.id)
+      .subscribe(() => this.ngOnInit());
   }
-  
+
   emitMessage() {
     this.messageEvent.emit(true);
   }
@@ -90,13 +92,14 @@ export class MembershipsComponent implements OnInit {
     this.allSelected = this.selected.every((i) => i);
   }
 
-  someSelected():boolean {
-    return this.selected.indexOf(true) > -1 && this.selected.indexOf(false) > -1;
+  someSelected(): boolean {
+    return (
+      this.selected.indexOf(true) > -1 && this.selected.indexOf(false) > -1
+    );
   }
 
   setAll(selected: boolean) {
     this.allSelected = selected;
-    this.selected.fill(selected) 
+    this.selected.fill(selected);
   }
-
 }
