@@ -88,3 +88,64 @@ a {
   height: 100%;
   font-size: 1.5rem;
 }
+
+.mat-chip {
+  font-size: 1.2rem;
+  color: white;
+  height: fit-content;
+  width: fit-content;
+  border-radius: 50px;
+}
+
+.chip-text {
+  padding: 10px;
+  text-align: center;
+}
+
+.network-container {
+  margin-bottom: 20px;
+}
+
+.request {
+  width: 100%;
+  display: flex;
+}
+
+.request div:first-of-type {
+  display: flex;
+  width: 80%;
+  align-content: space-between;
+}
+
+.status {
+  color: grey;
+  font-style: italic;
+  text-align: center;
+  margin: auto;
+}
+
+.cancel-button {
+  margin-left: auto;
+}
+
+.date {
+  margin: auto 0;
+  font-style: italic;
+  color: grey;
+}
+
+.icon-group {
+  margin: auto 0 auto auto;
+}
+
+#my-request-head {
+  display: flex;
+}
+
+#my-request-head button {
+  margin: auto 0 auto auto;
+}
+
+.container {
+  padding: 0, 36px;
+}

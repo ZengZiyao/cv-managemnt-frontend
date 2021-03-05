@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit {
     const dialogRef = this.dialog.open(ComponentDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(() => {
-      location.reload();
+      // location.reload();
     });
   }
 }

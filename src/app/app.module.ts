@@ -66,6 +66,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ComponentDialogComponent } from './component-dialog/component-dialog.component';
+import { ConnectionDialogComponent } from './connection-dialog/connection-dialog.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { ComponentDialogComponent } from './component-dialog/component-dialog.co
     SignupComponent,
     UserProfileComponent,
     ComponentDialogComponent,
+    ConnectionDialogComponent,
   ],
   imports: [
     BrowserModule,

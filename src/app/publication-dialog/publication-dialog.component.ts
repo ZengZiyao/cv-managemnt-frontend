@@ -115,7 +115,6 @@ export class PublicationDialogComponent implements OnInit {
         let data = this.publicationForm.value;
         data.authors = this.publicationCopy.authors;
         data.date = this.date.value;
-        data.type = this.type;
         if (data.type === PubType.JOURNAL) {
           data.pubSource = this.journals.find((e) => e.name === data.name);
           data.country = undefined;

@@ -17,12 +17,19 @@ export class WorkExperiencesComponent implements OnInit {
   allSelected = false;
   selected: boolean[] = [];
   private _exportable: boolean;
+  private _hasWorkExperience: boolean;
   @Input()
   select: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasWorkExperience: boolean;
+  @Input('hasWorkExperience')
+  set hasWorkExperience(hasWorkExperience: boolean) {
+    this._hasWorkExperience = hasWorkExperience;
+    this.ngOnInit();
+  }
+  get hasExperience(): boolean {
+    return this._hasWorkExperience;
+  }
   @Input('exportable')
   set exportable(exportable: boolean) {
     if (exportable && this.selected.indexOf(true) > -1) {
@@ -32,7 +39,6 @@ export class WorkExperiencesComponent implements OnInit {
           this.cv.workExperiences.push(this.workExperiences[i]);
         }
       }
-      console.log(this.cv.workExperiences);
     }
 
     this._exportable = exportable;

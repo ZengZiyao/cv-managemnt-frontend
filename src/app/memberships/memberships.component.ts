@@ -17,12 +17,19 @@ export class MembershipsComponent implements OnInit {
   allSelected: boolean = false;
   selected: boolean[] = [];
   private _exportable: boolean;
+  private _hasMembership: boolean;
   @Input()
   select: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasMembership: boolean;
+  @Input('hasMembership')
+  set hasMembership(hasMembership: boolean) {
+    this._hasMembership = hasMembership;
+    this.ngOnInit();
+  }
+  get hasMembership(): boolean {
+    return this._hasMembership;
+  }
   @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;
@@ -33,7 +40,6 @@ export class MembershipsComponent implements OnInit {
           this.cv.memberships.push(this.memberships[i]);
         }
       }
-      console.log(this.cv.memberships);
     }
     if (exportable) {
       this.emitMessage();

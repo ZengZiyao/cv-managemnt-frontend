@@ -17,12 +17,19 @@ export class AcademicQualificationsComponent implements OnInit {
   allSelected: boolean = false;
   selected: boolean[] = [];
   private _exportable: boolean;
+  private _hasAcademicQualification: boolean;
   @Input()
   select: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasAcademicQualification: boolean;
+  @Input('hasAcademicQualification')
+  set hasAcademicQualification(hasAcademicQualification: boolean) {
+    this._hasAcademicQualification = hasAcademicQualification;
+    this.ngOnInit();
+  }
+  get hasAcademicQualification(): boolean {
+    return this._hasAcademicQualification;
+  }
   @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;

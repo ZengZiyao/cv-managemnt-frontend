@@ -11,9 +11,6 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class UserService {
-  token: string =
-    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiY3JlYXRlZCI6MTYxNDMyNjMwNTI5MCwiZXhwIjoxNjE0Njg2MzA1fQ.lMCZw2dkfaS7rI-BspXk58bM_BSVSjGCu5i1xSPVEDNIHL1AwHW3GNrPQqPWJUBXz_ErjvSoOnMZMffh3StRYg';
-
   constructor(
     private httpClient: HttpClient,
     private processHttpMsgService: ProcessHttpMsgService,
@@ -21,7 +18,7 @@ export class UserService {
   ) {}
 
   getToken(): string {
-    return this.token;
+    return localStorage.getItem('token');
   }
 
   login(credential: Credential) {
@@ -31,7 +28,7 @@ export class UserService {
         catchError((error) => this.processHttpMsgService.handleError(error))
       )
       .subscribe((resp) => {
-        this.token = (resp as any).token;
+        localStorage.setItem('token', (resp as any).token);
         this.router.navigate(['cv']);
       });
   }
@@ -43,7 +40,7 @@ export class UserService {
         catchError((error) => this.processHttpMsgService.handleError(error))
       )
       .subscribe((resp) => {
-        this.token = (resp as any).token;
+        localStorage.setItem('token', (resp as any).token);
         this.router.navigate(['cv']);
       });
   }
@@ -55,7 +52,7 @@ export class UserService {
         catchError((error) => this.processHttpMsgService.handleError(error))
       )
       .subscribe(() => {
-        this.token = '';
+        localStorage.removeItem('token');
         this.router.navigate(['login']);
       });
   }

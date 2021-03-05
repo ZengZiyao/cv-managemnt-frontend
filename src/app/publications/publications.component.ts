@@ -39,12 +39,21 @@ export class PublicationsComponent implements OnInit {
   allSelected: boolean = false;
   selected: boolean[] = [];
   private _exportable: boolean;
+  private _hasPublication: boolean;
   @Input()
   select: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasPublication: boolean;
+  @Input('hasPublication')
+  set hasPublication(hasPublication: boolean) {
+    this._hasPublication = hasPublication;
+    if (hasPublication) {
+      this.ngOnInit();
+    }
+  }
+  get hasPublication(): boolean {
+    return this._hasPublication;
+  }
   @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;
@@ -55,7 +64,6 @@ export class PublicationsComponent implements OnInit {
           this.cv.publications.push(this.publications[i]);
         }
       }
-      console.log(this.cv.publications);
     }
     if (exportable) {
       this.emitMessage();

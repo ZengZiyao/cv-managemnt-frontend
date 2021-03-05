@@ -37,9 +37,17 @@ export class ProfileDialogComponent implements OnInit {
 
   onSubmit() {
     if (this.profileForm.valid) {
-      this.profileService.addProfile(this.profileForm.value).subscribe(() => {
-        this.dialogRef.close();
-      });
+      if (this.profileCopy.id != undefined) {
+        this.profileService
+          .updateProfile(this.profileCopy.id, this.profileForm.value)
+          .subscribe(() => {
+            this.dialogRef.close();
+          });
+      } else {
+        this.profileService.addProfile(this.profileForm.value).subscribe(() => {
+          this.dialogRef.close();
+        });
+      }
     }
   }
 

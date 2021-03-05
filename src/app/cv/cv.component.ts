@@ -677,7 +677,6 @@ export class CvComponent implements OnInit {
   }
 
   createConferences(publications: Publication[]) {
-    console.log(publications);
     let arr = [];
     publications.forEach((p) => {
       arr.push(

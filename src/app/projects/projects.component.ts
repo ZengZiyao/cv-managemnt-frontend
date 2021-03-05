@@ -16,12 +16,19 @@ export class ProjectsComponent implements OnInit {
   allSelected: boolean = false;
   selected: boolean[] = [];
   private _exportable: boolean;
+  private _hasProject: boolean;
   @Input()
   select: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasProject: boolean;
+  @Input('hasProject')
+  set hasProject(hasProject: boolean) {
+    this._hasProject = hasProject;
+    this.ngOnInit();
+  }
+  get hasProject(): boolean {
+    return this._hasProject;
+  }
   @Input('exportable')
   set exportable(exportable: boolean) {
     if (exportable && this.selected.indexOf(true) > -1) {
@@ -31,7 +38,6 @@ export class ProjectsComponent implements OnInit {
           this.cv.projects.push(this.projects[i]);
         }
       }
-      console.log(this.cv.projects);
     }
     this._exportable = exportable;
     if (exportable) {

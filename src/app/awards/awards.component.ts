@@ -17,12 +17,19 @@ export class AwardsComponent implements OnInit {
   allSelected: boolean = false;
   selected: boolean[] = [];
   private _exportable: boolean;
+  private _hasAward: boolean;
   @Input()
   select: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasAward: boolean;
+  @Input('hasAward')
+  set hasAward(hasAward: boolean) {
+    this._hasAward = hasAward;
+    this.ngOnInit();
+  }
+  get hasAward(): boolean {
+    return this._hasAward;
+  }
   @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;

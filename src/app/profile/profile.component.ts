@@ -20,12 +20,19 @@ export class ProfileComponent implements OnInit {
   profile: Profile;
   selected: boolean = false;
   private _exportable: boolean;
+  private _hasProfile: boolean;
   @Input()
   select: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasProfile: boolean;
+  @Input('hasProfile')
+  set hasProfile(hasProfile: boolean) {
+    this._hasProfile = hasProfile;
+    this.ngOnInit();
+  }
+  get hasProfile(): boolean {
+    return this._hasProfile;
+  }
   @Input('exportable')
   set exportable(exportable: boolean) {
     this._exportable = exportable;

@@ -1,0 +1,32 @@
+<div fxLayout="column">
+  <mat-toolbar color="primary">
+    <span>Add Connection</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <form
+    novalidate
+    [formGroup]="connectionForm"
+    #cform="ngForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-dialog-content>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          formControlName="username"
+          placeholder="Username"
+          type="text"
+        />
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <span class="flex-spacer"></span>
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button type="submit" color="primary">Request</button>
+    </mat-dialog-actions>
+  </form>
+</div>

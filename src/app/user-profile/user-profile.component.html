@@ -117,20 +117,113 @@
         <h1>My Networks</h1>
       </mat-card-header>
       <mat-card-content>
-        <mat-list>
-          <!-- <mat-list-item>
-                        <p><span><b>Username: </b></span><span>{{userProfile.username}}</span></p>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <p><span><b>Email: </b></span><span>{{userProfile.email}}</span></p>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <p><span><b>Shortname: </b></span><span>{{userProfile.shortname}}</span></p>
-                        <mat-divider></mat-divider>
-                    </mat-list-item> -->
-        </mat-list>
+        <div>
+          <div class="network-container">
+            <h2>My Followings</h2>
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let connection of acceptedFollowings"
+                removable
+                (removed)="removeConnection(connection)"
+                selected
+                color="primary"
+                ><span class="chip-text">{{ connection.username }}</span>
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+
+          <div class="network-container">
+            <h2>My Followers</h2>
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let connection of acceptedFollowers"
+                removable
+                (removed)="removeConnection(connection)"
+                selected
+                color="primary"
+                ><span class="chip-text">{{
+                  connection.followerUsername
+                }}</span>
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+
+          <div class="network-container">
+            <div id="my-request-head">
+              <h2>My Connection Requests</h2>
+              <button mat-icon-button (click)="openDialog()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <mat-list>
+              <mat-list-item *ngFor="let connection of allFollowings">
+                <div class="request">
+                  <div>
+                    <mat-chip selected
+                      ><span class="chip-text">{{
+                        connection.username
+                      }}</span></mat-chip
+                    >
+                    <span class="status">{{
+                      connection.connectionStatus
+                    }}</span>
+                    <span class="date"
+                      >{{ connection.updateTime | date: "dd MMM yyyy" }}
+                    </span>
+                  </div>
+                  <button
+                    *ngIf="connection.connectionStatus === 'PENDING'"
+                    class="cancel-button"
+                    mat-icon-button
+                    (click)="cancelRequest(connection)"
+                  >
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </div>
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+          <div class="network-container">
+            <h2>Received Connection Requests</h2>
+            <mat-list>
+              <mat-list-item *ngFor="let connection of allFollowers">
+                <div class="request">
+                  <div>
+                    <mat-chip selected
+                      ><span class="chip-text">{{
+                        connection.followerUsername
+                      }}</span></mat-chip
+                    >
+                    <span class="status">{{
+                      connection.connectionStatus
+                    }}</span>
+                    <span class="date"
+                      >{{ connection.updateTime | date: "dd MMM yyyy" }}
+                    </span>
+                  </div>
+                  <div
+                    *ngIf="connection.connectionStatus === 'PENDING'"
+                    class="icon-group"
+                  >
+                    <button mat-icon-button (click)="acceptRequest(connection)">
+                      <mat-icon>done</mat-icon>
+                    </button>
+                    <button
+                      class="cancel-button"
+                      mat-icon-button
+                      (click)="cancelRequest(connection)"
+                    >
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
       </mat-card-content>
     </mat-card>
     <div id="logout">

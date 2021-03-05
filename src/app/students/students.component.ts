@@ -31,10 +31,17 @@ export class StudentsComponent implements OnInit {
 
   private _exportable: boolean;
   private _select: boolean;
+  private _hasStudent: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasStudent: boolean;
+  @Input('hasStudent')
+  set hasStudent(hasStudent: boolean) {
+    this._hasStudent = hasStudent;
+    this.ngOnInit();
+  }
+  get hasStudent(): boolean {
+    return this._hasStudent;
+  }
   @Input()
   set select(select: boolean) {
     this._select = select;

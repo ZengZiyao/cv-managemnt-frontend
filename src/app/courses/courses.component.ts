@@ -27,10 +27,17 @@ export class CoursesComponent implements OnInit {
   selected: boolean[] = [];
   private _exportable: boolean;
   private _select: boolean;
+  private _hasCourse: boolean;
   @Input()
   cv: Cv;
-  @Input()
-  hasCourse: boolean;
+  @Input('hasCourse')
+  set hasCourse(hasCourse: boolean) {
+    this._hasCourse = hasCourse;
+    this.ngOnInit();
+  }
+  get hasCourse(): boolean {
+    return this._hasCourse;
+  }
   @Input('select')
   set select(select: boolean) {
     this._select = select;
@@ -70,7 +77,6 @@ export class CoursesComponent implements OnInit {
           this.cv.courses.push(this.courses[i]);
         }
       }
-      console.log(this.cv.courses);
     }
     if (exportable) {
       this.emitMessage();

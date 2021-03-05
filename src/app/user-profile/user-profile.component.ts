@@ -1,3 +1,5 @@
+import { Connection } from './../shared/connection';
+import { ConnectionService } from './../services/connection.service';
 import {
   FormGroup,
   FormBuilder,
@@ -9,6 +11,8 @@ import { UserProfile } from './../shared/user-profile';
 import { UserService } from './../services/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConnectionDialogComponent } from '../connection-dialog/connection-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,6 +23,10 @@ export class UserProfileComponent implements OnInit {
   profileForm: FormGroup;
   pwdForm: FormGroup;
   userProfile: UserProfile;
+  acceptedFollowers: Connection[];
+  allFollowers: Connection[];
+  acceptedFollowings: Connection[];
+  allFollowings: Connection[];
   editing = false;
   oldPassword: string;
   newPassword: string;
@@ -28,8 +36,10 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private connectionService: ConnectionService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.userProfile = new UserProfile();
   }
@@ -39,6 +49,12 @@ export class UserProfileComponent implements OnInit {
       this.userProfile = data;
     });
     this.createPasswordForm();
+    this.connectionService.getAllConnections().subscribe((data) => {
+      this.acceptedFollowers = data['follower']['accept'];
+      this.acceptedFollowings = data['following']['accept'];
+      this.allFollowers = data['follower']['all'];
+      this.allFollowings = data['following']['all'];
+    });
   }
 
   enableEdit() {
@@ -120,5 +136,36 @@ export class UserProfileComponent implements OnInit {
 
   logOut() {
     this.userService.logout();
+  }
+
+  removeConnection(connection: Connection) {
+    this.connectionService.removeConnection(connection.id).subscribe((data) => {
+      this.ngOnInit();
+    });
+  }
+
+  cancelRequest(connection: Connection) {
+    this.connectionService.cancelRequest(connection.id).subscribe((data) => {
+      this.ngOnInit();
+    });
+  }
+
+  acceptRequest(connection: Connection) {
+    this.connectionService.accpetConnection(connection.id).subscribe((data) => {
+      this.ngOnInit();
+    });
+  }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.width = '40%';
+    dialogConfig.minWidth = 500;
+
+    const dialogRef = this.dialog.open(ConnectionDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
 }
