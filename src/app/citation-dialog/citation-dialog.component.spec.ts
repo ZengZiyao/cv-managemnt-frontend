@@ -8,9 +8,8 @@ describe('CitationDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CitationDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CitationDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

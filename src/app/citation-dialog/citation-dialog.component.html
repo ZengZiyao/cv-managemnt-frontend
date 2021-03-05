@@ -1,63 +1,66 @@
 <div fxLayout="column" fxLayoutGap="10px">
-    <mat-toolbar color="primary">
-      <span>Edit Citation</span>
+  <mat-toolbar color="primary">
+    <span>Edit Citation</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  </mat-toolbar>
+
+  <form
+    novalidate
+    [formGroup]="citationForm"
+    #cform="ngForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-dialog-content>
+      <p>
+        <mat-form-field class="half-width">
+          <mat-label>Database</mat-label>
+          <mat-select
+            formControlName="database"
+            name="database"
+            [disabled]="true"
+          >
+            <mat-option [value]="0">Scopus</mat-option>
+            <mat-option [value]="1">Web of Science (SCI)</mat-option>
+            <mat-option [value]="1">Google Scholar</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="citationCopy.database != 2" class="half-width">
+          <input
+            matInput
+            formControlName="countWithoutSelf"
+            placeholder="Citation Count Without Self-citations"
+            type="number"
+            name="Citation Count Without Self-citations"
+          />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input
+            matInput
+            formControlName="countWithSelf"
+            placeholder="Citation Count With Self-citations"
+            type="number"
+            name="Citation Count With Self-citations"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <input
+            matInput
+            formControlName="hIndex"
+            placeholder="H-index"
+            type="number"
+            name="H-index"
+          />
+        </mat-form-field>
+      </p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
       <span class="flex-spacer"></span>
-      <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
-    </mat-toolbar>
-  
-    <form
-      novalidate
-      [formGroup]="citationForm"
-      #cform="ngForm"
-      (ngSubmit)="onSubmit()"
-    >
-      <mat-dialog-content>
-        <p>
-          <mat-form-field class="half-width">
-            <mat-label>Database</mat-label>
-            <mat-select formControlName="database" name="database" [disabled]="true">
-              <mat-option [value]="0">Scopus</mat-option>
-              <mat-option [value]="1">Web of Science (SCI)</mat-option>
-              <mat-option [value]="1">Google Scholar</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field *ngIf="citationCopy.database != 2" class="half-width">
-            <input 
-              matInput
-              formControlName="countWithoutSelf"
-              placeholder="Citation Count Without Self-citations"
-              type="number"
-              name="Citation Count Without Self-citations"
-            />
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field class="half-width">
-            <input
-              matInput
-              formControlName="countWithSelf"
-              placeholder="Citation Count With Self-citations"
-              type="number"
-              name="Citation Count With Self-citations"
-            />
-          </mat-form-field>
-  
-          <mat-form-field class="half-width">
-            <input
-              matInput
-              formControlName="hIndex"
-              placeholder="H-index"
-              type="number"
-              name="H-index"
-            />
-          </mat-form-field>
-        </p>
-      </mat-dialog-content>
-      <mat-dialog-actions>
-        <span class="flex-spacer"></span>
-        <button mat-raised-button mat-dialog-close>Cancel</button>
-        <button mat-raised-button type="submit" color="primary">Save</button>
-      </mat-dialog-actions>
-    </form>
-  </div>
-  
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button type="submit" color="primary">Save</button>
+    </mat-dialog-actions>
+  </form>
+</div>

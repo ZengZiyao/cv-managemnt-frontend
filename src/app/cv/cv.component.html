@@ -30,12 +30,12 @@
     (messageEvent)="receiveReadyMessage($event, 'membership')"
   ></app-memberships>
   <app-work-experiences
-  [select]="select"
-  [exportable]="exportable"
-  [cv]="cv"
-  [hasWorkExperience]="status.workExperience"
-  (messageEvent)="receiveReadyMessage($event, 'work experience')"
-></app-work-experiences>
+    [select]="select"
+    [exportable]="exportable"
+    [cv]="cv"
+    [hasWorkExperience]="status.workExperience"
+    (messageEvent)="receiveReadyMessage($event, 'work experience')"
+  ></app-work-experiences>
   <app-awards
     [select]="select"
     [exportable]="exportable"
@@ -44,20 +44,20 @@
     (messageEvent)="receiveReadyMessage($event, 'award')"
   ></app-awards>
   <app-projects
-  [select]="select"
-  [exportable]="exportable"
-  [cv]="cv"
-  [hasProject]="status.project"
-  (messageEvent)="receiveReadyMessage($event, 'project')"
-></app-projects>
-<app-citations
-[select]="select"
-[exportable]="exportable"
-[cv]="cv"
-[hasCitation]="status.citation"
-(messageEvent)="receiveReadyMessage($event, 'citation')"
->
-</app-citations>
+    [select]="select"
+    [exportable]="exportable"
+    [cv]="cv"
+    [hasProject]="status.project"
+    (messageEvent)="receiveReadyMessage($event, 'project')"
+  ></app-projects>
+  <app-citations
+    [select]="select"
+    [exportable]="exportable"
+    [cv]="cv"
+    [hasCitation]="status.citation"
+    (messageEvent)="receiveReadyMessage($event, 'citation')"
+  >
+  </app-citations>
   <app-publications
     [select]="select"
     [exportable]="exportable"

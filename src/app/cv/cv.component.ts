@@ -70,8 +70,8 @@ export class CvComponent implements OnInit {
         this.status.project ||
         this.status.publication ||
         this.status.student ||
-        this.status.workExperience
-        || this.status.citation
+        this.status.workExperience ||
+        this.status.citation
       );
     });
   }
@@ -1347,12 +1347,10 @@ export class CvComponent implements OnInit {
 
   createCitations(citations: Citation[]) {
     let arr = [];
-    if (
-      citations != undefined && citations.length > 0
-    ) {
+    if (citations != undefined && citations.length > 0) {
       arr.push(this.createHeading('Citation Summary'));
       arr.push(new Paragraph({}));
-        arr.push(this.createCitationsTable(citations));
+      arr.push(this.createCitationsTable(citations));
     }
     return arr;
   }
@@ -1490,7 +1488,7 @@ export class CvComponent implements OnInit {
       })
     );
 
-      rows = rows.concat(this.createCitationRows(citations));
+    rows = rows.concat(this.createCitationRows(citations));
 
     return new Table({
       width: {
@@ -1503,11 +1501,7 @@ export class CvComponent implements OnInit {
 
   createCitationRows(citations: Citation[]) {
     return citations
-      .sort(
-        (a, b) =>
-          a.database -
-          b.database
-      )
+      .sort((a, b) => a.database - b.database)
       .map(
         (c) =>
           new TableRow({
@@ -1520,7 +1514,12 @@ export class CvComponent implements OnInit {
                   new Paragraph({
                     children: [
                       new TextRun({
-                        text: c.database == 0 ? 'Scopus' : c.database == 1 ? 'Web of Science (SCI)' : 'Google Scholar',
+                        text:
+                          c.database == 0
+                            ? 'Scopus'
+                            : c.database == 1
+                            ? 'Web of Science (SCI)'
+                            : 'Google Scholar',
                         font: 'Arial',
                         size: 22,
                       }),

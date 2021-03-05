@@ -8,10 +8,16 @@ import { CitationDialogComponent } from '../citation-dialog/citation-dialog.comp
 @Component({
   selector: 'app-citations',
   templateUrl: './citations.component.html',
-  styleUrls: ['./citations.component.scss']
+  styleUrls: ['./citations.component.scss'],
 })
 export class CitationsComponent implements OnInit {
-  displayedColumns: string[] = ['database', 'countWithoutSelf', 'countWithSelf',  'hIndex', 'edit'];
+  displayedColumns: string[] = [
+    'database',
+    'countWithoutSelf',
+    'countWithSelf',
+    'hIndex',
+    'edit',
+  ];
   @Output()
   messageEvent = new EventEmitter<boolean>();
   citations: Citation[];
@@ -26,14 +32,14 @@ export class CitationsComponent implements OnInit {
     if (hasCitation) {
       this.citationService.getAllCitations().subscribe((data) => {
         this.citations = data;
-      })
+      });
     }
   }
   get hasCitation(): boolean {
     return this._hasCitation;
   }
   @Input('select')
-  select: boolean
+  select: boolean;
 
   @Input('exportable')
   set exportable(exportable: boolean) {
@@ -51,19 +57,17 @@ export class CitationsComponent implements OnInit {
     return this._exportable;
   }
 
-
-  constructor(    private dialog: MatDialog,
+  constructor(
+    private dialog: MatDialog,
     private citationService: CitationService
-    ) { 
-
-  }
+  ) {}
 
   ngOnInit(): void {
     if (this.hasCitation) {
       this.citationService.getAllCitations().subscribe((data) => {
         this.citations = data;
-        console.log(data)
-      })
+        console.log(data);
+      });
     }
   }
 
@@ -82,7 +86,6 @@ export class CitationsComponent implements OnInit {
     });
   }
 
-
   emitMessage() {
     this.messageEvent.emit(true);
   }
@@ -90,5 +93,4 @@ export class CitationsComponent implements OnInit {
   toggle(selected: boolean) {
     this.selected = selected;
   }
-
 }

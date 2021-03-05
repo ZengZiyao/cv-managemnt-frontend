@@ -22,21 +22,30 @@
         <ng-container matColumnDef="database">
           <th mat-header-cell *matHeaderCellDef>Database</th>
           <td mat-cell *matCellDef="let element">
-            <span *ngIf="element.database == 0">Scopus</span>  
-            <span *ngIf="element.database == 1">Web of Science (SCI)</span>  
-            <span *ngIf="element.database == 2">Google Scholar</span>  
-        </ng-container>
+            <span *ngIf="element.database == 0">Scopus</span>
+            <span *ngIf="element.database == 1">Web of Science (SCI)</span>
+            <span *ngIf="element.database == 2">Google Scholar</span>
+          </td></ng-container
+        >
 
         <ng-container matColumnDef="countWithoutSelf">
-          <th mat-header-cell *matHeaderCellDef>Citation Count Without Self-citations</th>
-          <td mat-cell *matCellDef="let element"><span *ngIf="element.database != 2">{{ element.countWithoutSelf }}</span></td>
+          <th mat-header-cell *matHeaderCellDef>
+            Citation Count Without Self-citations
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.database != 2">{{
+              element.countWithoutSelf
+            }}</span>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="countWithSelf">
-          <th mat-header-cell *matHeaderCellDef>Citation Count With Self-citations</th>
+          <th mat-header-cell *matHeaderCellDef>
+            Citation Count With Self-citations
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.countWithSelf }}
-        </td>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="hIndex">
@@ -47,9 +56,9 @@
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef>Edit</th>
           <td mat-cell *matCellDef="let element">
-              <button mat-icon-button (click)="openDialog(element)">
-                <mat-icon>edit</mat-icon>
-              </button>
+            <button mat-icon-button (click)="openDialog(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
           </td>
         </ng-container>
 
