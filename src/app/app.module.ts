@@ -35,12 +35,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { ProfileComponent } from './profile/profile.component';
-import { BiographyComponent } from './biography/biography.component';
 import { AwardsComponent } from './awards/awards.component';
 import { PublicationsComponent } from './publications/publications.component';
 import { WorkExperiencesComponent } from './work-experiences/work-experiences.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
-import { BiographyDialogComponent } from './biography-dialog/biography-dialog.component';
 import { WorkExperienceDialogComponent } from './work-experience-dialog/work-experience-dialog.component';
 import { AwardDialogComponent } from './award-dialog/award-dialog.component';
 import { PublicationDialogComponent } from './publication-dialog/publication-dialog.component';
@@ -67,18 +65,18 @@ import { SignupComponent } from './signup/signup.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ComponentDialogComponent } from './component-dialog/component-dialog.component';
 import { ConnectionDialogComponent } from './connection-dialog/connection-dialog.component';
+import { CitationsComponent } from './citations/citations.component';
+import { CitationDialogComponent } from './citation-dialog/citation-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CvComponent,
     ProfileComponent,
-    BiographyComponent,
     AwardsComponent,
     PublicationsComponent,
     WorkExperiencesComponent,
     ProfileDialogComponent,
-    BiographyDialogComponent,
     WorkExperienceDialogComponent,
     AwardDialogComponent,
     PublicationDialogComponent,
@@ -101,6 +99,8 @@ import { ConnectionDialogComponent } from './connection-dialog/connection-dialog
     UserProfileComponent,
     ComponentDialogComponent,
     ConnectionDialogComponent,
+    CitationsComponent,
+    CitationDialogComponent,
   ],
   imports: [
     BrowserModule,

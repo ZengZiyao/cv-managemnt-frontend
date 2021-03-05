@@ -33,7 +33,6 @@ export class SignupComponent implements OnInit {
       username: [this.userProfile.username, [Validators.required]],
       password: [this.userProfile.password, [Validators.required]],
       email: [this.userProfile.email, [Validators.required]],
-      shortname: [this.userProfile.shortname, [Validators.required]],
       confirmPassword: [this.confirmPassword, [this.passwordValidator()]],
     });
   }

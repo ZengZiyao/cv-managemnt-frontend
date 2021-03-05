@@ -25,6 +25,7 @@ export class ComponentDialogComponent implements OnInit {
       .updateStatus(this.status.id, this.status)
       .subscribe(() => {
         this.dialogRef.close();
+        location.reload();
       });
   }
 

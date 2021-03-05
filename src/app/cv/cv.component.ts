@@ -1,3 +1,4 @@
+import { Citation } from './../shared/citation';
 import { Status } from './../shared/status';
 import { StatusService } from './../services/status.service';
 import { Student } from './../shared/student';
@@ -43,7 +44,6 @@ export class CvComponent implements OnInit {
   empty: boolean;
   profileReady: boolean;
   awardReady: boolean;
-  biographyReady: boolean;
   projectReady: boolean;
   publicationReady: boolean;
   workExperienceReady: boolean;
@@ -51,6 +51,7 @@ export class CvComponent implements OnInit {
   academicQualificationReady: boolean;
   courseReady: boolean;
   studentReady: boolean;
+  citationReady: boolean;
 
   constructor(private statusService: StatusService) {}
 
@@ -70,6 +71,7 @@ export class CvComponent implements OnInit {
         this.status.publication ||
         this.status.student ||
         this.status.workExperience
+        || this.status.citation
       );
     });
   }
@@ -131,6 +133,7 @@ export class CvComponent implements OnInit {
         ...this.createWorkExperiences(cv.workExperiences),
         ...this.createAwards(cv.awards),
         ...this.createFunding(cv.projects),
+        ...this.createCitations(cv.citations),
         ...this.createPublications(cv.publications),
         ...this.creatCourses(cv.courses),
         ...this.createStudents(cv.phdStudents, cv.masterStudents),
@@ -1342,6 +1345,247 @@ export class CvComponent implements OnInit {
     });
   }
 
+  createCitations(citations: Citation[]) {
+    let arr = [];
+    if (
+      citations != undefined && citations.length > 0
+    ) {
+      arr.push(this.createHeading('Citation Summary'));
+      arr.push(new Paragraph({}));
+        arr.push(this.createCitationsTable(citations));
+    }
+    return arr;
+  }
+
+  createCitationsTable(citations: Citation[]) {
+    let rows: TableRow[] = [];
+    rows.push(
+      new TableRow({
+        tableHeader: true,
+        children: [
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 25,
+              type: WidthType.PERCENTAGE,
+            },
+            rowSpan: 2,
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: 'Datebase',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 50,
+              type: WidthType.PERCENTAGE,
+            },
+            columnSpan: 2,
+            children: [
+              new Paragraph({
+                alignment: AlignmentType.CENTER,
+
+                children: [
+                  new TextRun({
+                    text: 'Citation Count',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 25,
+              type: WidthType.PERCENTAGE,
+            },
+            rowSpan: 2,
+            children: [
+              new Paragraph({
+                alignment: AlignmentType.CENTER,
+
+                children: [
+                  new TextRun({
+                    text: 'H-index',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      })
+    );
+    rows.push(
+      new TableRow({
+        tableHeader: true,
+        children: [
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 25,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                alignment: AlignmentType.CENTER,
+
+                children: [
+                  new TextRun({
+                    text: 'without self-citations',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new TableCell({
+            margins: {
+              left: 50,
+            },
+            width: {
+              size: 25,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                alignment: AlignmentType.CENTER,
+
+                children: [
+                  new TextRun({
+                    text: 'with self-citations',
+                    bold: true,
+                    font: 'Arial',
+                    size: 22,
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      })
+    );
+
+      rows = rows.concat(this.createCitationRows(citations));
+
+    return new Table({
+      width: {
+        size: 100,
+        type: WidthType.PERCENTAGE,
+      },
+      rows: rows,
+    });
+  }
+
+  createCitationRows(citations: Citation[]) {
+    return citations
+      .sort(
+        (a, b) =>
+          a.database -
+          b.database
+      )
+      .map(
+        (c) =>
+          new TableRow({
+            children: [
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: c.database == 0 ? 'Scopus' : c.database == 1 ? 'Web of Science (SCI)' : 'Google Scholar',
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    alignment: AlignmentType.CENTER,
+
+                    children: [
+                      new TextRun({
+                        text: c.database == 2 ? '' : `${c.countWithoutSelf}`,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    alignment: AlignmentType.CENTER,
+                    children: [
+                      new TextRun({
+                        text: `${c.countWithSelf}`,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                margins: {
+                  left: 50,
+                },
+                children: [
+                  new Paragraph({
+                    alignment: AlignmentType.CENTER,
+
+                    children: [
+                      new TextRun({
+                        text: `${c['hindex']}`,
+                        font: 'Arial',
+                        size: 22,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+            ],
+          })
+      );
+  }
+
   createSubheading(content: string) {
     return new Paragraph({
       children: [
@@ -1364,9 +1608,6 @@ export class CvComponent implements OnInit {
       case 'award':
         this.awardReady = $event;
         break;
-      case 'biography':
-        this.biographyReady = $event;
-        break;
       case 'project':
         this.projectReady = $event;
         break;
@@ -1388,6 +1629,9 @@ export class CvComponent implements OnInit {
       case 'student':
         this.studentReady = $event;
         break;
+      case 'citation':
+        this.citationReady = $event;
+        break;
     }
 
     if (
@@ -1399,7 +1643,8 @@ export class CvComponent implements OnInit {
       this.membershipReady &&
       this.academicQualificationReady &&
       this.courseReady &&
-      this.studentReady
+      this.studentReady &&
+      this.citationReady
     ) {
       this.createDoc(this.cv);
       this.reset();
@@ -1409,7 +1654,6 @@ export class CvComponent implements OnInit {
   reset() {
     this.profileReady = false;
     this.awardReady = false;
-    this.biographyReady = false;
     this.profileReady = false;
     this.publicationReady = false;
     this.workExperienceReady = false;
@@ -1417,6 +1661,7 @@ export class CvComponent implements OnInit {
     this.academicQualificationReady = false;
     this.courseReady = false;
     this.studentReady = false;
+    this.citationReady = false;
     this.cv = new Cv();
     setTimeout(() => {
       this.select = false;

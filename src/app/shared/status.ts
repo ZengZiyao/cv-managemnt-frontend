@@ -20,4 +20,6 @@ export class Status {
   student: boolean;
 
   workExperience: boolean;
+
+  citation: boolean;
 }

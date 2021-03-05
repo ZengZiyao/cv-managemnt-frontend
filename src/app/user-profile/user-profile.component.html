@@ -47,6 +47,12 @@
                 <span>{{ userProfile.shortname }}</span>
               </div>
             </mat-list-item>
+            <mat-list-item>
+              <div class="field">
+                <h2>Google Scholar Author Id:</h2>
+                <span>{{ userProfile.gsAuthorId }}</span>
+              </div>
+            </mat-list-item>
           </mat-list>
         </div>
 
@@ -69,6 +75,12 @@
               <input matInput formControlName="shortname" />
             </label>
             <mat-error> Please provide a shortname </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <label>
+              <h2>Google Scholar Author Id:</h2>
+              <input matInput formControlName="gsAuthorId" />
+            </label>
           </mat-form-field>
         </form>
       </mat-card-content>
@@ -117,7 +129,7 @@
         <h1>My Networks</h1>
       </mat-card-header>
       <mat-card-content>
-        <div>
+        <div class="left-margin-36">
           <div class="network-container">
             <h2>My Followings</h2>
             <mat-chip-list>

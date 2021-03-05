@@ -66,6 +66,7 @@ export class UserProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       email: [this.userProfile.email, [Validators.required]],
       shortname: [this.userProfile.shortname, [Validators.required]],
+      gsAuthorId: [this.userProfile.gsAuthorId]
       // oldPassword: ['', [this.passwordValidator()]],
       // password: [this.newPassword, [Validators.required]]
     });

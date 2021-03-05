@@ -1,3 +1,4 @@
+import { Citation } from './citation';
 import { Student } from './student';
 import { Course } from './course';
 import { AcademicQualification } from './academic-qualification';
@@ -21,4 +22,5 @@ export class Cv {
   courses: Course[];
   masterStudents: Student[];
   phdStudents: Student[];
+  citations: Citation[];
 }

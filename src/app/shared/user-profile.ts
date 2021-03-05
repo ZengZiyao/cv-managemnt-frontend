@@ -4,4 +4,5 @@ export class UserProfile {
   email: string;
   password: string;
   shortname: string;
+  gsAuthorId: string;
 }

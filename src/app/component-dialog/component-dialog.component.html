@@ -10,45 +10,53 @@
     <mat-form-field class="full-width">
       <mat-chip-list multiple selectable>
         <mat-chip
+        [selected]="status.profile"
+        (click)="toggleSelected('profile')"
+        >Profile</mat-chip
+      >
+        <mat-chip
           [selected]="status.academicQualification"
           (click)="toggleSelected('academicQualification')"
           >Academic Qualifications</mat-chip
         >
+        <mat-chip
+        [selected]="status.workExperience"
+        (click)="toggleSelected('workExperience')"
+        >Summary of Work Experience</mat-chip
+      >
+
+        <mat-chip
+        [selected]="status.membership"
+        (click)="toggleSelected('membership')"
+        >Professional Qualifications / Memberships</mat-chip
+      >
+
         <mat-chip [selected]="status.award" (click)="toggleSelected('award')"
           >Research Awards / Recognition</mat-chip
         >
+        <mat-chip
+        [selected]="status.project"
+        (click)="toggleSelected('project')"
+        >Research Funding</mat-chip
+      >
+      <mat-chip
+      [selected]="status.citation"
+      (click)="toggleSelected('citation')"
+      >Citation Summary</mat-chip
+    >
+    <mat-chip
+    [selected]="status.publication"
+    (click)="toggleSelected('publication')"
+    >Publication</mat-chip
+  >
+
         <mat-chip [selected]="status.course" (click)="toggleSelected('course')"
           >Key Courses Taught</mat-chip
-        >
-        <mat-chip
-          [selected]="status.profile"
-          (click)="toggleSelected('profile')"
-          >Profile</mat-chip
-        >
-        <mat-chip
-          [selected]="status.membership"
-          (click)="toggleSelected('membership')"
-          >Professional Qualifications / Memberships</mat-chip
-        >
-        <mat-chip
-          [selected]="status.project"
-          (click)="toggleSelected('project')"
-          >Research Funding</mat-chip
-        >
-        <mat-chip
-          [selected]="status.publication"
-          (click)="toggleSelected('publication')"
-          >Publication</mat-chip
         >
         <mat-chip
           [selected]="status.student"
           (click)="toggleSelected('student')"
           >Academic Supervision and Mentoring</mat-chip
-        >
-        <mat-chip
-          [selected]="status.workExperience"
-          (click)="toggleSelected('workExperience')"
-          >Summary of Work Experience</mat-chip
         >
       </mat-chip-list>
     </mat-form-field>
