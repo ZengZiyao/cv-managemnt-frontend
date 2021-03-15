@@ -66,7 +66,6 @@ export class CitationsComponent implements OnInit {
     if (this.hasCitation) {
       this.citationService.getAllCitations().subscribe((data) => {
         this.citations = data;
-        console.log(data);
       });
     }
   }

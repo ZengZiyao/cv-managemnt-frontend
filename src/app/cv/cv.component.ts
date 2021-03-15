@@ -218,7 +218,7 @@ export class CvComponent implements OnInit {
               return new TextRun({
                 text: `${new Date(m.startTime).getFullYear()} - ${endTime}\t${
                   m.designation
-                }, ${m.institution}\t${m.state}, ${m.country.name}`,
+                }, ${m.institution}\t${m.state}, ${m.country}`,
                 font: 'Arial',
                 size: 22,
                 break: 1,
@@ -520,7 +520,11 @@ export class CvComponent implements OnInit {
           ],
         }),
         ...projects
-          .sort((a, b) => b.startYear - a.startYear)
+          .sort(
+            (a, b) =>
+              new Date(b.startYear).getFullYear() -
+              new Date(a.startYear).getFullYear()
+          )
           .map((p) => {
             return new TableRow({
               children: [

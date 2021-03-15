@@ -12,13 +12,50 @@ import { Cv } from '../shared/cv';
 })
 export class ProjectsComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<boolean>();
+  displayedColumns: string[] = [
+    'role',
+    'year',
+    'title',
+    'amount',
+    'funder',
+    'type',
+    'edit',
+  ];
   projects: Project[];
   allSelected: boolean = false;
   selected: boolean[] = [];
   private _exportable: boolean;
   private _hasProject: boolean;
+  private _select: boolean;
   @Input()
-  select: boolean;
+  set select(select: boolean) {
+    this._select = select;
+    if (this._select) {
+      this.displayedColumns = [
+        'selectCol',
+        'role',
+        'year',
+        'title',
+        'amount',
+        'funder',
+        'type',
+        'edit',
+      ];
+    } else {
+      this.displayedColumns = [
+        'role',
+        'year',
+        'title',
+        'amount',
+        'funder',
+        'type',
+        'edit',
+      ];
+    }
+  }
+  get select(): boolean {
+    return this._select;
+  }
   @Input()
   cv: Cv;
   @Input('hasProject')

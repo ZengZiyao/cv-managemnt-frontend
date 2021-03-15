@@ -28,6 +28,7 @@
             <mat-option [value]="roles[0]">{{ roles[0] }}</mat-option>
             <mat-option [value]="roles[1]">{{ roles[1] }}</mat-option>
             <mat-option [value]="roles[2]">{{ roles[2] }}</mat-option>
+            <mat-option [value]="roles[3]">{{ roles[3] }}</mat-option>
           </mat-select>
         </mat-form-field>
       </p>
@@ -43,17 +44,6 @@
           />
         </mat-form-field>
       </p>
-      <p>
-        <mat-form-field class="full-width">
-          <input
-            matInput
-            formControlName="status"
-            placeholder="Current Status"
-            type="text"
-            name="status"
-          />
-        </mat-form-field>
-      </p>
       <div class="flex-container">
         <div class="half-width">
           <mat-checkbox
@@ -64,6 +54,17 @@
           >
         </div>
       </div>
+      <p *ngIf="!currentWorking">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            formControlName="status"
+            placeholder="Current Status"
+            type="text"
+            name="status"
+          />
+        </mat-form-field>
+      </p>
       <p>
         <mat-form-field class="half-width">
           <mat-label>Start Year</mat-label>

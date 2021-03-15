@@ -23,39 +23,77 @@
       </button>
     </mat-card-header>
     <mat-card-content>
-      <mat-list>
-        <mat-list-item *ngFor="let project of projects; let i = index">
-          <div mat-line fxLayout="row" fxLayoutAlign="start start">
+      <table mat-table *ngIf="projects" [dataSource]="projects">
+        <ng-container matColumnDef="selectCol">
+          <th mat-header-cell *matHeaderCellDef>Select</th>
+          <td mat-cell *matCellDef="let i = index">
             <mat-checkbox
-              *ngIf="select"
-              class="right-margin"
               [(ngModel)]="selected[i]"
-              (change)="updateAllSelected($event.checked, i)"
+              (change)="updateAllSelected($event.checked, i, 0)"
             ></mat-checkbox>
-            <div fxLayout="column" fxLayoutAlign="start start">
-              <h2 class="align-left">{{ project.title }}</h2>
-              <p class="zero-top-margin">
-                {{ project.role }} {{ project.startYear }} -
-                <span *ngIf="!project.endYear">current</span
-                ><span *ngIf="project.endYear">{{ project.endYear }}</span>
-              </p>
-              <p>Funder: {{ project.funder }}</p>
-              <p>Funding amount: {{ project.fundingAmount }}</p>
-              <p>{{ project.description }}</p>
-            </div>
-            <span class="flex-spacer"></span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Role</th>
+          <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef>Year</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.startYear | date: "yyyy" }} -
+            <span *ngIf="element.endYear">{{
+              element.endYear | date: "yyyy"
+            }}</span
+            ><span *ngIf="!element.endYear">present</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Project Title</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.title }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>Amount (S$)</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.fundingAmount }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="funder">
+          <th mat-header-cell *matHeaderCellDef>Source of Grant</th>
+          <td mat-cell *matCellDef="let element">{{ element.funder }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.external">External Grant</span>
+            <span *ngIf="!element.external">Internal Grant</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let element">
             <div class="icon-group">
-              <button mat-icon-button (click)="openDialog(project)">
+              <button mat-icon-button (click)="openDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button (click)="deleteProject(project)">
+              <button mat-icon-button (click)="deleteStudent(element)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
-          </div>
-          <mat-divider mat-line></mat-divider>
-        </mat-list-item>
-      </mat-list>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </mat-card-content>
   </mat-card>
 </div>

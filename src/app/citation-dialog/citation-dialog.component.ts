@@ -34,7 +34,7 @@ export class CitationDialogComponent implements OnInit {
         [Validators.required],
       ],
       countWithSelf: [this.citationCopy.countWithSelf, [Validators.required]],
-      hIndex: [this.citationCopy['hindex'], [Validators.required]],
+      hindex: [this.citationCopy.hindex, [Validators.required]],
     });
   }
 

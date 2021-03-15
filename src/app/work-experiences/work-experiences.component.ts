@@ -17,7 +17,7 @@ export class WorkExperiencesComponent implements OnInit {
   allSelected = false;
   selected: boolean[] = [];
   private _exportable: boolean;
-  private _hasWorkExperience: boolean;
+  _hasWorkExperience: boolean;
   @Input()
   select: boolean;
   @Input()
@@ -61,7 +61,7 @@ export class WorkExperiencesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.hasWorkExperience) {
+    if (this._hasWorkExperience) {
       this.workExperienceService.getAllWorkExperience().subscribe((data) => {
         this.workExperiences = data;
         for (let i = 0; i < this.workExperiences.length; i++) {

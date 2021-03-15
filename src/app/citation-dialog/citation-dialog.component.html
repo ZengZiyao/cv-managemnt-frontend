@@ -22,7 +22,7 @@
           >
             <mat-option [value]="0">Scopus</mat-option>
             <mat-option [value]="1">Web of Science (SCI)</mat-option>
-            <mat-option [value]="1">Google Scholar</mat-option>
+            <mat-option [value]="2">Google Scholar</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field *ngIf="citationCopy.database != 2" class="half-width">
@@ -49,7 +49,7 @@
         <mat-form-field class="half-width">
           <input
             matInput
-            formControlName="hIndex"
+            formControlName="hindex"
             placeholder="H-index"
             type="number"
             name="H-index"

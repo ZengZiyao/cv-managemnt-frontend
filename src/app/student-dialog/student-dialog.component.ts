@@ -39,7 +39,12 @@ const moment = _rollupMoment || _moment;
   ],
 })
 export class StudentDialogComponent implements OnInit {
-  roles: string[] = ['Main Supervisor', 'Sole Supervisor', 'Co-supervisor'];
+  roles: string[] = [
+    'Supervisor',
+    'Main Supervisor',
+    'Sole Supervisor',
+    'Co-supervisor',
+  ];
   studentForm: FormGroup;
   studentCopy: Student;
   currentWorking: boolean;
@@ -69,18 +74,21 @@ export class StudentDialogComponent implements OnInit {
       name: [this.studentCopy.name, [Validators.required]],
       role: [this.studentCopy.role, [Validators.required]],
       title: [this.studentCopy.title, [Validators.required]],
-      status: [this.studentCopy.status, [Validators.required]],
+      status: [this.studentCopy.status],
     });
   }
 
   onSubmit() {
     if (this.studentForm.valid) {
       let data: Student = this.studentForm.value;
+      data.type = this.studentCopy.type;
       data.startYear = this.dates[0].value;
       if (!this.currentWorking) {
         data.endYear = this.dates[1].value;
+      } else {
+        data.endYear = undefined;
+        data.status = undefined;
       }
-
       if (this.studentCopy.id === undefined) {
         this.studentService
           .addStudent(data)

@@ -1,20 +1,22 @@
+table {
+  width: 100%;
+}
+
 .icon-group {
   display: flex;
 }
 
-.mat-list-item {
-  overflow-wrap: anywhere;
-  height: auto !important;
-}
-
-.align-left {
-  margin-right: auto;
-}
-
-.zero-top-margin {
-  margin-top: 0;
-}
-
 mat-card-content {
   padding: 5px 36px;
+}
+
+.mat-header-cell {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.mat-cell {
+  padding: 0 20px;
+  text-align: center;
+  font-size: 1rem;
 }

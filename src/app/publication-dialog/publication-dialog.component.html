@@ -65,12 +65,15 @@
           </mat-select>
         </mat-form-field>
         <div *ngIf="publicationForm.value.type" class="half-width">
-          <mat-select-country
-            [countries]="countries"
-            formControlName="country"
-            label="Country"
-          >
-          </mat-select-country>
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input
+              matInput
+              formControlName="country"
+              type="text"
+              name="country"
+            />
+          </mat-form-field>
         </div>
         <mat-form-field class="half-width">
           <mat-label>Page</mat-label>

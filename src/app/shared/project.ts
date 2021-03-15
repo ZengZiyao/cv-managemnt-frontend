@@ -1,8 +1,8 @@
 export class Project {
   id: string;
   title: string;
-  startYear: number;
-  endYear: number;
+  startYear: Date;
+  endYear: Date;
   fundingAmount: number;
   funder: string;
   role: string;

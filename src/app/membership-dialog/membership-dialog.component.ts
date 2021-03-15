@@ -1,4 +1,3 @@
-import { COUNTRIES_DB, DEFAULT_COUNTRY } from './../shared/countries_db';
 import { Country } from '@angular-material-extensions/select-country';
 import { Membership } from './../shared/membership';
 import {
@@ -46,7 +45,6 @@ export class MembershipDialogComponent implements OnInit {
   membershipCopy: Membership;
   currentWorking: boolean;
   dates: FormControl[] = [];
-  countries = COUNTRIES_DB;
   states: string[];
   @ViewChild('mform') membershipFormDirective;
   constructor(
@@ -67,12 +65,6 @@ export class MembershipDialogComponent implements OnInit {
       )
     );
     this.currentWorking = this.membershipCopy.endTime == undefined;
-    if (this.membershipCopy.country == undefined) {
-      this.membershipCopy.country = DEFAULT_COUNTRY;
-    }
-    this.states = countryStatePicker.getStates(
-      this.membershipCopy.country.alpha2Code.toLowerCase()
-    );
   }
 
   ngOnInit(): void {
@@ -96,7 +88,11 @@ export class MembershipDialogComponent implements OnInit {
     if (this.membershipForm.valid) {
       let data: Membership = this.membershipForm.value;
       data.startTime = this.dates[0].value;
-      data.endTime = this.dates[1].value;
+      if (this.currentWorking) {
+        data.endTime = undefined;
+      } else {
+        data.endTime = this.dates[1].value;
+      }
       if (this.membershipCopy.id === undefined) {
         this.membershipService
           .addMembership(data)

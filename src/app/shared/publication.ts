@@ -1,7 +1,6 @@
 import { PubType } from './pubType';
 import { PubSource } from './pubSource';
 import { Author } from './author';
-import { Country } from '@angular-material-extensions/select-country';
 
 export class Publication {
   id: string;
@@ -12,5 +11,5 @@ export class Publication {
   title: string;
   pubSource: PubSource = new PubSource();
   type: PubType;
-  country: Country;
+  country: string;
 }

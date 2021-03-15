@@ -103,7 +103,7 @@
             </span>
             "{{ publication.title }}" {{ publication.pubSource.name
             }}<span *ngIf="publication.type === 1"
-              >, {{ publication.country.name }},</span
+              >, {{ publication.country }},</span
             >
             {{ publication.page }} ({{ publication.date | date: "MMM yyyy" }})
           </p>

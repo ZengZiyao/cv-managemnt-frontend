@@ -1,4 +1,3 @@
-import { COUNTRIES_DB, DEFAULT_COUNTRY } from './../shared/countries_db';
 import { ConferenceService } from './../services/conference.service';
 import { Author } from './../shared/author';
 import { TIERS } from '../shared/tiers';
@@ -57,7 +56,6 @@ export class PublicationDialogComponent implements OnInit {
   conferences: Conference[];
   date: FormControl;
   type: PubType;
-  countries = COUNTRIES_DB;
   // text: string;
   @ViewChild('pform') pulicationFormDirective;
 
@@ -70,9 +68,7 @@ export class PublicationDialogComponent implements OnInit {
     private conferenceService: ConferenceService
   ) {
     this.publicationCopy = data == null ? new Publication() : data;
-    if (this.publicationCopy.country === undefined) {
-      this.publicationCopy.country = DEFAULT_COUNTRY;
-    }
+
     this.tiers = TIERS;
     this.date = new FormControl(moment(this.publicationCopy.date));
     this.type = this.publicationCopy.type;

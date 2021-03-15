@@ -3,5 +3,5 @@ export class Citation {
   database: number;
   countWithSelf: number;
   countWithoutSelf: number;
-  hIndex: number;
+  hindex: number;
 }

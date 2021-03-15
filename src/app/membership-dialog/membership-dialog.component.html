@@ -83,25 +83,26 @@
           ></mat-datepicker>
         </mat-form-field>
       </p>
-      <div class="flex-container">
-        <div class="half-width">
-          <mat-select-country
-            [countries]="countries"
-            formControlName="country"
-            label="Country"
-            (onCountrySelected)="onCountrySelected($event)"
-          >
-          </mat-select-country>
-        </div>
+      <p>
         <mat-form-field class="half-width">
-          <mat-label>State</mat-label>
-          <mat-select formControlName="state" name="state">
-            <mat-option *ngFor="let state of states" [value]="state">{{
-              state
-            }}</mat-option>
-          </mat-select>
+          <input
+            matInput
+            formControlName="country"
+            placeholder="Country"
+            type="text"
+            name="country"
+          />
         </mat-form-field>
-      </div>
+        <mat-form-field class="half-width">
+          <input
+            matInput
+            formControlName="state"
+            placeholder="State"
+            type="text"
+            name="state"
+          />
+        </mat-form-field>
+      </p>
     </mat-dialog-content>
     <mat-dialog-actions>
       <span class="flex-spacer"></span>

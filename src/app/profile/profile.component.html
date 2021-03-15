@@ -27,7 +27,7 @@
       <!-- <img src={{cv.avatar}} alt={{profile.name}}> -->
       <p>{{ profile.name }}</p>
       <p>{{ profile.designation }}</p>
-      <p>School of {{ profile.school }}</p>
+      <p *ngIf="profile.school">School of {{ profile.school }}</p>
     </mat-card-content>
   </mat-card>
 </div>

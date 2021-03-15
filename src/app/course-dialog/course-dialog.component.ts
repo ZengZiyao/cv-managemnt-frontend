@@ -102,6 +102,8 @@ export class CourseDialogComponent implements OnInit {
       data.startYear = this.dates[0].value;
       if (!this.currentWorking) {
         data.endYear = this.dates[1].value;
+      } else {
+        data.endYear = undefined;
       }
 
       if (data.courseType == 'OTHERS') {

@@ -100,10 +100,10 @@ export class ProjectDialogComponent implements OnInit {
   onSubmit() {
     if (this.projectForm.valid) {
       let data: Project = this.projectForm.value;
-      data.startYear = this.dates[0].value.year();
-      this.projectCopy.external = this.external;
+      data.startYear = this.dates[0].value;
+      data.external = this.external;
       if (!this.currentWorking) {
-        data.endYear = this.dates[1].value.year();
+        data.endYear = this.dates[1].value;
       }
 
       if (data.role == 'Others') {
